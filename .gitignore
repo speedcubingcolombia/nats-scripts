@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Generated reports (kept in repo for visibility)
+# **/output/*.html
+
+# Python
+**/__pycache__/
+*.pyc
+
+# Environment / credentials
+.env
+.env.*
+*.secret
+
+# Personal data (volunteer forms, import data with names/IDs)
+**/data/volunteers.json
+**/data/volunteer_properties.cs
+**/data/score_takers.txt
+**/data/scramble_report.txt
+
+# WCIF cache (contains personal data)
+.wcif_cache/
