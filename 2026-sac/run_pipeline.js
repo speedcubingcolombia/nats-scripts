@@ -57,6 +57,7 @@ const phase3 = `
 #include "volunteers/day2.cs"
 #include "volunteers/day3.cs"
 #include "volunteers/day4.cs"
+#include "volunteers/unofficial.cs"
 `
 
 console.log(`SAC 2026 Pipeline Runner`)
@@ -104,6 +105,12 @@ async function runPhase(label, scriptSrc, competition) {
         if (errors.length) {
           errors.slice(0, 3).forEach(e => console.log('  ERROR:', e.data?.substring(0, 200)))
         }
+        // Extract StaffAssignmentResult warnings (e.g. "Not enough people for activity X")
+        for (const o of result.outputs) {
+          if (o.type === 'StaffAssignmentResult' && Array.isArray(o.data?.warnings) && o.data.warnings.length) {
+            for (const w of o.data.warnings) console.log('  WARN:', w)
+          }
+        }
         resolve(ctx.competition)
       } catch (e) {
         reject(e)
@@ -120,6 +127,58 @@ async function runPhase(label, scriptSrc, competition) {
 
     // Phase 2: Assign competitor groups (needs staff-team from phase 1)
     const afterPhase2 = await runPhase('Phase 2 (group assignments)', phase2, afterPhase1)
+
+    // Phase 2.5: Tag each person with compete-d{N}-{room} properties so
+    // day scripts can reward staffers for staying in the room they compete in.
+    console.log('\nPhase 2.5: Tagging compete-room properties...')
+    const ROOM_SLUG = {
+      'Zona Amarilla': 'amarilla',
+      'Zona Azul': 'azul',
+      'Zona Roja': 'roja',
+      'Zona Morada (Sala BLD)': 'bld',
+      'Zona Verde (TARIMA)': 'verde',
+    }
+    const DAY_NUM = {
+      '2026-06-12': 1,
+      '2026-06-13': 2,
+      '2026-06-14': 3,
+      '2026-06-15': 4,
+    }
+    const actMap = {}
+    for (const v of afterPhase2.schedule?.venues || []) {
+      for (const r of v.rooms || []) {
+        for (const a of r.activities || []) {
+          actMap[a.id] = { date: (a.startTime || '').slice(0, 10), room: r.name }
+          for (const c of a.childActivities || []) {
+            actMap[c.id] = { date: (c.startTime || '').slice(0, 10), room: r.name }
+          }
+        }
+      }
+    }
+    let tagged = 0
+    for (const p of afterPhase2.persons) {
+      const keys = new Set()
+      for (const a of p.assignments || []) {
+        if (a.assignmentCode !== 'competitor') continue
+        const info = actMap[a.activityId]
+        if (!info) continue
+        const d = DAY_NUM[info.date]
+        const s = ROOM_SLUG[info.room]
+        if (d && s) keys.add(`compete-d${d}-${s}`)
+      }
+      if (!keys.size) continue
+      let ext = (p.extensions || []).find(e => e.id === 'org.cubingusa.natshelper.v1.Person')
+      if (!ext) {
+        ext = { id: 'org.cubingusa.natshelper.v1.Person', specUrl: '', data: { properties: {} } }
+        p.extensions = p.extensions || []
+        p.extensions.push(ext)
+      }
+      ext.data = ext.data || {}
+      ext.data.properties = ext.data.properties || {}
+      for (const k of keys) ext.data.properties[k] = true
+      tagged++
+    }
+    console.log(`  Tagged ${tagged} persons with compete-room properties`)
 
     // Phase 3: Staff assignments (needs team + group data from phases 1-2)
     const afterPhase3 = await runPhase('Phase 3 (staff assignments)', phase3, afterPhase2)
