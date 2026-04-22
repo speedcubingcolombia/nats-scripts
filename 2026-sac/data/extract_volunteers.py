@@ -13,7 +13,7 @@ Input files (in wca/ root):
     - [ES] FORMULARIO VOLUNTARIO SAC 2026 (respuestas).xlsx
     - [EN] VOLUNTEER FORM SAC 2026 (respuestas).xlsx
     - [PT] FORMULÁRIO VOLUNTÁRIO SAC 2026 (respuestas).xlsx
-    - voluntarios listado.xlsx
+    - SAC2026-registration.xlsx  (definitive approved staff list — Cargo column)
 
 Output:
     scc-scripts/2026-sac/data/volunteers.json
@@ -41,7 +41,8 @@ FORM_FILES = [
     ("[PT] FORMULÁRIO VOLUNTÁRIO SAC 2026 (respuestas).xlsx", "pt"),
 ]
 
-SELECTED_FILE = "voluntarios listado.xlsx"
+SELECTED_FILE = "SAC2026-registration.xlsx"
+STAFF_CARGOS = {"Voluntario", "Delegado", "Organizador", "Lider", "Streaming"}
 
 
 def normalize_wca_id(raw: str) -> str | None:
@@ -147,34 +148,53 @@ def extract_forms() -> list[dict]:
 
 
 def extract_selected() -> list[dict]:
-    """Extract the selected volunteers list."""
+    """Extract the approved staff list from SAC2026-registration.xlsx.
+
+    A row counts as approved staff when Status=='a', Registration Status=='accepted',
+    and Cargo (column L) is one of STAFF_CARGOS.
+    """
     filepath = WCA_ROOT / SELECTED_FILE
     if not filepath.exists():
         print(f"WARNING: {SELECTED_FILE} not found")
         return []
 
-    wb = openpyxl.load_workbook(str(filepath), read_only=True)
-    ws = wb[wb.sheetnames[0]]
+    wb = openpyxl.load_workbook(str(filepath), read_only=True, data_only=True)
+    # Sheet 'SAC2026-registration' holds the registration roster
+    sheet_name = "SAC2026-registration" if "SAC2026-registration" in wb.sheetnames else wb.sheetnames[0]
+    ws = wb[sheet_name]
     rows = list(ws.iter_rows(min_row=2, values_only=True))
 
+    # Columns: 0=Status 1=Name 2=Country 3=WCA ID 4=Birth Date 5=Gender
+    #          6=Email 7=Guests 8=Registration Status 9=Registrant Id
+    #          10=Comments(shirt size) 11=Cargo 12=Beneficio
     selected = []
+    by_cargo: dict[str, int] = {}
     for row in rows:
-        if not row[1]:
+        if not row or not row[1]:
+            continue
+        status = row[0]
+        reg_status = row[8] if len(row) > 8 else None
+        cargo_raw = row[11] if len(row) > 11 else None
+        if status != "a" or reg_status != "accepted" or not cargo_raw:
+            continue
+        cargo = str(cargo_raw).strip()
+        if cargo not in STAFF_CARGOS:
             continue
         selected.append({
             "name": str(row[1]).strip(),
-            "age": int(row[2]) if row[2] else None,
-            "languages": str(row[3]).strip() if row[3] else "",
-            "wca_id": normalize_wca_id(str(row[4]) if row[4] else ""),
-            "role": str(row[5]).strip() if row[5] else "",
-            "recommenders": str(row[6]).strip() if row[6] else "",
-            "allergies": str(row[7]).strip() if row[7] else "",
-            "shirt_size": str(row[8]).strip() if row[8] else "",
-            "comments": str(row[9]).strip() if row[9] else "",
+            "country": str(row[2]).strip() if row[2] else "",
+            "wca_id": normalize_wca_id(str(row[3]) if row[3] else ""),
+            "email": str(row[6]).strip() if row[6] else "",
+            "role": cargo,
+            "shirt_size": str(row[10]).strip() if len(row) > 10 and row[10] else "",
+            "benefit": str(row[12]).strip() if len(row) > 12 and row[12] else "",
         })
+        by_cargo[cargo] = by_cargo.get(cargo, 0) + 1
 
     wb.close()
-    print(f"  {SELECTED_FILE}: {len(selected)} selected volunteers")
+    print(f"  {SELECTED_FILE} [{sheet_name}]: {len(selected)} approved staff")
+    for c, n in sorted(by_cargo.items(), key=lambda x: -x[1]):
+        print(f"    {c}: {n}")
     return selected
 
 
