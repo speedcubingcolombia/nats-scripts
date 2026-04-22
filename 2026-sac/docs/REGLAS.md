@@ -8,10 +8,11 @@ Documento de referencia con todas las restricciones definidas para la asignació
 
 ### Estructura
 
-- R1: Hay **4 equipos de staff** de sala (~25-27 personas c/u).
-- R2: Cada equipo tiene **2-3 team leads** (delegados confirmados como líderes). Los team leads pueden competir y cubrirse entre ellos. Actualmente 8 confirmados (2 por equipo), pendiente completar a 12.
+- R1: Hay **4 equipos de staff** de sala (25/25/25/24 = 99 personas).
+- R2: Cada equipo tiene **2 team leads** (delegados confirmados como líderes). Los team leads pueden competir y cubrirse entre ellos. El LimitConstraint en `volunteer_teams.cs` fija exactamente 2 por equipo (8 total); si se necesitan 3 por equipo hay que subirlo a `LimitConstraint("Team Leads", ..., 3, 3)`.
 - R3: Cada equipo tiene delegados Jr/Trainee que trabajan como staff regular (jueces, scramblers, runners).
 - R4: Cada equipo tiene voluntarios no-delegados.
+- Total staff aprobado: **104** (fuente: `SAC2026-registration.xlsx`, columna Cargo ∈ {Voluntario, Delegado, Organizador, Lider, Streaming}, filtrado por Status='a' + Registration Status='accepted'). De esos, 5 quedan fuera del pool de staff por override (Guido Dipietro, Enrymar Cisneros, Klaus Ramos, Luigi Segura, Diego Casas, Eduard García → 6 en total), dejando 99 en teams.
 
 ### Zonas
 
@@ -87,6 +88,8 @@ Hay **5 zonas** de competencia:
 - R27: Se **penaliza** asignar a personas que ya han trabajado mucho (JobCountScorer: -5 por cada trabajo previo).
 - R28: Para juez/scrambler/runner, el staff solo trabaja en la sala de su equipo. Para supervisión (Delegate), cualquier delegado libre puede supervisar cualquier sala.
 - R58: **El staff siempre compite en la zona donde está haciendo staff**, a menos que su equipo sea flotante ese día. Implementado con StaffRoomScorers (-5000 penalty) en cada evento R1. Cumplimiento verificado: **100%** (678 correctas, 0 incorrectas, 225 flotantes).
+- R59: **Prioridad del equipo primario**: cada `AssignStaff` usa `PersonPropertyScorer((NumberProperty("staff-team") == N), 500)` donde N es el team primario de esa sala ese día. Resultado: el team primario siempre cubre su sala asignada, aunque el miembro no compita ese día. El team flotante complementa solo si el primario se satura.
+- R60: **Cohesión de zona al staffear**: cada `AssignStaff` usa `PersonPropertyScorer(BooleanProperty("compete-d{N}-{slug}"), 100)` (un bonus secundario de +100). Esto hace que, dentro del team primario, los que compiten en esa sala ese día llenen primero (menos cruce entre salas para el propio competidor). La propiedad `compete-d{N}-{slug}` se setea automáticamente en la Fase 2.5 de `run_pipeline.js` tras la asignación de grupos de competidores.
 
 ---
 
@@ -96,22 +99,28 @@ Hay **5 zonas** de competencia:
 - R30: **Klaus Ramos** (2016RAMO01) → Equipo de streaming. Sin tareas de staff.
 - R31: **Guido Dipietro** (2013DIPI01) → Sin ninguna tarea asignada. Es delegado confirmado pero no tiene rol operativo.
 - R32: **Enrymar Cisneros** (2013CISN01) → Sin ninguna tarea asignada. Es delegada confirmada pero no tiene rol operativo.
+- R32b: **Diego Alejandro Casas Jimenez** (2014JIME05, Organizador) → Fuera del pool de staff. Tiene rol organizativo pero no trabaja turnos de zona.
+- R32c: **Eduard Esteban García Domínguez** (2011EDUA01, Organizador) → Fuera del pool de staff. Tiene rol organizativo pero no trabaja turnos de zona.
+- R32d: **Catalina Herrera López** (2017LOPE31, Organizador) → Sigue en el pool (a diferencia de Diego y Eduard). Si también debe quedar fuera, agregar `DeleteProperty([2017LOPE31], VOLUNTEER)` en `overrides.cs`.
 
-### Delegados removidos del staff (solo compiten)
+### Delegados y voluntarios removidos del staff (solo compiten)
 
-- R55: Los siguientes delegados NO participan como staff. Solo son competidores:
-  - **Brian Hambeck** (2016HAMB02, UY) — implementado en overrides.cs
-  - **Dennis Rosero** (2010ROSE03, CO) — implementado en overrides.cs
-  - **Gabriel Sargeiro Gomes de Mello** (2014MELL03, BR) — ya no está en el WCIF
-  - **Israel Fraga da Silva** (2012SILV22, BR) — implementado en overrides.cs
-  - **Kalani Oliveira** (2018OLIV28, BR) — implementado en overrides.cs
-  - **Mateo Aguirre** (2022AGUI03, PE) — implementado en overrides.cs
+- R55: Los siguientes NO participan como staff — no tienen Cargo en `SAC2026-registration.xlsx` y quedaron fuera de `import.cs`:
+  - **Brian Hambeck** (2016HAMB02, UY) — era Trainee; ahora solo compite.
+  - **Gabriel Sargeiro Gomes de Mello** (2014MELL03, BR) — ya no está en el WCIF.
+  - **Israel Fraga da Silva** (2012SILV22, BR) — era Junior; ahora solo compite.
+  - **Kalani Oliveira** (2018OLIV28, BR) — era Full; ahora solo compite.
+  - **Mateo Aguirre** (2022AGUI03, PE) — era Trainee; ahora solo compite.
+  - **Antonio Gerardo de Castro Costa Filho** (2023FILH05, BR) — aparece con Cargo=None en la hoja de registro, solo compite.
+  - **Voluntarios no aprobados**: 2012PERE04, 2015TORR12, 2018GONZ25, 2019CAMP10, 2022PINE05.
+
+  **Nota**: Dennis Rosero (2010ROSE03, CO) — en versiones anteriores estaba listado aquí. Actualmente vuelve a ser **Voluntario** (aparece con Cargo=Voluntario en la lista definitiva y se mantiene en el pool).
 
 ### Delegados por agregar (pendiente registro)
 
 - R56: Delegados confirmados pendientes de registro:
-  - **Felipe Andres Rojas Garces** (CL) — no registrado aún
-  - ~~Antonio Gerardo de Castro costa filho (BR)~~ — ya registrado y agregado (2023FILH05)
+  - ~~**Felipe Andres Rojas Garces** (CL, 2009GARC02)~~ — aparece con Status='b' (rechazado) en SAC2026-registration. No entra como staff.
+  - ~~Antonio Gerardo de Castro costa filho (BR)~~ — registrado pero sin Cargo de staff.
 
 ### Voluntarios especiales
 
@@ -133,8 +142,8 @@ Hay **5 zonas** de competencia:
 
 ## Clustering de Equipos
 
-- R40: Tamaño de equipo: **22-32 personas** (ideal: ~26).
-- R41: Team leads: **exactamente 3 por equipo** (12 total). Los team leads son delegados que pueden competir y cubrirse entre sí.
+- R40: Tamaño de equipo: **22-32 personas** (actual: 24-25).
+- R41: Team leads: **exactamente 2 por equipo** (8 total) según el `LimitConstraint("Team Leads", BooleanProperty(TEAM_LEAD), 2, 2)` en `volunteer_teams.cs`. Objetivo inicial era 3 por equipo (12 total) pero solo hay 8 confirmados. Subir a `3, 3` cuando se confirmen los 4 restantes.
 - R42: Delegados distribuidos equitativamente entre equipos.
 - R43: Número de eventos registrados balanceado por equipo.
 - R44: Colombianos y brasileños repartidos equitativamente.
@@ -146,10 +155,10 @@ Hay **5 zonas** de competencia:
 
 ### Confirmados (3)
 
-| # | Nombre | WCA ID | País |
-|---|--------|--------|------|
-| 1 | Ronny Morocho | 2018MORO01 | EC |
-| 2 | Manuel Popayán | 2017POPA01 | CO |
+| # | Nombre | WCA ID | País | Notas |
+|---|--------|--------|------|-------|
+| 1 | Ronny Morocho | 2018MORO01 | EC | |
+| 2 | Manuel Popayán | 2017POPA01 | CO | |
 | 3 | **"Coto"** | ? | ? | **PENDIENTE: ¿quién es?** |
 
 ### Recomendados por Diego Casas (hasta 8)
@@ -203,7 +212,7 @@ Team leads actuales NO mencionados en las listas anteriores — decidir si se qu
 
 | # | Restricción | Implementada | Notas |
 |---|-------------|-------------|-------|
-| R1-R4 | 4 equipos de staff | Si | 4 equipos de ~24-25 personas, 2 leads c/u (pendiente subir a 3) |
+| R1-R4 | 4 equipos de staff | Si | 99 staff en 4 equipos (25/25/25/24), 2 leads c/u (objetivo 3) |
 | R5-R9 | Asignación/rotación salas | Si | Rotación con flotante implementada |
 | R10-R12 | 10 jueces, 3 scramblers, 3 runners | **Si** | Implementado en volunteers/day*.cs |
 | R13 | 1 delegado supervisor | Si | |
@@ -213,11 +222,13 @@ Team leads actuales NO mencionados en las listas anteriores — decidir si se qu
 | R22-R24 | Supervisión | Si | 0 grupos sin supervisor |
 | R25-R28 | Conflicto y descanso | Si | FollowingGroupScorer + JobCountScorer |
 | R58 | Staff compite en su zona | **Si** | StaffRoomScorers, 100% cumplimiento |
-| R29-R32 | Personas específicas | Si | Overrides.cs |
+| R59 | Prioridad team primario (+500) | **Si** | `PersonPropertyScorer(team==N, 500)` en cada AssignStaff |
+| R60 | Cohesión de zona (+100) | **Si** | `PersonPropertyScorer(BooleanProperty("compete-d{N}-{slug}"), 100)`; propiedades generadas en Fase 2.5 de run_pipeline.js |
+| R29-R32d | Personas específicas | Si | Overrides.cs — ahora incluye Diego Casas y Eduard García fuera del pool |
 | R33-R39 | Grupos de competidores | Si | LP solver |
 | R40-R45 | Clustering | **Parcial** | Actualmente 2 leads/equipo. Falta confirmar 4 leads más para llegar a 12 |
 | R46-R49 | Score takers | **No** | Pendiente decidir equipo |
 | R50-R53 | No oficiales | **No** | Pendiente definir staff |
-| R55 | Delegados removidos | **Si** | 5 implementados en overrides.cs, 1 ya no en WCIF |
-| R56 | Delegados por agregar | **Parcial** | Antonio agregado. Felipe Rojas pendiente registro |
+| R55 | Removidos del staff (solo compiten) | **Si** | Lista actualizada desde SAC2026-registration.xlsx |
+| R56 | Delegados por agregar | **N/A** | Felipe Rojas aparece rechazado; no pendiente |
 | R57 | Angie Casallas voluntaria | **Si** | add_missing_staff.cs |

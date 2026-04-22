@@ -25,4 +25,3 @@ scc-scripts/
 ```
 
 Cada carpeta de competencia es independiente. Ver el README dentro de cada una para instrucciones específicas.
-# nats-scripts
