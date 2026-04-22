@@ -47,7 +47,7 @@ sac2026/
 │   └── _assigned_room.cs       # Mapeo Equipo→Sala por día (rotación)
 │
 ├── prep/                       # Preparación de datos (Fase 1 del pipeline)
-│   ├── import.cs               # Importar ~97 staff (37 delegados + ~60 voluntarios)
+│   ├── import.cs               # Importar 104 staff aprobados (35 delegados + 62 voluntarios + 3 organizadores + 3 líderes + 1 streaming); fuente: SAC2026-registration.xlsx
 │   ├── add_missing_staff.cs    # Personas sin WCA ID (Angie Casallas)
 │   ├── overrides.cs            # Ajustes manuales: remover/promover delegados, exclusiones
 │   ├── populate_r1.cs          # Crear resultados vacíos de R1
@@ -112,25 +112,31 @@ sac2026/
 
 ---
 
-## Pipeline (3 fases)
+## Pipeline (3 fases + 1 intermedia)
 
 ```
 Fase 1 — Import + Equipos
   import.cs → add_missing_staff.cs → overrides.cs → populate_r1.cs → create_groups.cs → volunteer_teams.cs
-  ↳ Resultado: 500 personas con propiedades, 219 grupos, 4 equipos de ~24
+  ↳ Resultado: 500 personas con propiedades, 219 grupos, 4 equipos (25/25/25/24 = 99)
 
 Fase 2 — Asignación de Grupos
   groups/r1/*.cs (16 eventos)
   ↳ Staff forzado a competir en la zona de su equipo (StaffRoomScorers, 100% cumplimiento)
-  ↳ Resultado: 4,116 asignaciones de competidor
+  ↳ Resultado: 4,125 asignaciones de competidor
+
+Fase 2.5 — Tagging de cohesión (en run_pipeline.js, no es script .cs)
+  Para cada persona, setea propiedades `compete-d{N}-{sala}` según dónde compite ese día.
+  ↳ Usado por los day scripts para dar bonus +100 a quien compite en la misma sala que staffea.
 
 Fase 3 — Asignación de Staff
   volunteers/day1-4.cs
-  ↳ Equipo primario tiene prioridad (+500). Flotante refuerza si falta gente.
-  ↳ Resultado: ~3,600 asignaciones de staff (juez, scrambler, runner, delegado)
+  ↳ Team primario tiene prioridad (+500) — siempre cubre su sala asignada ese día.
+  ↳ Cohesión de zona (+100) — desempata dentro del team primario a quienes compiten en esa sala.
+  ↳ Flotante refuerza solo si el primario se satura.
+  ↳ Resultado: ~3,682 asignaciones de staff (2,168 juez + 645 scrambler + 645 runner + 224 delegate)
 ```
 
-Las 3 fases son necesarias porque `Cluster()` bloquea expresiones subsiguientes en el runner Node.js, y la Fase 2 necesita `staff-team` de la Fase 1 para los scorers de sala.
+Las fases están separadas porque `Cluster()` bloquea expresiones subsiguientes en el runner Node.js. La Fase 2 necesita `staff-team` de la Fase 1 para los scorers de sala. La Fase 2.5 corre en JS puro después de Fase 2 porque necesita las asignaciones de competidor ya hechas para saber en qué sala compite cada persona.
 
 ---
 
@@ -148,8 +154,9 @@ Las 3 fases son necesarias porque `Cluster()` bloquea expresiones subsiguientes 
 **Reglas clave:**
 - Staff siempre compite en la zona de su equipo (R58)
 - El equipo flotante refuerza las zonas principales solo cuando falta gente
-- El solver siempre prefiere al equipo de la zona (+500 puntos) sobre el flotante
-- En la práctica, 99%+ de las asignaciones son del equipo primario
+- El solver prefiere al equipo de la zona (+500 puntos) sobre el flotante (R59)
+- Dentro del team primario, quien compite en esa sala ese día llena primero (+100 por cohesión, R60)
+- En la práctica, el primario cubre ~100% de su sala cuando tiene capacidad suficiente
 
 ---
 
@@ -213,14 +220,14 @@ cd compscript && ENV=PROD npm start
 
 | # | Script | Dry Run? | Qué verificar |
 |---|--------|----------|---------------|
-| 1 | `prep/import.cs` | Sí | 8 team leads + 29 delegados + ~60 voluntarios |
+| 1 | `prep/import.cs` | Sí | 35 delegados + 62 voluntarios + 3 organizadores + 3 líderes + 1 streaming (104 total) |
 | 2 | `prep/add_missing_staff.cs` | Sí | Angie Casallas como voluntaria |
-| 3 | `prep/overrides.cs` | Sí | 5 delegados removidos, 4 promovidos, 8 bajados |
+| 3 | `prep/overrides.cs` | Sí | 6 personas fuera del pool (Luigi, Klaus, Guido, Enrymar, Diego, Eduard), 4 promovidos, 8 bajados |
 | 4 | `prep/populate_r1.cs` | Sí | "Added N results" por evento |
 | 5 | `prep/create_groups.cs` | **No** | **NO es idempotente** — correr 2 veces crea duplicados |
-| 6 | `prep/volunteer_teams.cs` | Sí→No | 4 equipos de ~24, 2 leads cada uno |
+| 6 | `prep/volunteer_teams.cs` | Sí→No | 4 equipos (25/25/25/24), 2 leads cada uno |
 | 7-22 | `groups/r1/*.cs` (16 archivos) | Sí→No | Grupos balanceados, staff en zona correcta |
-| 23-26 | `volunteers/day1-4.cs` | Sí→No | Staff asignado, 0 grupos sin supervisor |
+| 23-26 | `volunteers/day1-4.cs` | Sí→No | Staff asignado, 0 grupos sin supervisor. Nota: en modo UI se pierde la Fase 2.5, así que la cohesión de zona no se aplica salvo que setees manualmente las propiedades `compete-d{N}-{slug}`. |
 
 4. Verificar en https://competitiongroups.com/competitions/SAC2026
 

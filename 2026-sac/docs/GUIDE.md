@@ -20,13 +20,13 @@ A deep breakdown of every script, how it works, and how it compares to the US Na
 
 ## Pipeline Overview
 
-The pipeline runs in **3 phases** (defined in `run_pipeline.js`):
+The pipeline runs in **3 main phases + 1 intermediate** (defined in `run_pipeline.js`):
 
 ```
 Phase 1 — Import + Teams:
   prep/import.cs           → Set volunteer/delegate/team-lead properties on persons
   prep/add_missing_staff.cs → Mark Angie Casallas as volunteer (no WCA ID yet)
-  prep/overrides.cs        → Remove/promote delegates, exclusions
+  prep/overrides.cs        → Remove/promote delegates, exclusions (now incl. Diego Casas + Eduard García)
   prep/populate_r1.cs      → Create empty R1 results from registrations
   prep/create_groups.cs    → Create 219 group child activities in schedule
   prep/volunteer_teams.cs  → Cluster staff into 4 balanced teams
@@ -35,19 +35,30 @@ Phase 2 — Group Assignments:
   groups/r1/*.cs           → Assign competitors to R1 groups (16 events)
                              Staff forced to their team's room via StaffRoomScorers
 
+Phase 2.5 — Compete-Room Tagging (JS only, inside run_pipeline.js):
+  For each person, derive which rooms they compete in per day from their
+  competitor assignments, then set `compete-d{1..4}-{amarilla|azul|roja|bld|verde}`
+  boolean properties. These drive the room-coherence scorer in Phase 3.
+
 Phase 3 — Staff Assignments:
   volunteers/day1-4.cs     → Assign judges/scramblers/runners/delegates per group
+                             Scorers (per AssignStaff call, one per day×room):
+                               - FollowingGroupScorer(-50)        — avoid back-to-back after competing
+                               - JobCountScorer(-5)               — spread workload
+                               - PersonPropertyScorer(primary team, 500)  — team's assigned room dominates
+                               - PersonPropertyScorer(compete-d{N}-{slug}, 100)  — zone coherence tiebreak
 ```
 
-**Important**: Split into 3 phases because `Cluster()` blocks subsequent expressions in Node.js runner. Phase 2 needs `staff-team` from Phase 1 to enforce room constraints.
+**Important**: Split into phases because `Cluster()` blocks subsequent expressions in Node.js runner. Phase 2 needs `staff-team` from Phase 1 to enforce room constraints. Phase 2.5 runs in plain JS because it needs actual competitor assignments from Phase 2 to compute compete-room properties, then those properties are read by Phase 3 CompScript.
 
 ### Role Hierarchy
 
 | Property | Who | Count | What they do |
 |----------|-----|-------|-------------|
 | `TEAM_LEAD` | Confirmed team leads | 8 (target 12) | Supervise groups (Delegate job only). Can compete and cover each other. |
-| `STAGE_LEAD` | ALL delegates (incl. Junior/Trainee) | 37 | Internal marker for clustering. Junior/Trainee do staff work. |
-| `VOLUNTEER` | Non-delegate staff | ~60 | Judge/scramble/run |
+| `STAGE_LEAD` | ALL delegates (incl. Junior/Trainee) | 35 | Internal marker for clustering. Junior/Trainee do staff work. |
+| `VOLUNTEER` | Non-delegate staff | 62 + 3 organizers + 1 streaming | Judge/scramble/run |
+| (no team / out of pool) | Overrides in `overrides.cs` | 6 | Guido Dipietro, Enrymar Cisneros, Klaus Ramos, Luigi Segura, Diego Casas, Eduard García |
 
 To change someone's role, edit `prep/overrides.cs`:
 ```
@@ -107,13 +118,16 @@ SetProperty([2016REAT01, 2007HERN02, ...], STAGE_LEAD, true)
 SetProperty([2016REAT01, 2007HERN02, ...], DELEGATE_RANK, "full")
 ```
 
+**Source of truth**: `SAC2026-registration.xlsx` (sheet `SAC2026-registration`, column `Cargo`). A row is approved staff iff `Status='a'` AND `Registration Status='accepted'` AND `Cargo ∈ {Voluntario, Delegado, Organizador, Lider, Streaming}`. Currently 104 approved.
+
 **Key constraints**:
 - WCA IDs must be **UPPERCASE** (e.g., `2019GUAM01` not `2019guam01`)
 - Persons must exist in the WCIF (registered for competition)
-- 15 people are PENDING registration — commented out with `# PENDING:` markers
+- ~11 people are PENDING registration — commented out with `# PENDING:` markers
+- 1 person is Rejected (Felipe Rojas, 2009GARC02, Status='b') — noted with `# Rejected:`
 - Arrays must be on a **single line** (CompScript parser doesn't support multi-line arrays)
 
-**vs 2025**: 2025 imported from a Google Spreadsheet via `ReadSpreadsheet()`. SAC uses hardcoded WCA IDs from Excel files processed manually.
+**vs 2025**: 2025 imported from a Google Spreadsheet via `ReadSpreadsheet()`. SAC uses hardcoded WCA IDs derived from `SAC2026-registration.xlsx` (re-run `data/extract_volunteers.py` when the registration changes, then manually update `import.cs` against the new list).
 
 ### 4. `prep/add_missing_staff.cs` — People Without WCA IDs
 
@@ -214,14 +228,22 @@ AssignStaff(_777-r1, (Room() == "Zona Amarilla"),
 | Role | Count | Eligibility |
 |------|-------|-------------|
 | judge | 10 | Volunteers + Jr/Trainee delegates (not team leads) |
-| scrambler | 4 | Volunteers + Jr/Trainee delegates (target: update to 3) |
-| runner | 4 | Volunteers + Jr/Trainee delegates (target: update to 3) |
+| scrambler | 3 | Volunteers + Jr/Trainee delegates |
+| runner | 3 | Volunteers + Jr/Trainee delegates |
 | Delegate | 1 | Any stage lead (delegate) |
+
+**Scorers per `AssignStaff` call** (inline on every line in `day*.cs`):
+| Scorer | Weight | Effect |
+|--------|--------|--------|
+| `FollowingGroupScorer` | -50 | Avoid assigning to the group right after a competing group |
+| `JobCountScorer` | -5 per shift | Spread workload — penalize busy people |
+| `PersonPropertyScorer(NumberProperty("staff-team") == N)` | +500 | Primary team for this room×day dominates (R59) |
+| `PersonPropertyScorer(BooleanProperty("compete-d{N}-{slug}"))` | +100 | Within the primary team, prefer people who compete in this same room today (R60) |
 
 **Key behaviors**:
 - `avoidConflicts=true` (default): Never staff a group that overlaps your competing group
 - `overwrite=true`: Reassign if already assigned (needed for dryrun mode)
-- Staff are drawn from ALL volunteers + delegates, not just the team for that room
+- Staff are drawn from ALL volunteers + delegates, but only the primary team + floating team are *eligible* per room via the `Or((staff-team == primary), (staff-team == floating))` in each job's eligibility filter
 
 **Important**: Day scripts use **direct** `AssignStaff()` calls, NOT UDF wrappers. UDF-wrapped `AssignStaff()` calls don't work in the Node.js pipeline runner (CompScript limitation).
 
@@ -311,7 +333,7 @@ The `Cluster()` algorithm:
 | Aspect | 2025 US Nationals | SAC 2026 |
 |--------|-------------------|----------|
 | **Competitors** | ~3,000 | ~500 |
-| **Staff** | ~300 | ~97 |
+| **Staff** | ~300 | 104 approved (99 in teams, 6 out via overrides) |
 | **Rooms** | 2 halls (Main + Ballroom) | 3 rooms + BLD |
 | **Stages** | 10 (6 Main + 4 Side) | 3 (rooms are stages) |
 | **Teams** | 10 | 4 |

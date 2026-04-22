@@ -20,10 +20,12 @@ Todo ese staff sale de los **~24 miembros del equipo asignado a esa zona**. Pero
 
 | Concepto | Cantidad |
 |----------|----------|
-| Staff total | 97 personas |
-| Equipos | 4 de ~24 personas |
+| Staff aprobado (Cargo en SAC2026-registration.xlsx) | 104 personas |
+| Fuera del pool (overrides.cs) | 6 (Luigi, Klaus, Guido, Enrymar, Diego, Eduard) |
+| Staff en teams | 99 personas |
+| Equipos | 4 (25/25/25/24) |
 | Team leads por equipo | 2 (solo supervisan, no son workers) |
-| **Workers por equipo** | **~22** |
+| **Workers por equipo** | **~23** |
 
 ### ¿Cuántos workers hay disponibles por grupo?
 
@@ -31,17 +33,17 @@ Depende de cuántos del equipo están compitiendo en ese grupo.
 
 **Ejemplo: 7x7 Ronda 1, Zona Roja, Grupo 1**
 
-El Equipo 3 tiene la Zona Roja el día 1. De sus 24 miembros:
+El Equipo 3 tiene la Zona Roja el día 1. De sus 25 miembros:
 - 2 son team leads → solo supervisan
-- De los 22 workers, **6 están compitiendo** en el Grupo 1
-- Quedan **16 workers disponibles** para staffear
+- De los 23 workers, **6 están compitiendo** en el Grupo 1
+- Quedan **17 workers disponibles** para staffear
 
 **Ejemplo: 3x3 Ronda 1, Zona Azul, Grupo 2**
 
-El Equipo 2 tiene la Zona Azul el día 2. De sus 24 miembros:
+El Equipo 2 tiene la Zona Azul el día 2. De sus 25 miembros:
 - 2 team leads
-- De los 22 workers, **3 están compitiendo** (menos gente porque 3x3 tiene más grupos)
-- Quedan **19 workers disponibles**
+- De los 23 workers, **3 están compitiendo** (menos gente porque 3x3 tiene más grupos)
+- Quedan **20 workers disponibles**
 
 ### Estadísticas reales (calculadas sobre los 215 grupos en salas principales)
 
