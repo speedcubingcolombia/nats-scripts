@@ -18,10 +18,10 @@ Cluster(
     Persons(Or(BooleanProperty(VOLUNTEER), BooleanProperty(STAGE_LEAD))),
     WcaId(),
     Concat(
-      [# Team size: 108 total / 4 teams = 27 avg. Hard limit 22-32 per team.
+      [# Team size: ~99 total / 4 teams = ~25 avg. Hard limit 22-32 per team.
        LimitConstraint("Team Size", true, 22, 32),
-       # Team leads: 8 confirmed / 4 teams = 2 per team. Will be 3 when remaining 4 are confirmed.
-       LimitConstraint("Team Leads", BooleanProperty(TEAM_LEAD), 2, 2),
+       # Team leads: 13 confirmed / 4 teams → min 3, max 4 por team.
+       LimitConstraint("Team Leads", BooleanProperty(TEAM_LEAD), 3, 4),
        # All delegates (44) balanced across teams
        BalanceConstraint("All Delegates", BooleanProperty(STAGE_LEAD), 5),
        # Balance delegate count (weighted strongly)
