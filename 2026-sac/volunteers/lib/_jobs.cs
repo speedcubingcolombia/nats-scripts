@@ -5,17 +5,17 @@
 # Kept as reference for future refactoring or server-mode usage.
 
 Define("Judges", Job("judge", {1, Number},
-                     eligibility=And(Not(BooleanProperty(STAGE_LEAD)),
+                     eligibility=And(Not(BooleanProperty(LISTED_DELEGATE)),
                                      Or(BooleanProperty(VOLUNTEER),
                                         (RegistrationStatus() == "accepted")))))
 
 Define("Scramblers", Job("scrambler", {1, Number},
-                         eligibility=And(Not(BooleanProperty(STAGE_LEAD)),
+                         eligibility=And(Not(BooleanProperty(LISTED_DELEGATE)),
                                          BooleanProperty(VOLUNTEER))))
 
 Define("Runners", Job("runner", {1, Number},
-                      eligibility=And(Not(BooleanProperty(STAGE_LEAD)),
+                      eligibility=And(Not(BooleanProperty(LISTED_DELEGATE)),
                                       BooleanProperty(VOLUNTEER))))
 
 Define("Delegates", Job("Delegate", {1, Number},
-                        eligibility=BooleanProperty(STAGE_LEAD)))
+                        eligibility=BooleanProperty(LISTED_DELEGATE)))

@@ -10,7 +10,7 @@ Define("DoStaffAssignments",
        AssignStaff(
          {1, Round},
          (Room() == {2, String}),
-         Persons(Or(BooleanProperty(VOLUNTEER), BooleanProperty(STAGE_LEAD))),
+         Persons(Or(BooleanProperty(VOLUNTEER), BooleanProperty(LISTED_DELEGATE))),
          {3, Array<AssignmentJob>},
          [],
          overwrite=true))

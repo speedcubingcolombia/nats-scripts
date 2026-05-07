@@ -1,8 +1,8 @@
 #include "_constants.cs"
 
 # SAC 2026 - Team to Room mapping per day
-# 4 equipos rotan: 3 en salas principales + 1 flotante (BLD + no oficiales + apoyo)
-# Cada equipo es flotante exactamente 1 día.
+# 4 teams rotate: 3 in main rooms + 1 floating (BLD + unofficial + apoyo)
+# Each team is floating exactly 1 day.
 #
 # Día 1 (Jun 12): T1=Amarilla, T2=Azul, T3=Roja, T4=Flotante
 # Día 2 (Jun 13): T2=Amarilla, T3=Azul, T4=Roja, T1=Flotante

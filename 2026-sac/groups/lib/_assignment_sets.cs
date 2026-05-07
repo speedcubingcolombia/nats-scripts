@@ -13,10 +13,10 @@
 # 2: Date
 Define("RoundOneAssignmentSets",
        [AssignmentSet("stage-leads",
-                      And(BooleanProperty(STAGE_LEAD), CompetingIn({1, Event})),
+                      And(BooleanProperty(LISTED_DELEGATE), CompetingIn({1, Event})),
                       true),
         AssignmentSet("volunteers",
-                      And(BooleanProperty(VOLUNTEER), Not(BooleanProperty(STAGE_LEAD)), CompetingIn({1, Event})),
+                      And(BooleanProperty(VOLUNTEER), Not(BooleanProperty(LISTED_DELEGATE)), CompetingIn({1, Event})),
                       true),
         AssignmentSet("competitors",
                       CompetingIn({1, Event}),

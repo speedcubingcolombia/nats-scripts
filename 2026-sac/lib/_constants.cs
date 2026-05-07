@@ -2,9 +2,10 @@
 # Constants and property definitions
 
 #define VOLUNTEER "volunteer"
-#define STAGE_LEAD "stage-lead"
+#define LISTED_DELEGATE "listed-delegate"
 #define TEAM_LEAD "team-lead"
 #define STAFF_TEAM "staff-team"
 #define DELEGATE_RANK "delegate-rank"
 #define LANGUAGES "languages"
 #define SHIRT_SIZE "shirt-size"
+#define SPEAKS_PT "speaks-pt"

@@ -15,15 +15,41 @@ DeleteProperty(Persons(HasProperty(STAFF_TEAM)), STAFF_TEAM)
 
 Cluster(
     STAFF_TEAM, 4,
-    Persons(Or(BooleanProperty(VOLUNTEER), BooleanProperty(STAGE_LEAD))),
+    Persons(Or(BooleanProperty(VOLUNTEER), BooleanProperty(LISTED_DELEGATE))),
     WcaId(),
     Concat(
-      [# Team size: ~99 total / 4 teams = ~25 avg. Hard limit 22-32 per team.
+      [# LimitConstraint signature: (name, value, min, weight). No max parameter —
+       # min sets a per-team floor; weight pushes the greedy algorithm to satisfy it.
+       # Once min is met, LimitConstraint stops pushing — pair with BalanceConstraint
+       # for even distribution beyond the floor.
+       # Team size: ~99 total / 4 teams = ~25 avg. Strong push toward min 22 per team.
        LimitConstraint("Team Size", true, 22, 32),
-       # Team leads: 13 confirmed / 4 teams → min 3, max 4 por team.
-       LimitConstraint("Team Leads", BooleanProperty(TEAM_LEAD), 3, 4),
+       # Team leads: 12 confirmed → exactly 3 per team (12/4=3).
+       LimitConstraint("Team Leads (min)", BooleanProperty(TEAM_LEAD), 3, 10),
+       BalanceConstraint("Team Leads (balance)", BooleanProperty(TEAM_LEAD), 30),
+       # Brazilian Team Leads: 4 confirmed (Lucas + Marlon + Pedro + Thales)
+       # → floor of 1 per team + balance to keep them in distinct teams.
+       LimitConstraint("Brazilian TLs (min)",
+                       And(BooleanProperty(TEAM_LEAD), (Country() == "BR")), 1, 1000),
+       BalanceConstraint("Brazilian TLs (balance)",
+                         And(BooleanProperty(TEAM_LEAD), (Country() == "BR")), 200),
+       # Colombian Team Leads: 4 confirmed (Sergio + Manuel + Haiver + JN Pinzón)
+       # → floor of 1 per team + balance to keep them in distinct teams.
+       LimitConstraint("Colombian TLs (min)",
+                       And(BooleanProperty(TEAM_LEAD), (Country() == "CO")), 1, 1000),
+       BalanceConstraint("Colombian TLs (balance)",
+                         And(BooleanProperty(TEAM_LEAD), (Country() == "CO")), 200),
+       # Rank-weighted: balance Full-rank TLs across teams (más alto = más peso).
+       # 6 Full TLs / 4 teams → ~1.5/team.
+       BalanceConstraint("Full TLs (balance)",
+                         And(BooleanProperty(TEAM_LEAD), (StringProperty(DELEGATE_RANK) == "full")),
+                         30),
+       # Junior TLs balance (lower weight than Full per "rango más alto = más peso").
+       BalanceConstraint("Junior TLs (balance)",
+                         And(BooleanProperty(TEAM_LEAD), (StringProperty(DELEGATE_RANK) == "junior")),
+                         15),
        # All delegates (44) balanced across teams
-       BalanceConstraint("All Delegates", BooleanProperty(STAGE_LEAD), 5),
+       BalanceConstraint("All Delegates", BooleanProperty(LISTED_DELEGATE), 5),
        # Balance delegate count (weighted strongly)
        BalanceConstraint("Delegates", HasRole("delegate"), 5),
        # Balance number of events per team
@@ -41,7 +67,7 @@ Cluster(
       Map([_555, _666, _777, _333bf, _clock, _sq1, _minx],
           BalanceConstraint(EventId(), CompetingIn(), 0.1)),
       [# Balance Colombian and Brazilian volunteers (largest delegations)
-       BalanceConstraint("Country CO", (Country() == "CO"), 1),
+       BalanceConstraint("Country CO", (Country() == "CO"), 5),
        BalanceConstraint("Country BR", (Country() == "BR"), 2)]))
 
 # --- Team Summary ---
@@ -51,7 +77,7 @@ Table(
   [Column("Name", Name()),
    Column("WCA ID", WcaId()),
    Column("Country", Country()),
-   Column("Stage Lead", BooleanProperty(STAGE_LEAD)),
+   Column("Stage Lead", BooleanProperty(LISTED_DELEGATE)),
    Column("Events", Length(RegisteredEvents()))])
 
 Header("Team 2 (Day1: Azul, Day2: Roja, Day3: Amarilla, Day4: Azul)")
@@ -60,7 +86,7 @@ Table(
   [Column("Name", Name()),
    Column("WCA ID", WcaId()),
    Column("Country", Country()),
-   Column("Stage Lead", BooleanProperty(STAGE_LEAD)),
+   Column("Stage Lead", BooleanProperty(LISTED_DELEGATE)),
    Column("Events", Length(RegisteredEvents()))])
 
 Header("Team 3 (Day1: Roja, Day2: Amarilla, Day3: Azul, Day4: Roja)")
@@ -69,7 +95,7 @@ Table(
   [Column("Name", Name()),
    Column("WCA ID", WcaId()),
    Column("Country", Country()),
-   Column("Stage Lead", BooleanProperty(STAGE_LEAD)),
+   Column("Stage Lead", BooleanProperty(LISTED_DELEGATE)),
    Column("Events", Length(RegisteredEvents()))])
 
 Header("Team 4 (BLD Room)")
@@ -78,7 +104,7 @@ Table(
   [Column("Name", Name()),
    Column("WCA ID", WcaId()),
    Column("Country", Country()),
-   Column("Stage Lead", BooleanProperty(STAGE_LEAD)),
+   Column("Stage Lead", BooleanProperty(LISTED_DELEGATE)),
    Column("BLD Events", Length(Filter(RegisteredEvents(), In(EventId(), [_333bf, _444bf, _555bf, _333mbf]))))])
 
 Header("Team Sizes")
