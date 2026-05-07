@@ -10,14 +10,14 @@ properties that can be set in CompScript, including:
   - Available days
 
 Usage:
-    cd wca/
-    uv run scc-scripts/2026-sac/data/extract_volunteers.py   # first
-    uv run scc-scripts/2026-sac/data/generate_import.py       # then
+    cd scc-scripts/2026-sac
+    uv run data/extract_volunteers.py   # first
+    uv run data/generate_import.py       # then
 
 Output:
-    scc-scripts/2026-sac/data/volunteer_properties.cs
-    scc-scripts/2026-sac/data/score_takers.txt
-    scc-scripts/2026-sac/data/scramble_report.txt
+    data/volunteer_properties.cs
+    data/score_takers.txt
+    data/scramble_report.txt
 """
 
 import json
@@ -25,10 +25,10 @@ import sys
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
-INPUT_FILE = SCRIPT_DIR / "volunteers.json"
+INPUT_FILE = SCRIPT_DIR / "outputs" / "volunteers.json"
 OUTPUT_CS = SCRIPT_DIR / "volunteer_properties.cs"
-OUTPUT_SCORE_TAKERS = SCRIPT_DIR / "score_takers.txt"
-OUTPUT_SCRAMBLE = SCRIPT_DIR / "scramble_report.txt"
+OUTPUT_SCORE_TAKERS = SCRIPT_DIR / "outputs" / "score_takers.txt"
+OUTPUT_SCRAMBLE = SCRIPT_DIR / "outputs" / "scramble_report.txt"
 
 
 def normalize_wca_id_for_cs(wca_id: str | None) -> str | None:

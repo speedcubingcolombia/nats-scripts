@@ -18,7 +18,7 @@ const pug = require(COMPSCRIPT_DIR + '/node_modules/pug')
 const fs = require('fs')
 
 const SCRIPT_BASE = '../scc-scripts/2026-sac'
-const OUTPUT_DIR = path.resolve(__dirname, 'output')
+const OUTPUT_DIR = path.resolve(__dirname, 'reports/html')
 const CACHE_PATH = '.wcif_cache/' + (process.env.ENV || 'DEV') + '/SAC2026'
 
 const reports = [
@@ -27,8 +27,6 @@ const reports = [
   'reports/volunteer_workload.cs',
   'reports/stage_lead_groups.cs',
   'reports/group_schedule_overview.cs',
-  'reports/list_of_people.cs',
-  'reports/pending_staff.cs',
 ]
 
 const HTML_TEMPLATE = `<!DOCTYPE html>

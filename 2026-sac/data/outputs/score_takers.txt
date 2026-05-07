@@ -1,0 +1,51 @@
+SAC 2026 — Score Taker Candidates (data_entry preference >= 8)
+======================================================================
+
+Name                                     WCA ID       DataEntry  Judge Scramb
+----------------------------------------------------------------------
+Adriana Saavedra Limachi                 2016LIMA02          10     10      5
+Alexander                                2023LAND18          10      8     10
+Alexandre Ondet                          2017ONDE01          10      9      9
+Andrés Hisashi Suzuki Cabrera            2016SUZU03          10      9     10
+Axel Juan Pablo Moreno Rodríguez         2023RODR80          10     10     10
+Camilo Guzman                            2017GUZM05          10      8      8
+Daniel Camilo Lizcano Morales            2017MORA12          10     10     10
+Francia Perez                            2018PERE37          10      9      1
+Gustavo                                  2016RIVE01          10      3      3
+Jhonatan                                 2016REAT01          10      1     10
+José Antonio Gaete                       2017GAET01          10      8     10
+José David Castiblanco Marín             2012MARI04          10     10     10
+Joseph Daniel Blas Sanchez               2016SANC08          10      7      9
+Josias Milan Sirpa Pinto                 2017PINT05          10      8     10
+Kevin santiago montaña                   2023MONT31          10     10     10
+Luis Alonso Inestroza Henriquez          2015HENR02          10      3      3
+Marlon de V. Marques                     2014MARQ02          10      5      2
+Rafael Antonio Sánchez Cabrera           2014SANC19          10     10      8
+Santiago                                 2022CUBI01          10     10     10
+Santiago Vásquez Silva                   2023SILV54          10      6      7
+Valentina Sánchez                        2017MUNO06          10     10      7
+Yayi Luna Castro                         2013CAST14          10     10     10
+Thales Araújo de Souza                   2017SOUZ14          10     10     10
+Pedro Miranda                            2014MORE05          10      4      7
+Laís Helena Réga Serra Marques           2017MARQ06          10      5      1
+Enzo Gonçalves Motta                     2013MOTT01          10     10      5
+Axel Nicolas Romero Lucero               2019LUCE01           9      8      8
+Jorge Adrian Hernandez Dionicio          2011DION02           9      7      4
+Juan Manuel bedoya pimienta              2016PIMI02           9     10     10
+Lucas Zvinys                             2023ZVIN01           9     10     10
+Oliver Zubieta Cuervo                    2022CUER01           9     10     10
+Samuel Germán Giraldo Quintero           2022QUIN17           9     10      7
+Sebastián                                2022MARQ01           9      5      8
+Valeria Rodríguez                        2025LANC04           9     10     10
+Xabier Monsalve                          2021MONS01           9      4      6
+Alvaro Javier Gonzalez Vargas            2021VARG02           8     10      7
+Brian Camilo Cardenas                    2024SANC61           8      9      7
+Fabricio Andrés Yañez Terrazas           2015TERR01           8     10      9
+Jhon Edinson Arias                       2011PARR02           8      7      9
+Joel Hernandez                           2007HERN02           8      6      9
+Juan David Martinez Riveros              2013RIVE03           8      8      8
+Juan José Ramírez Beyaert                2023BEYA01           8      9      9
+Nayarid Villarreal                       2015VILL19           8      7     10
+Nitin Kumar                              2018KUMA01           8     10     10
+
+Total: 44 candidates

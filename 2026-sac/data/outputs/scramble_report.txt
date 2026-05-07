@@ -1,0 +1,580 @@
+SAC 2026 — Scramble Capabilities (Selected Volunteers)
+======================================================================
+
+
+222 (76 volunteers can scramble):
+  Adriana Saavedra Limachi             2016LIMA02   pref: 5/10
+  Alejandro Galeano                    2025ACEV05   pref: 7/10
+  Alexander                            2023LAND18   pref: 10/10
+  Alexandre Ondet                      2017ONDE01   pref: 9/10
+  Alvaro Javier Gonzalez Vargas        2021VARG02   pref: 7/10
+  Ana Sofia Moreno santamaria          2024SANT99   pref: 8/10
+  Andres Avila Gonzalez                2013GONZ09   pref: 6/10
+  Andres Camilo Molina Guaman          2019GUAM01   pref: 8/10
+  Andrés Hisashi Suzuki Cabrera        2016SUZU03   pref: 10/10
+  Axel Juan Pablo Moreno Rodríguez     2023RODR80   pref: 10/10
+  Axel Matias López Gutiérrez          2019GUTI14   pref: 2/10
+  Axel Nicolas Romero Lucero           2019LUCE01   pref: 8/10
+  Brian Camilo Cardenas                2024SANC61   pref: 7/10
+  Camilo Guzman                        2017GUZM05   pref: 8/10
+  Camilo Lasprilla                     2025LASP01   pref: 8/10
+  Cristofer                            2023AZUA01   pref: 10/10
+  Daniel Camilo Lizcano Morales        2017MORA12   pref: 10/10
+  Daniel Delgado Candia                2015CAND01   pref: 5/10
+  David Alejandro Ibarra Marín         2022MARI01   pref: 10/10
+  Diego Alejandro Gutiérrez            2024SOLE01   pref: 8/10
+  Enzo Gonçalves Motta                 2013MOTT01   pref: 5/10
+  Fabricio Andrés Yañez Terrazas       2015TERR01   pref: 9/10
+  Gabriel Polania Morris               2023MORR23   pref: 10/10
+  Gustavo                              2016RIVE01   pref: 3/10
+  Jerónimo Benavides                   2024MEDI13   pref: 5/10
+  Jerónimo Espinosa                    2023ESPI07   pref: 10/10
+  Jhon Edinson Arias                   2011PARR02   pref: 9/10
+  Jhon Edison Arcila Quintero          2014QUIN03   pref: 10/10
+  Jhonatan                             2016REAT01   pref: 10/10
+  Jhustin Arley Charry Moreno          2023MORE20   pref: 10/10
+  Joel Hernandez                       2007HERN02   pref: 9/10
+  Jorge Adrian Hernandez Dionicio      2011DION02   pref: 4/10
+  Joseph Daniel Blas Sanchez           2016SANC08   pref: 9/10
+  Joshua Alejandro Zaragoza Blanco     2024BLAN13   pref: 9/10
+  Josias Milan Sirpa Pinto             2017PINT05   pref: 10/10
+  José Antonio Gaete                   2017GAET01   pref: 10/10
+  José David Castiblanco Marín         2012MARI04   pref: 10/10
+  Juan Camilo González Barragán        2017BARR25   pref: 9/10
+  Juan David Martinez Riveros          2013RIVE03   pref: 8/10
+  Juan José Ramírez Beyaert            2023BEYA01   pref: 9/10
+  Juan Manuel bedoya pimienta          2016PIMI02   pref: 10/10
+  Juan Pablo Acosta Ramírez            2023RAMI49   pref: 4/10
+  Kevin santiago montaña               2023MONT31   pref: 10/10
+  Klaus Ramos                          2016RAMO01   pref: 5/10
+  Lucas Zvinys                         2023ZVIN01   pref: 10/10
+  Luis Alonso Inestroza Henriquez      2015HENR02   pref: 3/10
+  Luis Fernando Aldás Cuestas          2017CUES02   pref: 5/10
+  Mariana Giraldo Quintero             2024QUIN14   pref: 1/10
+  Marlon de V. Marques                 2014MARQ02   pref: 2/10
+  Martin Santiago Pinilla Cadena       2025CADE01   pref: 8/10
+  Matteo Rodríguez Colorado            2024COLO04   pref: 8/10
+  Miguel González                      2023GONZ30   pref: 2/10
+  Nayarid Villarreal                   2015VILL19   pref: 10/10
+  Nitin Kumar                          2018KUMA01   pref: 10/10
+  Oliver Zubieta Cuervo                2022CUER01   pref: 10/10
+  Pedro Miranda                        2014MORE05   pref: 7/10
+  Rafael Antonio Sánchez Cabrera       2014SANC19   pref: 8/10
+  Ricardo de Jesus Zapata Cruz         2018CRUZ17   pref: 6/10
+  Samuel Benitez Culma                 2017CULM01   pref: 6/10
+  Samuel Germán Giraldo Quintero       2022QUIN17   pref: 7/10
+  Samuel Martinez Sánchez              2019SANC20   pref: 10/10
+  Santiago                             2022CUBI01   pref: 10/10
+  Santiago Valderrama                  2024VALD01   pref: 5/10
+  Santiago Vásquez Silva               2023SILV54   pref: 7/10
+  Sebastiano Benato                    2014BENA03   pref: 8/10
+  Sebastián                            2022MARQ01   pref: 8/10
+  Sergio Estupiñan                     2024GUTI02   pref: 10/10
+  Suzane Coelho                        2016COEL04   pref: 1/10
+  Thales Araújo de Souza               2017SOUZ14   pref: 10/10
+  Tomás David Aguilar Fuentes          2025FUEN05   pref: 9/10
+  Valentina Sánchez                    2017MUNO06   pref: 7/10
+  Valeria Rodríguez                    2025LANC04   pref: 10/10
+  Victor Adan Solis Martinez           2017MART94   pref: 10/10
+  Xabier Monsalve                      2021MONS01   pref: 6/10
+  Yayi Luna Castro                     2013CAST14   pref: 10/10
+  daniel lencastre de souza quintao    2023QUIN18   pref: 9/10
+
+333 (76 volunteers can scramble):
+  Adriana Saavedra Limachi             2016LIMA02   pref: 5/10
+  Alejandro Galeano                    2025ACEV05   pref: 7/10
+  Alexander                            2023LAND18   pref: 10/10
+  Alexandre Ondet                      2017ONDE01   pref: 9/10
+  Alvaro Javier Gonzalez Vargas        2021VARG02   pref: 7/10
+  Ana Sofia Moreno santamaria          2024SANT99   pref: 8/10
+  Andres Avila Gonzalez                2013GONZ09   pref: 6/10
+  Andres Camilo Molina Guaman          2019GUAM01   pref: 8/10
+  Andrés Hisashi Suzuki Cabrera        2016SUZU03   pref: 10/10
+  Axel Juan Pablo Moreno Rodríguez     2023RODR80   pref: 10/10
+  Axel Matias López Gutiérrez          2019GUTI14   pref: 2/10
+  Axel Nicolas Romero Lucero           2019LUCE01   pref: 8/10
+  Brian Camilo Cardenas                2024SANC61   pref: 7/10
+  Camilo Guzman                        2017GUZM05   pref: 8/10
+  Camilo Lasprilla                     2025LASP01   pref: 8/10
+  Cristofer                            2023AZUA01   pref: 10/10
+  Daniel Camilo Lizcano Morales        2017MORA12   pref: 10/10
+  Daniel Delgado Candia                2015CAND01   pref: 5/10
+  David Alejandro Ibarra Marín         2022MARI01   pref: 10/10
+  Diego Alejandro Gutiérrez            2024SOLE01   pref: 8/10
+  Enzo Gonçalves Motta                 2013MOTT01   pref: 5/10
+  Fabricio Andrés Yañez Terrazas       2015TERR01   pref: 9/10
+  Francia Perez                        2018PERE37   pref: 1/10
+  Gabriel Polania Morris               2023MORR23   pref: 10/10
+  Gustavo                              2016RIVE01   pref: 3/10
+  Jerónimo Benavides                   2024MEDI13   pref: 5/10
+  Jerónimo Espinosa                    2023ESPI07   pref: 10/10
+  Jhon Edinson Arias                   2011PARR02   pref: 9/10
+  Jhon Edison Arcila Quintero          2014QUIN03   pref: 10/10
+  Jhonatan                             2016REAT01   pref: 10/10
+  Jhustin Arley Charry Moreno          2023MORE20   pref: 10/10
+  Joel Hernandez                       2007HERN02   pref: 9/10
+  Jorge Adrian Hernandez Dionicio      2011DION02   pref: 4/10
+  Joseph Daniel Blas Sanchez           2016SANC08   pref: 9/10
+  Joshua Alejandro Zaragoza Blanco     2024BLAN13   pref: 9/10
+  Josias Milan Sirpa Pinto             2017PINT05   pref: 10/10
+  José Antonio Gaete                   2017GAET01   pref: 10/10
+  José David Castiblanco Marín         2012MARI04   pref: 10/10
+  Juan Camilo González Barragán        2017BARR25   pref: 9/10
+  Juan David Martinez Riveros          2013RIVE03   pref: 8/10
+  Juan José Ramírez Beyaert            2023BEYA01   pref: 9/10
+  Juan Manuel bedoya pimienta          2016PIMI02   pref: 10/10
+  Juan Pablo Acosta Ramírez            2023RAMI49   pref: 4/10
+  Kevin santiago montaña               2023MONT31   pref: 10/10
+  Klaus Ramos                          2016RAMO01   pref: 5/10
+  Laís Helena Réga Serra Marques       2017MARQ06   pref: 1/10
+  Louis Rodríguez                      2018RODR43   pref: 8/10
+  Lucas Zvinys                         2023ZVIN01   pref: 10/10
+  Luis Alonso Inestroza Henriquez      2015HENR02   pref: 3/10
+  Luis Fernando Aldás Cuestas          2017CUES02   pref: 5/10
+  Marlon de V. Marques                 2014MARQ02   pref: 2/10
+  Martin Santiago Pinilla Cadena       2025CADE01   pref: 8/10
+  Matteo Rodríguez Colorado            2024COLO04   pref: 8/10
+  Nayarid Villarreal                   2015VILL19   pref: 10/10
+  Nitin Kumar                          2018KUMA01   pref: 10/10
+  Oliver Zubieta Cuervo                2022CUER01   pref: 10/10
+  Pedro Miranda                        2014MORE05   pref: 7/10
+  Rafael Antonio Sánchez Cabrera       2014SANC19   pref: 8/10
+  Ricardo de Jesus Zapata Cruz         2018CRUZ17   pref: 6/10
+  Samuel Benitez Culma                 2017CULM01   pref: 6/10
+  Samuel Martinez Sánchez              2019SANC20   pref: 10/10
+  Santiago                             2022CUBI01   pref: 10/10
+  Santiago Valderrama                  2024VALD01   pref: 5/10
+  Santiago Vásquez Silva               2023SILV54   pref: 7/10
+  Sebastiano Benato                    2014BENA03   pref: 8/10
+  Sebastián                            2022MARQ01   pref: 8/10
+  Sergio Estupiñan                     2024GUTI02   pref: 10/10
+  Suzane Coelho                        2016COEL04   pref: 1/10
+  Thales Araújo de Souza               2017SOUZ14   pref: 10/10
+  Tomás David Aguilar Fuentes          2025FUEN05   pref: 9/10
+  Valentina Sánchez                    2017MUNO06   pref: 7/10
+  Valeria Rodríguez                    2025LANC04   pref: 10/10
+  Victor Adan Solis Martinez           2017MART94   pref: 10/10
+  Xabier Monsalve                      2021MONS01   pref: 6/10
+  Yayi Luna Castro                     2013CAST14   pref: 10/10
+  daniel lencastre de souza quintao    2023QUIN18   pref: 9/10
+
+444 (63 volunteers can scramble):
+  Alejandro Galeano                    2025ACEV05   pref: 7/10
+  Alexander                            2023LAND18   pref: 10/10
+  Alexandre Ondet                      2017ONDE01   pref: 9/10
+  Alvaro Javier Gonzalez Vargas        2021VARG02   pref: 7/10
+  Andres Avila Gonzalez                2013GONZ09   pref: 6/10
+  Andres Camilo Molina Guaman          2019GUAM01   pref: 8/10
+  Andrés Hisashi Suzuki Cabrera        2016SUZU03   pref: 10/10
+  Axel Juan Pablo Moreno Rodríguez     2023RODR80   pref: 10/10
+  Axel Nicolas Romero Lucero           2019LUCE01   pref: 8/10
+  Camilo Guzman                        2017GUZM05   pref: 8/10
+  Camilo Lasprilla                     2025LASP01   pref: 8/10
+  Cristofer                            2023AZUA01   pref: 10/10
+  Daniel Camilo Lizcano Morales        2017MORA12   pref: 10/10
+  Daniel Delgado Candia                2015CAND01   pref: 5/10
+  David Alejandro Ibarra Marín         2022MARI01   pref: 10/10
+  Diego Alejandro Gutiérrez            2024SOLE01   pref: 8/10
+  Enzo Gonçalves Motta                 2013MOTT01   pref: 5/10
+  Fabricio Andrés Yañez Terrazas       2015TERR01   pref: 9/10
+  Gabriel Polania Morris               2023MORR23   pref: 10/10
+  Gustavo                              2016RIVE01   pref: 3/10
+  Jerónimo Espinosa                    2023ESPI07   pref: 10/10
+  Jhon Edinson Arias                   2011PARR02   pref: 9/10
+  Jhon Edison Arcila Quintero          2014QUIN03   pref: 10/10
+  Jhonatan                             2016REAT01   pref: 10/10
+  Jhustin Arley Charry Moreno          2023MORE20   pref: 10/10
+  Joel Hernandez                       2007HERN02   pref: 9/10
+  Jorge Adrian Hernandez Dionicio      2011DION02   pref: 4/10
+  Joseph Daniel Blas Sanchez           2016SANC08   pref: 9/10
+  Joshua Alejandro Zaragoza Blanco     2024BLAN13   pref: 9/10
+  Josias Milan Sirpa Pinto             2017PINT05   pref: 10/10
+  José Antonio Gaete                   2017GAET01   pref: 10/10
+  José David Castiblanco Marín         2012MARI04   pref: 10/10
+  Juan Camilo González Barragán        2017BARR25   pref: 9/10
+  Juan David Martinez Riveros          2013RIVE03   pref: 8/10
+  Juan José Ramírez Beyaert            2023BEYA01   pref: 9/10
+  Juan Manuel bedoya pimienta          2016PIMI02   pref: 10/10
+  Kevin santiago montaña               2023MONT31   pref: 10/10
+  Klaus Ramos                          2016RAMO01   pref: 5/10
+  Louis Rodríguez                      2018RODR43   pref: 8/10
+  Lucas Zvinys                         2023ZVIN01   pref: 10/10
+  Luis Alonso Inestroza Henriquez      2015HENR02   pref: 3/10
+  Luis Fernando Aldás Cuestas          2017CUES02   pref: 5/10
+  Martin Santiago Pinilla Cadena       2025CADE01   pref: 8/10
+  Matteo Rodríguez Colorado            2024COLO04   pref: 8/10
+  Nayarid Villarreal                   2015VILL19   pref: 10/10
+  Nitin Kumar                          2018KUMA01   pref: 10/10
+  Pedro Miranda                        2014MORE05   pref: 7/10
+  Rafael Antonio Sánchez Cabrera       2014SANC19   pref: 8/10
+  Ricardo de Jesus Zapata Cruz         2018CRUZ17   pref: 6/10
+  Samuel Benitez Culma                 2017CULM01   pref: 6/10
+  Samuel Martinez Sánchez              2019SANC20   pref: 10/10
+  Santiago                             2022CUBI01   pref: 10/10
+  Santiago Valderrama                  2024VALD01   pref: 5/10
+  Santiago Vásquez Silva               2023SILV54   pref: 7/10
+  Sebastiano Benato                    2014BENA03   pref: 8/10
+  Sebastián                            2022MARQ01   pref: 8/10
+  Sergio Estupiñan                     2024GUTI02   pref: 10/10
+  Suzane Coelho                        2016COEL04   pref: 1/10
+  Thales Araújo de Souza               2017SOUZ14   pref: 10/10
+  Tomás David Aguilar Fuentes          2025FUEN05   pref: 9/10
+  Valentina Sánchez                    2017MUNO06   pref: 7/10
+  Valeria Rodríguez                    2025LANC04   pref: 10/10
+  Yayi Luna Castro                     2013CAST14   pref: 10/10
+
+555 (47 volunteers can scramble):
+  Alexander                            2023LAND18   pref: 10/10
+  Alexandre Ondet                      2017ONDE01   pref: 9/10
+  Andrés Hisashi Suzuki Cabrera        2016SUZU03   pref: 10/10
+  Axel Juan Pablo Moreno Rodríguez     2023RODR80   pref: 10/10
+  Camilo Guzman                        2017GUZM05   pref: 8/10
+  Camilo Lasprilla                     2025LASP01   pref: 8/10
+  Cristofer                            2023AZUA01   pref: 10/10
+  Daniel Camilo Lizcano Morales        2017MORA12   pref: 10/10
+  Daniel Delgado Candia                2015CAND01   pref: 5/10
+  Diego Alejandro Gutiérrez            2024SOLE01   pref: 8/10
+  Enzo Gonçalves Motta                 2013MOTT01   pref: 5/10
+  Fabricio Andrés Yañez Terrazas       2015TERR01   pref: 9/10
+  Gabriel Polania Morris               2023MORR23   pref: 10/10
+  Jerónimo Espinosa                    2023ESPI07   pref: 10/10
+  Jhon Edinson Arias                   2011PARR02   pref: 9/10
+  Jhonatan                             2016REAT01   pref: 10/10
+  Jhustin Arley Charry Moreno          2023MORE20   pref: 10/10
+  Joseph Daniel Blas Sanchez           2016SANC08   pref: 9/10
+  Joshua Alejandro Zaragoza Blanco     2024BLAN13   pref: 9/10
+  Josias Milan Sirpa Pinto             2017PINT05   pref: 10/10
+  José Antonio Gaete                   2017GAET01   pref: 10/10
+  José David Castiblanco Marín         2012MARI04   pref: 10/10
+  Juan Camilo González Barragán        2017BARR25   pref: 9/10
+  Juan David Martinez Riveros          2013RIVE03   pref: 8/10
+  Juan Manuel bedoya pimienta          2016PIMI02   pref: 10/10
+  Kevin santiago montaña               2023MONT31   pref: 10/10
+  Klaus Ramos                          2016RAMO01   pref: 5/10
+  Louis Rodríguez                      2018RODR43   pref: 8/10
+  Lucas Zvinys                         2023ZVIN01   pref: 10/10
+  Luis Alonso Inestroza Henriquez      2015HENR02   pref: 3/10
+  Luis Fernando Aldás Cuestas          2017CUES02   pref: 5/10
+  Martin Santiago Pinilla Cadena       2025CADE01   pref: 8/10
+  Matteo Rodríguez Colorado            2024COLO04   pref: 8/10
+  Nayarid Villarreal                   2015VILL19   pref: 10/10
+  Nitin Kumar                          2018KUMA01   pref: 10/10
+  Pedro Miranda                        2014MORE05   pref: 7/10
+  Rafael Antonio Sánchez Cabrera       2014SANC19   pref: 8/10
+  Ricardo de Jesus Zapata Cruz         2018CRUZ17   pref: 6/10
+  Samuel Martinez Sánchez              2019SANC20   pref: 10/10
+  Santiago                             2022CUBI01   pref: 10/10
+  Sebastiano Benato                    2014BENA03   pref: 8/10
+  Suzane Coelho                        2016COEL04   pref: 1/10
+  Thales Araújo de Souza               2017SOUZ14   pref: 10/10
+  Valentina Sánchez                    2017MUNO06   pref: 7/10
+  Valeria Rodríguez                    2025LANC04   pref: 10/10
+  Victor Adan Solis Martinez           2017MART94   pref: 10/10
+  Yayi Luna Castro                     2013CAST14   pref: 10/10
+
+666 (32 volunteers can scramble):
+  Alexander                            2023LAND18   pref: 10/10
+  Alexandre Ondet                      2017ONDE01   pref: 9/10
+  Andrés Hisashi Suzuki Cabrera        2016SUZU03   pref: 10/10
+  Axel Juan Pablo Moreno Rodríguez     2023RODR80   pref: 10/10
+  Camilo Guzman                        2017GUZM05   pref: 8/10
+  Cristofer                            2023AZUA01   pref: 10/10
+  Daniel Delgado Candia                2015CAND01   pref: 5/10
+  Enzo Gonçalves Motta                 2013MOTT01   pref: 5/10
+  Fabricio Andrés Yañez Terrazas       2015TERR01   pref: 9/10
+  Jhon Edinson Arias                   2011PARR02   pref: 9/10
+  Jhustin Arley Charry Moreno          2023MORE20   pref: 10/10
+  Joseph Daniel Blas Sanchez           2016SANC08   pref: 9/10
+  Joshua Alejandro Zaragoza Blanco     2024BLAN13   pref: 9/10
+  Josias Milan Sirpa Pinto             2017PINT05   pref: 10/10
+  José Antonio Gaete                   2017GAET01   pref: 10/10
+  José David Castiblanco Marín         2012MARI04   pref: 10/10
+  Juan Camilo González Barragán        2017BARR25   pref: 9/10
+  Juan Manuel bedoya pimienta          2016PIMI02   pref: 10/10
+  Klaus Ramos                          2016RAMO01   pref: 5/10
+  Louis Rodríguez                      2018RODR43   pref: 8/10
+  Lucas Zvinys                         2023ZVIN01   pref: 10/10
+  Luis Alonso Inestroza Henriquez      2015HENR02   pref: 3/10
+  Luis Fernando Aldás Cuestas          2017CUES02   pref: 5/10
+  Matteo Rodríguez Colorado            2024COLO04   pref: 8/10
+  Nitin Kumar                          2018KUMA01   pref: 10/10
+  Pedro Miranda                        2014MORE05   pref: 7/10
+  Rafael Antonio Sánchez Cabrera       2014SANC19   pref: 8/10
+  Ricardo de Jesus Zapata Cruz         2018CRUZ17   pref: 6/10
+  Samuel Martinez Sánchez              2019SANC20   pref: 10/10
+  Sebastiano Benato                    2014BENA03   pref: 8/10
+  Thales Araújo de Souza               2017SOUZ14   pref: 10/10
+  Victor Adan Solis Martinez           2017MART94   pref: 10/10
+
+777 (29 volunteers can scramble):
+  Alexander                            2023LAND18   pref: 10/10
+  Alexandre Ondet                      2017ONDE01   pref: 9/10
+  Andrés Hisashi Suzuki Cabrera        2016SUZU03   pref: 10/10
+  Camilo Guzman                        2017GUZM05   pref: 8/10
+  Cristofer                            2023AZUA01   pref: 10/10
+  Daniel Delgado Candia                2015CAND01   pref: 5/10
+  Enzo Gonçalves Motta                 2013MOTT01   pref: 5/10
+  Jerónimo Espinosa                    2023ESPI07   pref: 10/10
+  Jhon Edinson Arias                   2011PARR02   pref: 9/10
+  Jhustin Arley Charry Moreno          2023MORE20   pref: 10/10
+  Joseph Daniel Blas Sanchez           2016SANC08   pref: 9/10
+  Joshua Alejandro Zaragoza Blanco     2024BLAN13   pref: 9/10
+  Josias Milan Sirpa Pinto             2017PINT05   pref: 10/10
+  José Antonio Gaete                   2017GAET01   pref: 10/10
+  José David Castiblanco Marín         2012MARI04   pref: 10/10
+  Juan Camilo González Barragán        2017BARR25   pref: 9/10
+  Juan Manuel bedoya pimienta          2016PIMI02   pref: 10/10
+  Klaus Ramos                          2016RAMO01   pref: 5/10
+  Louis Rodríguez                      2018RODR43   pref: 8/10
+  Luis Alonso Inestroza Henriquez      2015HENR02   pref: 3/10
+  Luis Fernando Aldás Cuestas          2017CUES02   pref: 5/10
+  Nitin Kumar                          2018KUMA01   pref: 10/10
+  Pedro Miranda                        2014MORE05   pref: 7/10
+  Rafael Antonio Sánchez Cabrera       2014SANC19   pref: 8/10
+  Ricardo de Jesus Zapata Cruz         2018CRUZ17   pref: 6/10
+  Samuel Martinez Sánchez              2019SANC20   pref: 10/10
+  Sebastiano Benato                    2014BENA03   pref: 8/10
+  Thales Araújo de Souza               2017SOUZ14   pref: 10/10
+  Victor Adan Solis Martinez           2017MART94   pref: 10/10
+
+CLOCK (40 volunteers can scramble):
+  Alexander                            2023LAND18   pref: 10/10
+  Alvaro Javier Gonzalez Vargas        2021VARG02   pref: 7/10
+  Ana Sofia Moreno santamaria          2024SANT99   pref: 8/10
+  Andrés Hisashi Suzuki Cabrera        2016SUZU03   pref: 10/10
+  Axel Juan Pablo Moreno Rodríguez     2023RODR80   pref: 10/10
+  Axel Nicolas Romero Lucero           2019LUCE01   pref: 8/10
+  Camilo Guzman                        2017GUZM05   pref: 8/10
+  Camilo Lasprilla                     2025LASP01   pref: 8/10
+  Cristofer                            2023AZUA01   pref: 10/10
+  Daniel Camilo Lizcano Morales        2017MORA12   pref: 10/10
+  David Alejandro Ibarra Marín         2022MARI01   pref: 10/10
+  Enzo Gonçalves Motta                 2013MOTT01   pref: 5/10
+  Fabricio Andrés Yañez Terrazas       2015TERR01   pref: 9/10
+  Gabriel Polania Morris               2023MORR23   pref: 10/10
+  Jerónimo Espinosa                    2023ESPI07   pref: 10/10
+  Joel Hernandez                       2007HERN02   pref: 9/10
+  Joseph Daniel Blas Sanchez           2016SANC08   pref: 9/10
+  Josias Milan Sirpa Pinto             2017PINT05   pref: 10/10
+  José Antonio Gaete                   2017GAET01   pref: 10/10
+  José David Castiblanco Marín         2012MARI04   pref: 10/10
+  Juan Camilo González Barragán        2017BARR25   pref: 9/10
+  Juan David Martinez Riveros          2013RIVE03   pref: 8/10
+  Juan José Ramírez Beyaert            2023BEYA01   pref: 9/10
+  Klaus Ramos                          2016RAMO01   pref: 5/10
+  Luis Alonso Inestroza Henriquez      2015HENR02   pref: 3/10
+  Luis Fernando Aldás Cuestas          2017CUES02   pref: 5/10
+  Matteo Rodríguez Colorado            2024COLO04   pref: 8/10
+  Nitin Kumar                          2018KUMA01   pref: 10/10
+  Oliver Zubieta Cuervo                2022CUER01   pref: 10/10
+  Pedro Miranda                        2014MORE05   pref: 7/10
+  Ricardo de Jesus Zapata Cruz         2018CRUZ17   pref: 6/10
+  Santiago                             2022CUBI01   pref: 10/10
+  Sebastiano Benato                    2014BENA03   pref: 8/10
+  Sebastián                            2022MARQ01   pref: 8/10
+  Sergio Estupiñan                     2024GUTI02   pref: 10/10
+  Suzane Coelho                        2016COEL04   pref: 1/10
+  Thales Araújo de Souza               2017SOUZ14   pref: 10/10
+  Victor Adan Solis Martinez           2017MART94   pref: 10/10
+  Xabier Monsalve                      2021MONS01   pref: 6/10
+  Yayi Luna Castro                     2013CAST14   pref: 10/10
+
+MINX (44 volunteers can scramble):
+  Alejandro Galeano                    2025ACEV05   pref: 7/10
+  Alexander                            2023LAND18   pref: 10/10
+  Alexandre Ondet                      2017ONDE01   pref: 9/10
+  Andrés Hisashi Suzuki Cabrera        2016SUZU03   pref: 10/10
+  Axel Juan Pablo Moreno Rodríguez     2023RODR80   pref: 10/10
+  Axel Nicolas Romero Lucero           2019LUCE01   pref: 8/10
+  Camilo Guzman                        2017GUZM05   pref: 8/10
+  Cristofer                            2023AZUA01   pref: 10/10
+  Diego Alejandro Gutiérrez            2024SOLE01   pref: 8/10
+  Enzo Gonçalves Motta                 2013MOTT01   pref: 5/10
+  Fabricio Andrés Yañez Terrazas       2015TERR01   pref: 9/10
+  Gabriel Polania Morris               2023MORR23   pref: 10/10
+  Jerónimo Espinosa                    2023ESPI07   pref: 10/10
+  Jhon Edinson Arias                   2011PARR02   pref: 9/10
+  Jhustin Arley Charry Moreno          2023MORE20   pref: 10/10
+  Joseph Daniel Blas Sanchez           2016SANC08   pref: 9/10
+  Joshua Alejandro Zaragoza Blanco     2024BLAN13   pref: 9/10
+  Josias Milan Sirpa Pinto             2017PINT05   pref: 10/10
+  José Antonio Gaete                   2017GAET01   pref: 10/10
+  José David Castiblanco Marín         2012MARI04   pref: 10/10
+  Juan Camilo González Barragán        2017BARR25   pref: 9/10
+  Juan David Martinez Riveros          2013RIVE03   pref: 8/10
+  Juan Manuel bedoya pimienta          2016PIMI02   pref: 10/10
+  Kevin santiago montaña               2023MONT31   pref: 10/10
+  Klaus Ramos                          2016RAMO01   pref: 5/10
+  Louis Rodríguez                      2018RODR43   pref: 8/10
+  Lucas Zvinys                         2023ZVIN01   pref: 10/10
+  Luis Alonso Inestroza Henriquez      2015HENR02   pref: 3/10
+  Luis Fernando Aldás Cuestas          2017CUES02   pref: 5/10
+  Marlon de V. Marques                 2014MARQ02   pref: 2/10
+  Martin Santiago Pinilla Cadena       2025CADE01   pref: 8/10
+  Matteo Rodríguez Colorado            2024COLO04   pref: 8/10
+  Pedro Miranda                        2014MORE05   pref: 7/10
+  Rafael Antonio Sánchez Cabrera       2014SANC19   pref: 8/10
+  Ricardo de Jesus Zapata Cruz         2018CRUZ17   pref: 6/10
+  Samuel Martinez Sánchez              2019SANC20   pref: 10/10
+  Santiago                             2022CUBI01   pref: 10/10
+  Santiago Vásquez Silva               2023SILV54   pref: 7/10
+  Sebastiano Benato                    2014BENA03   pref: 8/10
+  Suzane Coelho                        2016COEL04   pref: 1/10
+  Thales Araújo de Souza               2017SOUZ14   pref: 10/10
+  Tomás David Aguilar Fuentes          2025FUEN05   pref: 9/10
+  Valeria Rodríguez                    2025LANC04   pref: 10/10
+  Victor Adan Solis Martinez           2017MART94   pref: 10/10
+
+PYRAM (63 volunteers can scramble):
+  Adriana Saavedra Limachi             2016LIMA02   pref: 5/10
+  Alejandro Galeano                    2025ACEV05   pref: 7/10
+  Alexander                            2023LAND18   pref: 10/10
+  Alexandre Ondet                      2017ONDE01   pref: 9/10
+  Alvaro Javier Gonzalez Vargas        2021VARG02   pref: 7/10
+  Ana Sofia Moreno santamaria          2024SANT99   pref: 8/10
+  Andres Avila Gonzalez                2013GONZ09   pref: 6/10
+  Andres Camilo Molina Guaman          2019GUAM01   pref: 8/10
+  Andrés Hisashi Suzuki Cabrera        2016SUZU03   pref: 10/10
+  Axel Juan Pablo Moreno Rodríguez     2023RODR80   pref: 10/10
+  Axel Matias López Gutiérrez          2019GUTI14   pref: 2/10
+  Axel Nicolas Romero Lucero           2019LUCE01   pref: 8/10
+  Camilo Guzman                        2017GUZM05   pref: 8/10
+  Camilo Lasprilla                     2025LASP01   pref: 8/10
+  Cristofer                            2023AZUA01   pref: 10/10
+  David Alejandro Ibarra Marín         2022MARI01   pref: 10/10
+  Diego Alejandro Gutiérrez            2024SOLE01   pref: 8/10
+  Enzo Gonçalves Motta                 2013MOTT01   pref: 5/10
+  Fabricio Andrés Yañez Terrazas       2015TERR01   pref: 9/10
+  Gabriel Polania Morris               2023MORR23   pref: 10/10
+  Jerónimo Benavides                   2024MEDI13   pref: 5/10
+  Jerónimo Espinosa                    2023ESPI07   pref: 10/10
+  Jhon Edinson Arias                   2011PARR02   pref: 9/10
+  Jhonatan                             2016REAT01   pref: 10/10
+  Joel Hernandez                       2007HERN02   pref: 9/10
+  Jorge Adrian Hernandez Dionicio      2011DION02   pref: 4/10
+  Joseph Daniel Blas Sanchez           2016SANC08   pref: 9/10
+  Josias Milan Sirpa Pinto             2017PINT05   pref: 10/10
+  José Antonio Gaete                   2017GAET01   pref: 10/10
+  José David Castiblanco Marín         2012MARI04   pref: 10/10
+  Juan Camilo González Barragán        2017BARR25   pref: 9/10
+  Juan David Martinez Riveros          2013RIVE03   pref: 8/10
+  Juan José Ramírez Beyaert            2023BEYA01   pref: 9/10
+  Juan Manuel bedoya pimienta          2016PIMI02   pref: 10/10
+  Juan Pablo Acosta Ramírez            2023RAMI49   pref: 4/10
+  Kevin santiago montaña               2023MONT31   pref: 10/10
+  Klaus Ramos                          2016RAMO01   pref: 5/10
+  Lucas Zvinys                         2023ZVIN01   pref: 10/10
+  Luis Alonso Inestroza Henriquez      2015HENR02   pref: 3/10
+  Luis Fernando Aldás Cuestas          2017CUES02   pref: 5/10
+  Marlon de V. Marques                 2014MARQ02   pref: 2/10
+  Martin Santiago Pinilla Cadena       2025CADE01   pref: 8/10
+  Matteo Rodríguez Colorado            2024COLO04   pref: 8/10
+  Miguel González                      2023GONZ30   pref: 2/10
+  Nayarid Villarreal                   2015VILL19   pref: 10/10
+  Nitin Kumar                          2018KUMA01   pref: 10/10
+  Oliver Zubieta Cuervo                2022CUER01   pref: 10/10
+  Pedro Miranda                        2014MORE05   pref: 7/10
+  Rafael Antonio Sánchez Cabrera       2014SANC19   pref: 8/10
+  Ricardo de Jesus Zapata Cruz         2018CRUZ17   pref: 6/10
+  Samuel Benitez Culma                 2017CULM01   pref: 6/10
+  Santiago Valderrama                  2024VALD01   pref: 5/10
+  Santiago Vásquez Silva               2023SILV54   pref: 7/10
+  Sebastiano Benato                    2014BENA03   pref: 8/10
+  Sebastián                            2022MARQ01   pref: 8/10
+  Sergio Estupiñan                     2024GUTI02   pref: 10/10
+  Suzane Coelho                        2016COEL04   pref: 1/10
+  Thales Araújo de Souza               2017SOUZ14   pref: 10/10
+  Tomás David Aguilar Fuentes          2025FUEN05   pref: 9/10
+  Valentina Sánchez                    2017MUNO06   pref: 7/10
+  Valeria Rodríguez                    2025LANC04   pref: 10/10
+  Victor Adan Solis Martinez           2017MART94   pref: 10/10
+  daniel lencastre de souza quintao    2023QUIN18   pref: 9/10
+
+SKEWB (48 volunteers can scramble):
+  Adriana Saavedra Limachi             2016LIMA02   pref: 5/10
+  Alexander                            2023LAND18   pref: 10/10
+  Alexandre Ondet                      2017ONDE01   pref: 9/10
+  Alvaro Javier Gonzalez Vargas        2021VARG02   pref: 7/10
+  Andres Avila Gonzalez                2013GONZ09   pref: 6/10
+  Andres Camilo Molina Guaman          2019GUAM01   pref: 8/10
+  Andrés Hisashi Suzuki Cabrera        2016SUZU03   pref: 10/10
+  Axel Juan Pablo Moreno Rodríguez     2023RODR80   pref: 10/10
+  Axel Matias López Gutiérrez          2019GUTI14   pref: 2/10
+  Axel Nicolas Romero Lucero           2019LUCE01   pref: 8/10
+  Camilo Guzman                        2017GUZM05   pref: 8/10
+  Camilo Lasprilla                     2025LASP01   pref: 8/10
+  Cristofer                            2023AZUA01   pref: 10/10
+  Diego Alejandro Gutiérrez            2024SOLE01   pref: 8/10
+  Enzo Gonçalves Motta                 2013MOTT01   pref: 5/10
+  Fabricio Andrés Yañez Terrazas       2015TERR01   pref: 9/10
+  Gabriel Polania Morris               2023MORR23   pref: 10/10
+  Gustavo                              2016RIVE01   pref: 3/10
+  Jerónimo Espinosa                    2023ESPI07   pref: 10/10
+  Jhon Edinson Arias                   2011PARR02   pref: 9/10
+  Jhonatan                             2016REAT01   pref: 10/10
+  Joel Hernandez                       2007HERN02   pref: 9/10
+  Jorge Adrian Hernandez Dionicio      2011DION02   pref: 4/10
+  Joseph Daniel Blas Sanchez           2016SANC08   pref: 9/10
+  Josias Milan Sirpa Pinto             2017PINT05   pref: 10/10
+  José Antonio Gaete                   2017GAET01   pref: 10/10
+  José David Castiblanco Marín         2012MARI04   pref: 10/10
+  Juan David Martinez Riveros          2013RIVE03   pref: 8/10
+  Juan José Ramírez Beyaert            2023BEYA01   pref: 9/10
+  Klaus Ramos                          2016RAMO01   pref: 5/10
+  Lucas Zvinys                         2023ZVIN01   pref: 10/10
+  Luis Alonso Inestroza Henriquez      2015HENR02   pref: 3/10
+  Luis Fernando Aldás Cuestas          2017CUES02   pref: 5/10
+  Martin Santiago Pinilla Cadena       2025CADE01   pref: 8/10
+  Matteo Rodríguez Colorado            2024COLO04   pref: 8/10
+  Nayarid Villarreal                   2015VILL19   pref: 10/10
+  Oliver Zubieta Cuervo                2022CUER01   pref: 10/10
+  Pedro Miranda                        2014MORE05   pref: 7/10
+  Rafael Antonio Sánchez Cabrera       2014SANC19   pref: 8/10
+  Ricardo de Jesus Zapata Cruz         2018CRUZ17   pref: 6/10
+  Samuel Benitez Culma                 2017CULM01   pref: 6/10
+  Santiago                             2022CUBI01   pref: 10/10
+  Sebastiano Benato                    2014BENA03   pref: 8/10
+  Suzane Coelho                        2016COEL04   pref: 1/10
+  Thales Araújo de Souza               2017SOUZ14   pref: 10/10
+  Victor Adan Solis Martinez           2017MART94   pref: 10/10
+  Xabier Monsalve                      2021MONS01   pref: 6/10
+  daniel lencastre de souza quintao    2023QUIN18   pref: 9/10
+
+SQ1 (34 volunteers can scramble):
+  Alexander                            2023LAND18   pref: 10/10
+  Alexandre Ondet                      2017ONDE01   pref: 9/10
+  Andrés Hisashi Suzuki Cabrera        2016SUZU03   pref: 10/10
+  Axel Juan Pablo Moreno Rodríguez     2023RODR80   pref: 10/10
+  Axel Matias López Gutiérrez          2019GUTI14   pref: 2/10
+  Axel Nicolas Romero Lucero           2019LUCE01   pref: 8/10
+  Camilo Guzman                        2017GUZM05   pref: 8/10
+  Camilo Lasprilla                     2025LASP01   pref: 8/10
+  David Alejandro Ibarra Marín         2022MARI01   pref: 10/10
+  Enzo Gonçalves Motta                 2013MOTT01   pref: 5/10
+  Fabricio Andrés Yañez Terrazas       2015TERR01   pref: 9/10
+  Gabriel Polania Morris               2023MORR23   pref: 10/10
+  Jerónimo Espinosa                    2023ESPI07   pref: 10/10
+  Jhonatan                             2016REAT01   pref: 10/10
+  Jorge Adrian Hernandez Dionicio      2011DION02   pref: 4/10
+  José Antonio Gaete                   2017GAET01   pref: 10/10
+  José David Castiblanco Marín         2012MARI04   pref: 10/10
+  Juan Camilo González Barragán        2017BARR25   pref: 9/10
+  Juan José Ramírez Beyaert            2023BEYA01   pref: 9/10
+  Lucas Zvinys                         2023ZVIN01   pref: 10/10
+  Luis Alonso Inestroza Henriquez      2015HENR02   pref: 3/10
+  Luis Fernando Aldás Cuestas          2017CUES02   pref: 5/10
+  Marlon de V. Marques                 2014MARQ02   pref: 2/10
+  Matteo Rodríguez Colorado            2024COLO04   pref: 8/10
+  Pedro Miranda                        2014MORE05   pref: 7/10
+  Ricardo de Jesus Zapata Cruz         2018CRUZ17   pref: 6/10
+  Santiago                             2022CUBI01   pref: 10/10
+  Sebastiano Benato                    2014BENA03   pref: 8/10
+  Suzane Coelho                        2016COEL04   pref: 1/10
+  Thales Araújo de Souza               2017SOUZ14   pref: 10/10
+  Valeria Rodríguez                    2025LANC04   pref: 10/10
+  Victor Adan Solis Martinez           2017MART94   pref: 10/10
+  Xabier Monsalve                      2021MONS01   pref: 6/10
+  daniel lencastre de souza quintao    2023QUIN18   pref: 9/10
+
+
+Generated from 79 matched submissions

@@ -72,15 +72,15 @@ def patch_line(line: str, day_num: int) -> str:
     )
 
     # 1b) Bump Delegate count from 1 to DELEGATE_COUNT_MAIN in main-room lines.
-    # Each main-room AssignStaff has `Job("Delegate", 1, eligibility=BooleanProperty("stage-lead"))`
+    # Each main-room AssignStaff has `Job("Delegate", 1, eligibility=BooleanProperty("listed-delegate"))`
     # which we upgrade. BLD lines have different eligibility filters (by team), left untouched.
     delegate_pattern = re.compile(
         r'Job\("Delegate",\s*('
         + "|".join(str(v) for v in _OLD_DELEGATE_VALUES)
-        + r'),\s*eligibility=BooleanProperty\("stage-lead"\)\)'
+        + r'),\s*eligibility=BooleanProperty\("listed-delegate"\)\)'
     )
     updated = delegate_pattern.sub(
-        f'Job("Delegate", {DELEGATE_COUNT_MAIN}, eligibility=BooleanProperty("stage-lead"))',
+        f'Job("Delegate", {DELEGATE_COUNT_MAIN}, eligibility=BooleanProperty("listed-delegate"))',
         updated,
     )
 

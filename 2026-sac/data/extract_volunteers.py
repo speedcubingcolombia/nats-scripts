@@ -6,13 +6,13 @@ Reads the 3 volunteer submission forms (ES, EN, PT) and the selected
 volunteers list. Outputs JSON with all volunteer preferences.
 
 Usage:
-    cd wca/
-    uv run scc-scripts/2026-sac/data/extract_volunteers.py
+    cd scc-scripts/2026-sac
+    uv run data/extract_volunteers.py
 
-Input files (in wca/ root):
-    - [ES] FORMULARIO VOLUNTARIO SAC 2026 (respuestas).xlsx
-    - [EN] VOLUNTEER FORM SAC 2026 (respuestas).xlsx
-    - [PT] FORMULÁRIO VOLUNTÁRIO SAC 2026 (respuestas).xlsx
+Input files (in data/ directory):
+    - formulario-voluntarios-es.xlsx
+    - formulario-voluntarios-en.xlsx
+    - formulario-voluntarios-pt.xlsx
     - SAC2026-registration.xlsx  (definitive approved staff list — Cargo column)
 
 Output:
@@ -32,16 +32,16 @@ except ImportError:
 
 # Paths
 SCRIPT_DIR = Path(__file__).parent
-WCA_ROOT = SCRIPT_DIR.parent.parent.parent  # wca/
-OUTPUT_FILE = SCRIPT_DIR / "volunteers.json"
+DATA_DIR = SCRIPT_DIR  # data/ directory
+OUTPUT_FILE = SCRIPT_DIR / "outputs" / "volunteers.json"
 
 FORM_FILES = [
-    ("[ES] FORMULARIO VOLUNTARIO SAC 2026 (respuestas).xlsx", "es"),
-    ("[EN] VOLUNTEER FORM SAC 2026 (respuestas).xlsx", "en"),
-    ("[PT] FORMULÁRIO VOLUNTÁRIO SAC 2026 (respuestas).xlsx", "pt"),
+    ("sources/formulario-voluntarios-es.xlsx", "es"),
+    ("sources/formulario-voluntarios-en.xlsx", "en"),
+    ("sources/formulario-voluntarios-pt.xlsx", "pt"),
 ]
 
-SELECTED_FILE = "SAC2026-registration.xlsx"
+SELECTED_FILE = "sources/SAC2026-registration.xlsx"
 STAFF_CARGOS = {"Voluntario", "Delegado", "Organizador", "Lider", "Streaming"}
 
 
@@ -99,7 +99,7 @@ def extract_forms() -> list[dict]:
     all_volunteers = []
 
     for filename, lang in FORM_FILES:
-        filepath = WCA_ROOT / filename
+        filepath = DATA_DIR / filename
         if not filepath.exists():
             print(f"WARNING: {filename} not found, skipping")
             continue
@@ -153,7 +153,7 @@ def extract_selected() -> list[dict]:
     A row counts as approved staff when Status=='a', Registration Status=='accepted',
     and Cargo (column L) is one of STAFF_CARGOS.
     """
-    filepath = WCA_ROOT / SELECTED_FILE
+    filepath = DATA_DIR / SELECTED_FILE
     if not filepath.exists():
         print(f"WARNING: {SELECTED_FILE} not found")
         return []
@@ -261,7 +261,7 @@ def print_summary(submissions, selected, matched):
 
 def main():
     print("SAC 2026 — Volunteer Data Extraction")
-    print(f"Working directory: {WCA_ROOT}")
+    print(f"Working directory: {DATA_DIR}")
     print()
 
     print("Reading forms...")
