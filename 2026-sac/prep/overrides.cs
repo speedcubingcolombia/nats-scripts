@@ -50,6 +50,13 @@ DeleteProperty([2024GOOS03], TEAM_LEAD)
 SetProperty([2024GOOS03], "unofficial_lead", true)
 SetProperty([2024GOOS03], "special-role", "Unofficial Events Lead")
 
+# --- Score Takers (out of team pool, dedicated data entry) ---
+DeleteProperty([2017MARQ06, 2018PERE37, 2016LIMA02], VOLUNTEER)
+DeleteProperty([2016LIMA02], LISTED_DELEGATE)
+SetProperty([2017MARQ06], "special-role", "Score Taker")
+SetProperty([2018PERE37], "special-role", "Score Taker")
+SetProperty([2016LIMA02], "special-role", "Score Taker")
+
 # --- Coordination / other tasks ---
 DeleteProperty([2021LOPE01], VOLUNTEER)
 DeleteProperty([2021LOPE01], LISTED_DELEGATE)

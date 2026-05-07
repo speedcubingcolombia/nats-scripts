@@ -12,6 +12,7 @@
 "Jun 15: T4=Amarilla, T1=Azul, T2=Roja, T3=Floating"
 
 Header("Team 1")
+Length(Persons(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 1))))
 Table(
   Sort(Persons(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 1))), If(BooleanProperty(TEAM_LEAD), 0, If(BooleanProperty(LISTED_DELEGATE), 1, 2))),
   [Column("Name", Name()),
@@ -19,6 +20,7 @@ Table(
    Column("Role", If(BooleanProperty(TEAM_LEAD), "Team Lead", If(BooleanProperty("score-taker"), "Score Taker", If(BooleanProperty(LISTED_DELEGATE), "Delegate", "Volunteer"))))])
 
 Header("Team 2")
+Length(Persons(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 2))))
 Table(
   Sort(Persons(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 2))), If(BooleanProperty(TEAM_LEAD), 0, If(BooleanProperty(LISTED_DELEGATE), 1, 2))),
   [Column("Name", Name()),
@@ -26,6 +28,7 @@ Table(
    Column("Role", If(BooleanProperty(TEAM_LEAD), "Team Lead", If(BooleanProperty("score-taker"), "Score Taker", If(BooleanProperty(LISTED_DELEGATE), "Delegate", "Volunteer"))))])
 
 Header("Team 3")
+Length(Persons(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 3))))
 Table(
   Sort(Persons(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 3))), If(BooleanProperty(TEAM_LEAD), 0, If(BooleanProperty(LISTED_DELEGATE), 1, 2))),
   [Column("Name", Name()),
@@ -33,6 +36,7 @@ Table(
    Column("Role", If(BooleanProperty(TEAM_LEAD), "Team Lead", If(BooleanProperty("score-taker"), "Score Taker", If(BooleanProperty(LISTED_DELEGATE), "Delegate", "Volunteer"))))])
 
 Header("Team 4")
+Length(Persons(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 4))))
 Table(
   Sort(Persons(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 4))), If(BooleanProperty(TEAM_LEAD), 0, If(BooleanProperty(LISTED_DELEGATE), 1, 2))),
   [Column("Name", Name()),
@@ -41,10 +45,9 @@ Table(
 
 Header("Score Takers (Data Entry)")
 Table(
-  Persons(BooleanProperty("score-taker")),
+  Persons((StringProperty("special-role") == "Score Taker")),
   [Column("Name", Name()),
-   Column("Country", Country()),
-   Column("Team", If(HasProperty(STAFF_TEAM), ToString(NumberProperty(STAFF_TEAM)), "—"))])
+   Column("Country", Country())])
 
 Header("Streaming")
 Table(
@@ -52,9 +55,15 @@ Table(
   [Column("Name", Name()),
    Column("Country", Country())])
 
-Header("Outside Pool — Other Roles")
+Header("Organizers")
 Table(
-  Persons(HasProperty("special-role")),
+  Persons((StringProperty("special-role") == "Organizer")),
+  [Column("Name", Name()),
+   Column("Country", Country())])
+
+Header("Other Roles")
+Table(
+  Persons(And(HasProperty("special-role"), Not((StringProperty("special-role") == "Score Taker")), Not((StringProperty("special-role") == "Organizer")))),
   [Column("Name", Name()),
    Column("Country", Country()),
    Column("Role", StringProperty("special-role"))])
