@@ -15,7 +15,7 @@ SetProperty([2018MELO07, 2016RAMO01], "streaming", true)
 DeleteProperty([2013DIPI01], VOLUNTEER)
 DeleteProperty([2013DIPI01], LISTED_DELEGATE)
 DeleteProperty([2013DIPI01], TEAM_LEAD)
-SetProperty([2013DIPI01], "special-role", "Senior Delegate / WCA Board")
+SetProperty([2013DIPI01], "special-role", "Senior Delegate")
 
 DeleteProperty([2013CISN01], VOLUNTEER)
 DeleteProperty([2013CISN01], LISTED_DELEGATE)
