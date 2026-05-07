@@ -1,44 +1,47 @@
 #include "../lib/_constants.cs"
 #include "../lib/_assigned_room.cs"
 
-# Staff Teams — Miembros, roles y rotación de salas
-# Cada equipo rota diariamente entre las 3 zonas principales.
-# Un equipo es flotante por día (cubre BLD + no oficiales + apoyo).
+# Staff Teams — Members, roles, and room rotation
+# Teams rotate daily across the 3 main zones.
+# One team is floating per day (covers BLD + unofficial + support).
 
-"Rotación de salas:"
-"Jun 12: T1=Amarilla, T2=Azul, T3=Roja, T4=Flotante"
-"Jun 13: T2=Amarilla, T3=Azul, T4=Roja, T1=Flotante"
-"Jun 14: T3=Amarilla, T4=Azul, T1=Roja, T2=Flotante"
-"Jun 15: T4=Amarilla, T1=Azul, T2=Roja, T3=Flotante"
+"Room rotation:"
+"Jun 12: T1=Amarilla, T2=Azul, T3=Roja, T4=Floating"
+"Jun 13: T2=Amarilla, T3=Azul, T4=Roja, T1=Floating"
+"Jun 14: T3=Amarilla, T4=Azul, T1=Roja, T2=Floating"
+"Jun 15: T4=Amarilla, T1=Azul, T2=Roja, T3=Floating"
 
-Header("Equipo 1 — 25 miembros")
+Header("Team 1")
 Table(
   Sort(Persons(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 1))), If(BooleanProperty(TEAM_LEAD), 0, If(BooleanProperty(LISTED_DELEGATE), 1, 2))),
-  [Column("Nombre", Name()),
-   Column("WCA ID", If(IsNull(WcaId()), "—", WcaId())),
-   Column("País", Country()),
-   Column("Rol", If(BooleanProperty(TEAM_LEAD), "Team Lead", If(BooleanProperty(LISTED_DELEGATE), "Delegado", "Voluntario")))])
+  [Column("Name", Name()),
+   Column("Country", Country()),
+   Column("Role", If(BooleanProperty(TEAM_LEAD), "Team Lead", If(BooleanProperty("score-taker"), "Score Taker", If(BooleanProperty(LISTED_DELEGATE), "Delegate", "Volunteer"))))])
 
-Header("Equipo 2 — 24 miembros")
+Header("Team 2")
 Table(
   Sort(Persons(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 2))), If(BooleanProperty(TEAM_LEAD), 0, If(BooleanProperty(LISTED_DELEGATE), 1, 2))),
-  [Column("Nombre", Name()),
-   Column("WCA ID", If(IsNull(WcaId()), "—", WcaId())),
-   Column("País", Country()),
-   Column("Rol", If(BooleanProperty(TEAM_LEAD), "Team Lead", If(BooleanProperty(LISTED_DELEGATE), "Delegado", "Voluntario")))])
+  [Column("Name", Name()),
+   Column("Country", Country()),
+   Column("Role", If(BooleanProperty(TEAM_LEAD), "Team Lead", If(BooleanProperty("score-taker"), "Score Taker", If(BooleanProperty(LISTED_DELEGATE), "Delegate", "Volunteer"))))])
 
-Header("Equipo 3 — 24 miembros")
+Header("Team 3")
 Table(
   Sort(Persons(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 3))), If(BooleanProperty(TEAM_LEAD), 0, If(BooleanProperty(LISTED_DELEGATE), 1, 2))),
-  [Column("Nombre", Name()),
-   Column("WCA ID", If(IsNull(WcaId()), "—", WcaId())),
-   Column("País", Country()),
-   Column("Rol", If(BooleanProperty(TEAM_LEAD), "Team Lead", If(BooleanProperty(LISTED_DELEGATE), "Delegado", "Voluntario")))])
+  [Column("Name", Name()),
+   Column("Country", Country()),
+   Column("Role", If(BooleanProperty(TEAM_LEAD), "Team Lead", If(BooleanProperty("score-taker"), "Score Taker", If(BooleanProperty(LISTED_DELEGATE), "Delegate", "Volunteer"))))])
 
-Header("Equipo 4 — 24 miembros")
+Header("Team 4")
 Table(
   Sort(Persons(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 4))), If(BooleanProperty(TEAM_LEAD), 0, If(BooleanProperty(LISTED_DELEGATE), 1, 2))),
-  [Column("Nombre", Name()),
-   Column("WCA ID", If(IsNull(WcaId()), "—", WcaId())),
-   Column("País", Country()),
-   Column("Rol", If(BooleanProperty(TEAM_LEAD), "Team Lead", If(BooleanProperty(LISTED_DELEGATE), "Delegado", "Voluntario")))])
+  [Column("Name", Name()),
+   Column("Country", Country()),
+   Column("Role", If(BooleanProperty(TEAM_LEAD), "Team Lead", If(BooleanProperty("score-taker"), "Score Taker", If(BooleanProperty(LISTED_DELEGATE), "Delegate", "Volunteer"))))])
+
+Header("Outside Pool — Other Roles")
+Table(
+  Persons(And(Not(HasProperty(STAFF_TEAM)), Or(BooleanProperty("streaming"), BooleanProperty("unofficial_lead"), BooleanProperty(LISTED_DELEGATE), BooleanProperty(VOLUNTEER)))),
+  [Column("Name", Name()),
+   Column("Country", Country()),
+   Column("Role", If(BooleanProperty("streaming"), "Streaming", If(BooleanProperty("unofficial_lead"), "Unofficial Events Lead", If(BooleanProperty(LISTED_DELEGATE), "Delegate (no pool)", "Coordinator/Support"))))])
