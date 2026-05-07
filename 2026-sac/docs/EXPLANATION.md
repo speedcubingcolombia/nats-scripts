@@ -1,6 +1,6 @@
-# SAC 2026 — Explicación Técnica del CompScript
+# SAC 2026 — Technical Explanation
 
-Desglose de cada script del pipeline, cómo funciona, y comparación con US Nationals 2025.
+Breakdown of every pipeline script, how it works, and comparison with US Nationals 2025.
 
 ---
 
@@ -278,7 +278,7 @@ BalanceConstraint("Full TLs (balance)", And(TEAM_LEAD, rank=="full"), 30)
   → Spread Full-rank TLs evenly (higher weight = higher priority)
 
 BalanceConstraint("Junior TLs (balance)", And(TEAM_LEAD, rank=="junior"), 15)
-  → Spread Junior TLs evenly (lower weight per "rank más alto = más peso")
+  → Spread Junior TLs evenly (lower weight per "higher rank = more weight")
 
 BalanceConstraint("All Delegates", BooleanProperty(LISTED_DELEGATE), 5)
 BalanceConstraint("Num Events", Length(RegisteredEvents()), 0.2)
