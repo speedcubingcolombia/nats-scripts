@@ -1,8 +1,8 @@
-cd ../../compscript && ENV=DEV node ../scc-scripts/2026-sac/run_pipeline.js
+cd ../../compscript && ENV=PROD node ../scc-scripts/2026-sac/run_pipeline.js
 SAC 2026 Pipeline Runner
 Competition: SAC2026
 Script base: ../scc-scripts/2026-sac
-Cache: .wcif_cache/DEV/SAC2026
+Cache: .wcif_cache/PROD/SAC2026
 
 Step 1: Resetting WCIF...
   Reset 515 persons
@@ -633,11 +633,6 @@ Phase 2.5: Tagging compete-room properties...
 Phase 3 (staff assignments): Compiling...
   109 lines
 Phase 3 (staff assignments): Executing...
-  WARN: Failed to find a solution for activity misc
-  WARN: Eligible people for Lead: Maarten Goossens
-  WARN: Eligible people for judge: Axel Matias López Gutiérrez,José Libardo Moreno Rodríguez,Angie Juliett,Marvin Solano,Yayi Luna Castro,Story Varela Sánchez,Manuel Popayán,Diego Alejandro Gutiérrez Soler,Johana Suarez,Mariana Giraldo Quintero,Valentina Sánchez Muñoz
-  WARN: Eligible people for scrambler: Axel Matias López Gutiérrez,José Libardo Moreno Rodríguez,Angie Juliett,Marvin Solano,Yayi Luna Castro,Story Varela Sánchez,Manuel Popayán,Diego Alejandro Gutiérrez Soler,Johana Suarez,Mariana Giraldo Quintero,Valentina Sánchez Muñoz
-  WARN: Eligible people for runner: Axel Matias López Gutiérrez,José Libardo Moreno Rodríguez,Angie Juliett,Marvin Solano,Yayi Luna Castro,Story Varela Sánchez,Manuel Popayán,Diego Alejandro Gutiérrez Soler,Johana Suarez,Mariana Giraldo Quintero,Valentina Sánchez Muñoz
   WARN: Not enough people for activity misc (needed 13, got 7)
 
 Saved WCIF
@@ -648,10 +643,10 @@ Groups: 219
 Assignments:
   competitor: 4131
   staff-Delegate: 652
-  staff-Lead: 6
-  staff-judge: 2216
-  staff-runner: 657
-  staff-scrambler: 657
+  staff-Lead: 7
+  staff-judge: 2224
+  staff-runner: 659
+  staff-scrambler: 659
 Teams:
   Team 1: 27 members
   Team 2: 27 members

@@ -25,7 +25,6 @@ const reports = [
   'reports/team_roster.cs',
   'reports/staff_summary.cs',
   'reports/volunteer_workload.cs',
-  'reports/stage_lead_groups.cs',
   'reports/group_schedule_overview.cs',
 ]
 
