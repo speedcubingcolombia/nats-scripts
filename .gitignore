@@ -24,6 +24,10 @@ __pycache__/
 **/reports/html/*
 !**/reports/html/.gitkeep
 
+# WCIF backups (contain personal data)
+**/backups/*
+!**/backups/.gitkeep
+
 # WCIF cache (contains personal data)
 .wcif_cache/
 

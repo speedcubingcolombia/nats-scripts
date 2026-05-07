@@ -40,5 +40,5 @@ AddPerson(510444, "Marcela Ortiz")
 # Without WCA ID and no WCA portal account — using synthetic ID (9999XXX donde XXX=reg-id).
 # IMPORTANTE: PATCH to WCA portal will fail for this person — ajustar
 # manualmente o pedirle a Angie create WCA account and replace the ID.
-AddPerson(9999803, "Angie Juliett")
-SetProperty([p10189, p253544, p440824, p466563, p484326, p476324, p482456, p501409, p501618, p474236, p508852, p510444, p9999803], VOLUNTEER, true)
+# SKIPPED: Angie Juliett (9999803) — synthetic ID, no WCA account. Add manually later.
+SetProperty([p10189, p253544, p440824, p466563, p484326, p476324, p482456, p501409, p501618, p474236, p508852, p510444], VOLUNTEER, true)

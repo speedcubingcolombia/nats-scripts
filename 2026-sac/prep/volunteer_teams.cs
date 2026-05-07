@@ -98,14 +98,14 @@ Table(
    Column("Stage Lead", BooleanProperty(LISTED_DELEGATE)),
    Column("Events", Length(RegisteredEvents()))])
 
-Header("Team 4 (BLD Room)")
+Header("Team 4 (Day1: Floating, Day2: Roja, Day3: Azul, Day4: Amarilla)")
 Table(
   Sort(Persons((NumberProperty(STAFF_TEAM) == 4)), Name()),
   [Column("Name", Name()),
    Column("WCA ID", WcaId()),
    Column("Country", Country()),
    Column("Stage Lead", BooleanProperty(LISTED_DELEGATE)),
-   Column("BLD Events", Length(Filter(RegisteredEvents(), In(EventId(), [_333bf, _444bf, _555bf, _333mbf]))))])
+   Column("BLD Events", Length(Filter(RegisteredEvents(), Or(CompetingIn(_333bf), CompetingIn(_444bf), CompetingIn(_555bf), CompetingIn(_333mbf)))))])
 
 Header("Team Sizes")
 "Team 1"
@@ -114,5 +114,5 @@ Length(Persons((NumberProperty(STAFF_TEAM) == 1)))
 Length(Persons((NumberProperty(STAFF_TEAM) == 2)))
 "Team 3"
 Length(Persons((NumberProperty(STAFF_TEAM) == 3)))
-"Team 4 (BLD)"
+"Team 4"
 Length(Persons((NumberProperty(STAFF_TEAM) == 4)))

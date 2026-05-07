@@ -36,13 +36,20 @@ make reports   # HTML Reports → reports/html/index.html
 
 | Command | What it does |
 |---------|--------------|
-| `make pipeline` | Runs all 3 phases + Phase 2.5 |
+| **Development** | |
+| `make pipeline` | Runs all 3 phases + Phase 2.5 locally |
 | `make fetch-wcif` | Downloads a fresh WCIF from the WCA public API |
-| `make serve` | Starts the CompScript server (port 3030) |
-| `make viewer` | Starts the Competitor-groups viewer (port 5173) |
+| `make serve` | Starts CompScript dev server (port 3030, no auth) |
+| `make viewer` | Starts Competitor-groups viewer (port 5173) |
 | `make reports` | Generates 5 HTML reports in `reports/html/` |
-| `make clean` | Resets WCIF cache to a clean state |
+| `make clean` | Resets local WCIF cache (clear groups/assignments) |
 | `make extract` | Re-extracts volunteer data from Excel |
+| **Production** | |
+| `make deploy` | Full pipeline + deploy to WCA (opens browser for OAuth) |
+| `make deploy-restore` | Restore backup + deploy (full reset) |
+| `make backup` | Download current live WCIF as backup |
+| `make verify` | Verify deployed WCIF (zone compliance, TLs, etc.) |
+| `make serve-prod` | Start CompScript server in PROD mode (OAuth) |
 | `make help` | Shows all available commands |
 
 ---
