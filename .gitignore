@@ -1,11 +1,9 @@
 # macOS
 .DS_Store
 
-# Generated reports (kept in repo for visibility)
-# **/output/*.html
-
-# Python
-**/__pycache__/
+# Python virtual environment
+.venv/
+__pycache__/
 *.pyc
 
 # Environment / credentials
@@ -13,11 +11,24 @@
 .env.*
 *.secret
 
-# Personal data (volunteer forms, import data with names/IDs)
-**/data/volunteers.json
-**/data/volunteer_properties.cs
-**/data/score_takers.txt
-**/data/scramble_report.txt
+# Source data (contains personal info: emails, birth dates, etc.)
+**/data/sources/*.xlsx
+# organizers-delegates.txt is public info — tracked
+
+# Generated data
+**/data/outputs/volunteers.json
+# score_takers.txt and scramble_report.txt are public info — tracked
+# volunteer_properties.cs contains public WCA IDs — tracked
+
+# Generated reports HTML
+**/reports/html/*
+!**/reports/html/.gitkeep
 
 # WCIF cache (contains personal data)
 .wcif_cache/
+
+# Node modules (compscript has its own)
+node_modules/
+
+# Lock files managed per project
+# uv.lock is tracked (committed)
