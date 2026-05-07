@@ -1,12 +1,12 @@
 #include "../lib/_constants.cs"
 
-# Grupos de Delegados — En qué grupo compite cada delegado
+# Delegate Groups — En qué grupo compite cada delegado
 # Importante para verificar que cada grupo tenga supervisión delegada.
 # Muestra los eventos más grandes (más grupos = más difícil de supervisar).
 
 Define("TablaDeGruposDelegados",
        Table(
-         Sort(Persons(And(BooleanProperty(STAGE_LEAD), CompetingInRound({1, Round}))),
+         Sort(Persons(And(BooleanProperty(LISTED_DELEGATE), CompetingInRound({1, Round}))),
               If(HasProperty(STAFF_TEAM), NumberProperty(STAFF_TEAM), 0)),
          [Column("Nombre", Name()),
           Column("Equipo", If(HasProperty(STAFF_TEAM), ToString(NumberProperty(STAFF_TEAM)), "���")),

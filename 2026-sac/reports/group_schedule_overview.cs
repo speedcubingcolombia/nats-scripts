@@ -1,7 +1,7 @@
 #include "../lib/_constants.cs"
 #include "../lib/_rooms.cs"
 
-# Cronograma de Grupos — Vista general del schedule
+# Group Schedule Overview — Vista general del schedule
 # Muestra todos los grupos de R1 y R2 en orden cronológico.
 
 Header("Cronograma de grupos (R1 y R2)")

@@ -1,6 +1,6 @@
-# SAC 2026 CompScript Guide
+# SAC 2026 — Explicación Técnica del CompScript
 
-A deep breakdown of every script, how it works, and how it compares to the US Nationals 2025 setup.
+Desglose de cada script del pipeline, cómo funciona, y comparación con US Nationals 2025.
 
 ---
 
@@ -55,10 +55,11 @@ Phase 3 — Staff Assignments:
 
 | Property | Who | Count | What they do |
 |----------|-----|-------|-------------|
-| `TEAM_LEAD` | Confirmed team leads | 8 (target 12) | Supervise groups (Delegate job only). Can compete and cover each other. |
-| `STAGE_LEAD` | ALL delegates (incl. Junior/Trainee) | 35 | Internal marker for clustering. Junior/Trainee do staff work. |
-| `VOLUNTEER` | Non-delegate staff | 62 + 3 organizers + 1 streaming | Judge/scramble/run |
-| (no team / out of pool) | Overrides in `overrides.cs` | 6 | Guido Dipietro, Enrymar Cisneros, Klaus Ramos, Luigi Segura, Diego Casas, Eduard García |
+| `TEAM_LEAD` | Confirmed team leads | 12 (3/team) | Supervise groups (Delegate job only). Can compete. |
+| `LISTED_DELEGATE` | ALL delegates (incl. Junior/Trainee) | ~35 | Marker for clustering + Delegate job eligibility. Non-TL delegates do staff work. |
+| `VOLUNTEER` | Non-delegate staff | ~73 | Judge/scramble/run |
+| `score-taker` | Data entry team | 3 | Excluidos de judge/scramble/run/Delegate. 100% data entry. |
+| (out of pool) | Overrides in `overrides.cs` | 11 | Organizadores, streaming, coordinadores, delegados sin rol |
 
 To change someone's role, edit `prep/overrides.cs`:
 ```
@@ -66,7 +67,7 @@ To change someone's role, edit `prep/overrides.cs`:
 DeleteProperty([2010ROSE03], TEAM_LEAD)
 
 # Remove delegate status entirely (becomes regular volunteer):
-DeleteProperty([2010ROSE03], STAGE_LEAD)
+DeleteProperty([2010ROSE03], LISTED_DELEGATE)
 DeleteProperty([2010ROSE03], TEAM_LEAD)
 
 # Promote someone to team lead:
@@ -84,7 +85,7 @@ SetProperty([2010ROSE03], STAFF_TEAM, 2)
 
 ```
 #define VOLUNTEER "volunteer"        → Boolean property on non-delegate staff
-#define STAGE_LEAD "stage-lead"      → Boolean property on ALL delegates (internal marker)
+#define LISTED_DELEGATE "listed-delegate"      → Boolean property on ALL delegates (internal marker)
 #define TEAM_LEAD "team-lead"        → Boolean property on Full/Senior/Regional delegates (supervise only)
 #define STAFF_TEAM "staff-team"      → Number (1-4) set by Cluster()
 #define DELEGATE_RANK "delegate-rank" → String: "full", "senior", "junior", "trainee", "regional"
@@ -110,11 +111,11 @@ Define("AllRooms", [ZONA_AMARILLA, ZONA_AZUL, ZONA_ROJA])
 
 ### 3. `prep/import.cs` — Staff Import
 
-Sets `VOLUNTEER`, `STAGE_LEAD`, and `DELEGATE_RANK` properties on persons by WCA ID:
+Sets `VOLUNTEER`, `LISTED_DELEGATE`, and `DELEGATE_RANK` properties on persons by WCA ID:
 
 ```
 SetProperty([2016REAT01, 2007HERN02, ...], VOLUNTEER, true)
-SetProperty([2016REAT01, 2007HERN02, ...], STAGE_LEAD, true)
+SetProperty([2016REAT01, 2007HERN02, ...], LISTED_DELEGATE, true)
 SetProperty([2016REAT01, 2007HERN02, ...], DELEGATE_RANK, "full")
 ```
 
@@ -180,8 +181,8 @@ AssignGroups(_777-r1,
 **Assignment Sets** (`groups/lib/_assignment_sets.cs`):
 ```
 RoundOneAssignmentSets(event, date) = [
-  AssignmentSet("stage-leads", filter=STAGE_LEAD & CompetingIn, groups=all),
-  AssignmentSet("volunteers", filter=VOLUNTEER & !STAGE_LEAD & CompetingIn, groups=all),
+  AssignmentSet("listed-delegates", filter=LISTED_DELEGATE & CompetingIn, groups=all),
+  AssignmentSet("volunteers", filter=VOLUNTEER & !LISTED_DELEGATE & CompetingIn, groups=all),
   AssignmentSet("competitors", filter=CompetingIn, groups=all),
 ]
 ```
@@ -214,7 +215,7 @@ StaffRoomScorersDay{1-4}() = [
 
 ```
 AssignStaff(_777-r1, (Room() == "Zona Amarilla"),
-            Persons(Or(BooleanProperty("volunteer"), BooleanProperty("stage-lead"))),
+            Persons(Or(BooleanProperty("volunteer"), BooleanProperty("listed-delegate"))),
             [Job("judge", 6, eligibility=...),
              Job("scrambler", 2, eligibility=...),
              Job("runner", 2, eligibility=...),
@@ -227,10 +228,10 @@ AssignStaff(_777-r1, (Room() == "Zona Amarilla"),
 **Jobs per group (main rooms)**:
 | Role | Count | Eligibility |
 |------|-------|-------------|
-| judge | 10 | Volunteers + Jr/Trainee delegates (not team leads) |
-| scrambler | 3 | Volunteers + Jr/Trainee delegates |
-| runner | 3 | Volunteers + Jr/Trainee delegates |
-| Delegate | 1 | Any stage lead (delegate) |
+| judge | 10 | Volunteers + Jr/Trainee delegates (not TLs, not score-takers) |
+| scrambler | 3 | Volunteers + Jr/Trainee delegates (not TLs, not score-takers) |
+| runner | 3 | Volunteers + Jr/Trainee delegates (not TLs, not score-takers) |
+| Delegate | 3 | Any listed-delegate (not score-takers). TLs primary, non-TLs backup. |
 
 **Scorers per `AssignStaff` call** (inline on every line in `day*.cs`):
 | Scorer | Weight | Effect |
@@ -264,23 +265,29 @@ Cluster(STAFF_TEAM, 4, Persons(...), Country(), Concat([constraints...]))
 
 **Constraints used**:
 ```
-LimitConstraint("Team Leads", BooleanProperty(TEAM_LEAD), 2, 2)
-  → Hard limit: exactly 2 team leads per team (target: 3 when all confirmed)
+LimitConstraint("Team Leads (min)", BooleanProperty(TEAM_LEAD), 3, 10)
+  → Min 3 TLs per team
 
-BalanceConstraint("Delegates", HasRole("delegate"), 5)
-  → Soft balance: minimize delegate count variance, weight=5
+LimitConstraint("Brazilian TLs (min)", And(TEAM_LEAD, Country()=="BR"), 1, 1000)
+  → At least 1 Brazilian TL per team (hard)
 
+LimitConstraint("Colombian TLs (min)", And(TEAM_LEAD, Country()=="CO"), 1, 1000)
+  → At least 1 Colombian TL per team (hard)
+
+BalanceConstraint("Full TLs (balance)", And(TEAM_LEAD, rank=="full"), 30)
+  → Spread Full-rank TLs evenly (higher weight = higher priority)
+
+BalanceConstraint("Junior TLs (balance)", And(TEAM_LEAD, rank=="junior"), 15)
+  → Spread Junior TLs evenly (lower weight per "rank más alto = más peso")
+
+BalanceConstraint("All Delegates", BooleanProperty(LISTED_DELEGATE), 5)
 BalanceConstraint("Num Events", Length(RegisteredEvents()), 0.2)
-  → Soft balance: even total event count per team
-
-BalanceConstraint("Country CO", (Country() == "CO"), 1)
-  → Spread Colombian volunteers evenly
-
-BalanceConstraint("333bf", CompetingIn(_333bf), 3)
-  → Spread BLD competitors evenly (weight=3)
+BalanceConstraint("Country CO", (Country() == "CO"), 5)
+BalanceConstraint("Country BR", (Country() == "BR"), 2)
+BalanceConstraint("BLD events", CompetingIn(_333bf), 3)
 ```
 
-**vs 2025**: 2025 had 10 teams with ~30 constraints including scrambler eligibility per event, accommodation preferences, long-room preferences, role preferences, and `SpecificAssignmentScore` for Chinese teams and specific individuals. SAC has 4 teams with ~20 constraints.
+**vs 2025**: 2025 had 10 teams with ~30 constraints including scrambler eligibility per event, accommodation preferences, long-room preferences, role preferences, and `SpecificAssignmentScore` for Chinese teams and specific individuals. SAC has 4 teams with ~15 constraints focused on BR/CO TL distribution and rank balance.
 
 ---
 
@@ -333,7 +340,7 @@ The `Cluster()` algorithm:
 | Aspect | 2025 US Nationals | SAC 2026 |
 |--------|-------------------|----------|
 | **Competitors** | ~3,000 | ~500 |
-| **Staff** | ~300 | 104 approved (99 in teams, 6 out via overrides) |
+| **Staff** | ~300 | ~108 in teams, 11 out via overrides |
 | **Rooms** | 2 halls (Main + Ballroom) | 3 rooms + BLD |
 | **Stages** | 10 (6 Main + 4 Side) | 3 (rooms are stages) |
 | **Teams** | 10 | 4 |
@@ -356,7 +363,6 @@ The `Cluster()` algorithm:
 ### Best practices from 2025 we DON'T follow (yet):
 - `CanScramble(event)` for scrambler eligibility (needs PB data)
 - Psychsheet-based group routing (top competitors to specific rooms)
-- Data entry team assignments (score takers pending)
 - Sanity check tables after each group assignment
 
 ### Best practices from 2025 we NOW follow:
@@ -468,9 +474,9 @@ Scripts must be run one at a time in the compscript server UI because:
 3. **`All()` function swallows mutations** — don't wrap `AssignStaff()` in `All()`
 4. **Multi-line arrays** not supported by CompScript parser — keep arrays on single lines
 5. **`#` comments inside arrays** cause preprocessor issues — put comments before the array
-6. **`SpecificAssignmentScore`** has a `var` bug in compscript (missing `let/const`) — use `BalanceConstraint` instead
+6. **`SpecificAssignmentScore`** had a `var` bug in compscript (missing `let/const`) — **fixed** (`let out = 0`)
 7. **`CanScramble(event)`** works in server mode but may fail in Node.js runner
 8. **ByFilters cache bug**: `groups/scorers.js` had a bug where cache key used `activityCode` for lookup but `wcif.id` for storage — fixed
 9. **`[pN]` syntax uses wcaUserId**, not registrantId — `[p520057]` works, `[p300]` does not
-10. **People pending registration** — listed in `import.cs` as PENDING comments and in `TODO.md`
+10. **FTO R1 staff shortage** — runs parallel to 222+Pyram+333 R2, practically no staff available. Needs schedule change.
 11. **Midcomp scripts** can't run pre-competition (need actual results)

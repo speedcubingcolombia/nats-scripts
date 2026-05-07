@@ -1,299 +1,282 @@
 # SAC 2026 — CompScript Setup
 
-Scripts de competencia para el **Campeonato Sudamericano WCA 2026** (Bogotá, Colombia, Junio 12-15).
-
-## Documentación
-
-| Archivo | Qué contiene |
-|---------|-------------|
-| **README.md** | Este archivo. Setup, estructura, y despliegue. |
-| **TODO.md** | Tareas pendientes y preguntas por resolver. |
-| **docs/REGLAS.md** | Todas las reglas de negocio (R1-R58) con estado de implementación. |
-| **docs/GUIDE.md** | Desglose técnico de cada script, algoritmos, y comparación con US Nats 2025. |
-| **docs/ANALISIS_ESTACIONES.md** | Análisis de capacidad: por qué 10+3+3 es el óptimo para la cantidad de staff. |
+Competition scripts for the **WCA South American Championship 2026** (Bogota, Colombia, June 12-15).
 
 ---
 
-## Quick Start
+## How to use this repository
+
+### Requirements
+
+- **Node.js** (for compscript)
+- **Python 3.13+** with **uv** (for data scripts)
+- The **compscript** engine at `../../compscript/`
+
+### Local development (first time)
 
 ```bash
-# 1. Descargar WCIF actualizado de la WCA
+cd scc-scripts/2026-sac
+
+# 1. Install Python dependencies (from scc-scripts/)
+cd .. && uv sync && cd 2026-sac
+
+# 2. Download updated WCIF from WCA
 make fetch-wcif
 
-# 2. Correr pipeline completo (import → grupos → staff)
+# 3. Run full pipeline (import → groups → staff)
 make pipeline
 
-# 3. Ver resultados
+# 4. View results
 make serve     # CompScript UI → http://localhost:3030/SAC2026
 make viewer    # Competitor-groups → http://localhost:5173/competitions/SAC2026
+make reports   # HTML Reports → reports/html/index.html
+```
 
-# Otros comandos
-make reports   # Exportar reportes HTML → output/index.html
-make clean     # Resetear WCIF a estado limpio
-make extract   # Re-extraer datos de voluntarios desde Excel (raro)
-make help      # Ver todos los comandos
+### Available commands
+
+| Command | What it does |
+|---------|--------------|
+| `make pipeline` | Runs all 3 phases + Phase 2.5 |
+| `make fetch-wcif` | Downloads a fresh WCIF from the WCA public API |
+| `make serve` | Starts the CompScript server (port 3030) |
+| `make viewer` | Starts the Competitor-groups viewer (port 5173) |
+| `make reports` | Generates 5 HTML reports in `reports/html/` |
+| `make clean` | Resets WCIF cache to a clean state |
+| `make extract` | Re-extracts volunteer data from Excel |
+| `make help` | Shows all available commands |
+
+---
+
+## Making common changes
+
+### Add/remove a person from staff
+
+Edit `prep/overrides.cs`:
+
+```compscript
+# Remove from staff entirely (no judge/scramble/run):
+DeleteProperty([WCA_ID], VOLUNTEER)
+DeleteProperty([WCA_ID], LISTED_DELEGATE)
+
+# Promote to Team Lead:
+SetProperty([WCA_ID], TEAM_LEAD, true)
+
+# Remove from Team Lead (stays as regular delegate):
+DeleteProperty([WCA_ID], TEAM_LEAD)
+```
+
+Then: `make pipeline` to regenerate.
+
+### Add a person without WCA registration (AddPerson)
+
+In `prep/add_missing_staff.cs`:
+```compscript
+AddPerson(WCA_USER_ID, "Nombre Completo")
+SetProperty([pWCA_USER_ID], VOLUNTEER, true)
+```
+
+The `WCA_USER_ID` can be found by searching for the person at https://www.worldcubeassociation.org/api/v0/search/users?q=nombre
+
+### Change the number of stations
+
+In `volunteers/day*.cs` and `volunteers/unofficial.cs`, change the number in each `Job("judge", N, ...)`.
+Currently: 10 judges (main rooms), 8 judges (unofficial events).
+
+### Regenerate volunteer data (rare)
+
+Only needed if the source xlsx files change:
+```bash
+cd .. && uv run 2026-sac/data/extract_volunteers.py
+uv run 2026-sac/data/generate_import.py
 ```
 
 ---
 
-## Estructura del Proyecto
+## Production Deployment (real WCA)
 
-```
-sac2026/
-├── lib/                        # Constantes y definiciones compartidas
-│   ├── _constants.cs           # Nombres de propiedades (VOLUNTEER, STAGE_LEAD, etc.)
-│   ├── _rooms.cs               # Constantes de salas + AllRooms()
-│   ├── _group_counts.cs        # Grupos por sala por evento
-│   └── _assigned_room.cs       # Mapeo Equipo→Sala por día (rotación)
-│
-├── prep/                       # Preparación de datos (Fase 1 del pipeline)
-│   ├── import.cs               # Importar 104 staff aprobados (35 delegados + 62 voluntarios + 3 organizadores + 3 líderes + 1 streaming); fuente: SAC2026-registration.xlsx
-│   ├── add_missing_staff.cs    # Personas sin WCA ID (Angie Casallas)
-│   ├── overrides.cs            # Ajustes manuales: remover/promover delegados, exclusiones
-│   ├── populate_r1.cs          # Crear resultados vacíos de R1
-│   ├── create_groups.cs        # Crear 219 actividades de grupo en el schedule
-│   └── volunteer_teams.cs      # Cluster: dividir staff en 4 equipos balanceados
-│
-├── groups/                     # Asignación de competidores a grupos
-│   ├── lib/
-│   │   ├── _assignment_sets.cs # Sets de asignación (stage-leads → volunteers → competitors)
-│   │   ├── _scorers.cs         # Scorers: diversidad de país, conflictos, StaffRoomScorers
-│   │   └── _midcomp.cs         # Helper para rondas 2+ (midcomp)
-│   ├── r1/                     # Ronda 1 (16 eventos): 777, 666, minx, sq1, clock, 555,
-│   │                             444, skewb, 333, 333bf, 333oh, 222, pyram, 555bf, 444bf, 333mbf
-│   └── midcomp/                # Rondas 2+ (22 scripts) — se corren en vivo durante competencia
-│
-├── volunteers/                 # Asignación de staff (Fase 3 del pipeline)
-│   ├── lib/
-│   │   ├── _jobs.cs            # Definiciones de roles (referencia, no usado en pipeline)
-│   │   ├── _assign.cs          # Helper de asignación (referencia, no usado en pipeline)
-│   │   └── _scorers.cs         # Scorers de staff (referencia, no usado en pipeline)
-│   ├── day1.cs                 # Jun 12: 7x7, 6x6, Mega, Sq1, Clock, 5x5 + R2s
-│   ├── day2.cs                 # Jun 13: Clock R2, 4x4, Skewb, 3x3, 5BLD, MBLD
-│   ├── day3.cs                 # Jun 14: 3BLD, 4x4 R2, OH, 2x2, Pyram, 4BLD, MBLD, 3x3 R2
-│   └── day4.cs                 # Jun 15: Semis + Finales
-│
-├── docs/                       # Documentación de referencia
-│   ├── REGLAS.md               # Reglas de negocio (R1-R58) y estado de implementación
-│   ├── GUIDE.md                # Guía técnica: algoritmos, comparación US Nats 2025
-│   └── ANALISIS_ESTACIONES.md  # Análisis de capacidad y número óptimo de estaciones
-│
-├── reports/                    # Reportes (se exportan con `make reports`)
-│   ├── team_roster.cs          # Miembros por equipo con roles
-│   ├── list_of_people.cs       # Lista completa para badges
-│   ├── staff_summary.cs        # Conteos de staff por rango/país
-│   ├── volunteer_workload.cs   # Carga de trabajo por voluntario
-│   ├── team_assignments.cs     # Sala asignada por equipo por día
-│   ├── stage_lead_groups.cs    # En qué grupo compite cada delegado
-│   ├── personal_schedules.cs   # Schedule completo por staff member
-│   ├── country_breakdown.cs    # Competidores y staff por país
-│   ├── group_schedule_overview.cs # Cronograma de grupos
-│   ├── event_stats.cs          # Registros por evento + psych sheet
-│   └── pending_staff.cs        # Personas pendientes de registro
-│
-├── data/                       # Datos de entrada
-│   ├── extract_volunteers.py   # Extrae datos de Excel → volunteers.json (one-time)
-│   ├── generate_import.py      # Genera volunteer_properties.cs desde JSON (one-time)
-│   ├── volunteers.json         # Datos procesados de voluntarios
-│   ├── volunteer_properties.cs # Propiedades generadas (incluido por import.cs)
-│   ├── score_takers.txt        # Lista de score takers (pendiente implementar)
-│   └── scramble_report.txt     # Reporte de mezclas
-│
-├── output/                     # Reportes HTML generados (make reports)
-├── run_pipeline.js             # Runner del pipeline (3 fases)
-├── export_reports.js           # Exportador de reportes a HTML
-├── Makefile                    # Comandos de build
-│
-├── REGLAS.md            # Reglas de negocio
-├── GUIDE.md                    # Guía técnica
-├── ANALISIS_ESTACIONES.md      # Análisis de capacidad
-└── TODO.md                     # Pendientes
-```
+### Prerequisites
 
----
-
-## Pipeline (3 fases + 1 intermedia)
-
-```
-Fase 1 — Import + Equipos
-  import.cs → add_missing_staff.cs → overrides.cs → populate_r1.cs → create_groups.cs → volunteer_teams.cs
-  ↳ Resultado: 500 personas con propiedades, 219 grupos, 4 equipos (25/25/25/24 = 99)
-
-Fase 2 — Asignación de Grupos
-  groups/r1/*.cs (16 eventos)
-  ↳ Staff forzado a competir en la zona de su equipo (StaffRoomScorers, 100% cumplimiento)
-  ↳ Resultado: 4,125 asignaciones de competidor
-
-Fase 2.5 — Tagging de cohesión (en run_pipeline.js, no es script .cs)
-  Para cada persona, setea propiedades `compete-d{N}-{sala}` según dónde compite ese día.
-  ↳ Usado por los day scripts para dar bonus +100 a quien compite en la misma sala que staffea.
-
-Fase 3 — Asignación de Staff
-  volunteers/day1-4.cs
-  ↳ Team primario tiene prioridad (+500) — siempre cubre su sala asignada ese día.
-  ↳ Cohesión de zona (+100) — desempata dentro del team primario a quienes compiten en esa sala.
-  ↳ Flotante refuerza solo si el primario se satura.
-  ↳ Resultado: ~3,682 asignaciones de staff (2,168 juez + 645 scrambler + 645 runner + 224 delegate)
-```
-
-Las fases están separadas porque `Cluster()` bloquea expresiones subsiguientes en el runner Node.js. La Fase 2 necesita `staff-team` de la Fase 1 para los scorers de sala. La Fase 2.5 corre en JS puro después de Fase 2 porque necesita las asignaciones de competidor ya hechas para saber en qué sala compite cada persona.
-
----
-
-## Sistema de Equipos
-
-4 equipos rotan diariamente. 3 cubren las zonas principales, 1 es flotante.
-
-| Día | Amarilla | Azul | Roja | Flotante (BLD + No oficiales + Apoyo) |
-|-----|----------|------|------|---------------------------------------|
-| Jun 12 | T1 | T2 | T3 | **T4** — Mirror Blocks R1 |
-| Jun 13 | T2 | T3 | T4 | **T1** — 5BLD + MBLD a1 + Kilominx R1 |
-| Jun 14 | T3 | T4 | T1 | **T2** — MBLD a2 + 4BLD + Team BLD + FTO + finals |
-| Jun 15 | T4 | T1 | T2 | **T3** — FTO Final + Team BLD Final |
-
-**Reglas clave:**
-- Staff siempre compite en la zona de su equipo (R58)
-- El equipo flotante refuerza las zonas principales solo cuando falta gente
-- El solver prefiere al equipo de la zona (+500 puntos) sobre el flotante (R59)
-- Dentro del team primario, quien compite en esa sala ese día llena primero (+100 por cohesión, R60)
-- En la práctica, el primario cubre ~100% de su sala cuando tiene capacidad suficiente
-
----
-
-## Staff por Grupo (zonas principales)
-
-| Rol | Cantidad | Quién |
-|-----|----------|-------|
-| Juez | 10 | Voluntarios + delegados Jr/Trainee (no team leads) |
-| Scrambler | 3 | Voluntarios + delegados Jr/Trainee |
-| Runner | 3 | Voluntarios + delegados Jr/Trainee |
-| Delegado supervisor | 1 | Cualquier delegado |
-| **Total** | **17** | |
-
-Ver `ANALISIS_ESTACIONES.md` para la justificación de estos números.
-
----
-
-## Despliegue en Producción (WCA real)
-
-### Requisitos previos
-
-1. **Credenciales OAuth**: Registrar una aplicación en https://www.worldcubeassociation.org/oauth/applications
+1. **OAuth App** registered at https://www.worldcubeassociation.org/oauth/applications
    - Scope: `public manage_competitions`
    - Redirect URI: `http://localhost:3030/auth/callback`
 
-2. **Archivo `.env.PROD`** en la carpeta `compscript/`:
+2. **`.env.PROD`** in the `compscript/` folder:
    ```
    NODE_ENV=production
    SCHEME='http'
    HOST='localhost'
    PORT=3030
    WCA_HOST='https://www.worldcubeassociation.org'
-   API_KEY='tu-oauth-app-id'
-   API_SECRET='tu-oauth-app-secret'
-   COOKIE_SECRET='un-string-random-seguro'
+   API_KEY='your-oauth-app-id'
+   API_SECRET='your-oauth-app-secret'
+   COOKIE_SECRET='a-random-secure-string'
    SCRIPT_BASE='../scc-scripts/2026-sac'
    ```
 
-3. **Permisos**: Debes ser delegado u organizador de SAC2026 en la WCA.
+3. **Permissions**: Must be a delegate or organizer of SAC2026 on the WCA.
 
-### Opción A: Pipeline automático (recomendado para primera vez)
+### Option A: Automated pipeline (first time or full reset)
 
 ```bash
-# Corre todo de una vez contra la WCA real
 cd scc-scripts/2026-sac
 ENV=PROD make pipeline
 ```
 
-Esto ejecuta las 3 fases y guarda el WCIF en `.wcif_cache/PROD/SAC2026`. Luego necesitas hacer push manual desde la UI.
+Runs all 3 phases. The WCIF is stored in `.wcif_cache/PROD/SAC2026`.
+Then do a **manual push** from the compscript server UI.
 
-### Opción B: Script por script desde la UI (recomendado para ajustes)
+### Option B: From the UI (incremental adjustments)
 
 ```bash
-# Iniciar compscript en modo producción
-cd compscript && ENV=PROD npm start
+cd ../../compscript && ENV=PROD npm start
 ```
 
-1. Abrir http://localhost:3030 → Login con WCA OAuth
-2. Navegar a http://localhost:3030/SAC2026
-3. Ejecutar scripts **uno por uno** en este orden:
+1. Open http://localhost:3030 → Login with WCA OAuth
+2. Navigate to http://localhost:3030/SAC2026
+3. Run scripts one by one:
 
-| # | Script | Dry Run? | Qué verificar |
-|---|--------|----------|---------------|
-| 1 | `prep/import.cs` | Sí | 35 delegados + 62 voluntarios + 3 organizadores + 3 líderes + 1 streaming (104 total) |
-| 2 | `prep/add_missing_staff.cs` | Sí | Angie Casallas como voluntaria |
-| 3 | `prep/overrides.cs` | Sí | 6 personas fuera del pool (Luigi, Klaus, Guido, Enrymar, Diego, Eduard), 4 promovidos, 8 bajados |
-| 4 | `prep/populate_r1.cs` | Sí | "Added N results" por evento |
-| 5 | `prep/create_groups.cs` | **No** | **NO es idempotente** — correr 2 veces crea duplicados |
-| 6 | `prep/volunteer_teams.cs` | Sí→No | 4 equipos (25/25/25/24), 2 leads cada uno |
-| 7-22 | `groups/r1/*.cs` (16 archivos) | Sí→No | Grupos balanceados, staff en zona correcta |
-| 23-26 | `volunteers/day1-4.cs` | Sí→No | Staff asignado, 0 grupos sin supervisor. Nota: en modo UI se pierde la Fase 2.5, así que la cohesión de zona no se aplica salvo que setees manualmente las propiedades `compete-d{N}-{slug}`. |
+| Step | Script | Dry Run? | Verify |
+|------|--------|:--------:|--------|
+| 1 | `prep/import.cs` | Yes | ~108 staff in pool |
+| 2 | `prep/add_missing_staff.cs` | Yes | 15 people via AddPerson |
+| 3 | `prep/overrides.cs` | Yes | Exclusions correct |
+| 4 | `prep/populate_r1.cs` | Yes | "Added N results" |
+| 5 | `prep/create_groups.cs` | **No** | Warning: NOT idempotent — do not run twice |
+| 6 | `prep/volunteer_teams.cs` | Yes→No | 4 teams, 3 TLs each |
+| 7-22 | `groups/r1/*.cs` | Yes→No | Balanced groups |
+| 23-26 | `volunteers/day1-4.cs` | Yes→No | Staff assigned |
+| 27 | `volunteers/unofficial.cs` | Yes→No | Unofficial events |
 
-4. Verificar en https://competitiongroups.com/competitions/SAC2026
+4. Verify at https://competitiongroups.com/competitions/SAC2026
+5. **Push** from the UI: "Save to WCA" button
 
-### Notas de seguridad
+### Production changes (post-deploy)
 
-- **Siempre hacer Dry Run primero** para verificar output antes de guardar
-- `create_groups.cs` **NO es idempotente** — si falla o se corre doble, usar "Clear Cache" para resetear
-- Los staff assignments usan `overwrite=true` — re-correr es seguro
-- `Cluster()` es no-determinista — los equipos pueden cambiar entre corridas
-- Para midcomp (R2+), correr `groups/midcomp/*.cs` en vivo conforme haya resultados
+To make changes after the initial deploy:
+
+```bash
+# 1. Make changes to scripts (overrides, day scripts, etc.)
+# 2. Re-run only the affected phases:
+
+# If you changed staff/teams:
+ENV=PROD make pipeline    # regenerates everything
+
+# If you only changed staff assignments (day scripts):
+# Run from UI: volunteers/day1-4.cs with overwrite=true
+
+# If you need to redo groups (CAUTION):
+# First: "Clear Cache" in the UI to delete existing groups
+# Then: run create_groups.cs + groups/r1/*.cs again
+```
+
+### Midcomp (during the competition)
+
+For round 2+ (when results are available):
+```bash
+# From the UI, run the round script:
+groups/midcomp/333-r2.cs
+groups/midcomp/222-r2.cs
+# etc.
+```
+
+### Safety and precautions
+
+- Warning: **Always Dry Run first** — verify output before saving
+- Warning: `create_groups.cs` **is NOT idempotent** — running it twice creates duplicates. Use "Clear Cache" if it fails.
+- Staff assignments (`overwrite=true`) are safe to re-run
+- Group assignments are idempotent (skipped if already assigned)
+- Warning: `Cluster()` may produce different results between runs (non-deterministic)
 
 ---
 
-## Personalización
+## Project structure
 
-### Cambiar roles de personas
-
-Editar `prep/overrides.cs`:
-
-```compscript
-# Quitar de team lead (queda como delegado regular):
-DeleteProperty([WCA_ID], TEAM_LEAD)
-
-# Quitar del staff completamente:
-DeleteProperty([WCA_ID], VOLUNTEER)
-DeleteProperty([WCA_ID], STAGE_LEAD)
-DeleteProperty([WCA_ID], TEAM_LEAD)
-
-# Promover a team lead:
-SetProperty([WCA_ID], TEAM_LEAD, true)
-
-# Forzar a un equipo específico:
-SetProperty([WCA_ID], STAFF_TEAM, 2)
 ```
-
-Después: `make pipeline` para regenerar todo.
-
-### Agregar persona sin WCA ID
-
-En `prep/add_missing_staff.cs`:
-```compscript
-SetProperty([pUSER_ID], VOLUNTEER, true)  # p + wcaUserId
-```
-
-### Regenerar reportes
-
-```bash
-make reports   # Exporta 11 reportes a output/*.html
-open output/index.html
+2026-sac/
+├── lib/                        # Shared constants and definitions
+│   ├── _constants.cs           # VOLUNTEER, LISTED_DELEGATE, TEAM_LEAD, etc.
+│   ├── _rooms.cs               # Zona Amarilla/Azul/Roja
+│   ├── _group_counts.cs        # Groups per room per event
+│   └── _assigned_room.cs       # Rotation: Team → Room per day
+│
+├── prep/                       # Phase 1: Data preparation
+│   ├── import.cs               # Import staff (~108 in pool)
+│   ├── add_missing_staff.cs    # 15 people via AddPerson
+│   ├── overrides.cs            # Exclusions and manual adjustments
+│   ├── populate_r1.cs          # Create empty R1 results
+│   ├── create_groups.cs        # Create 219 groups in schedule
+│   └── volunteer_teams.cs      # Cluster: 4 balanced teams
+│
+├── groups/                     # Phase 2: Competitor assignment
+│   ├── lib/                    # Helpers (scorers, assignment sets)
+│   ├── r1/                     # 16 R1 events
+│   └── midcomp/                # Round 2+ (live)
+│
+├── volunteers/                 # Phase 3: Staff assignment
+│   ├── day1-4.cs               # Staff per day (10j + 3s + 3r + 3d)
+│   ├── unofficial.cs           # Unofficial events (8j + 2s + 2r + 1 Lead)
+│   └── lib/                    # Reference definitions (not used in pipeline)
+│
+├── data/                       # Data
+│   ├── sources/                # Source .xlsx files (gitignored, personal data)
+│   ├── outputs/                # Generated by Python (gitignored)
+│   ├── extract_volunteers.py   # Excel → outputs/volunteers.json
+│   ├── generate_import.py      # JSON → volunteer_properties.cs
+│   └── volunteer_properties.cs # Volunteer properties (used in pipeline)
+│
+├── reports/                    # Reports
+│   ├── html/                   # Generated HTML (make reports, gitignored)
+│   └── *.cs                    # CompScript for each report
+│
+├── docs/                       # Documentation
+│   ├── RULES.md                # Constraints and rules
+│   ├── PEOPLE.md               # People: TLs, excluded, roles
+│   ├── EXPLANATION.md          # Technical explanation of CompScript
+│   └── STATION_ANALYSIS.md     # Capacity analysis
+│
+├── run_pipeline.js             # Pipeline runner (3 phases + 2.5)
+├── export_reports.js           # Report exporter to HTML
+├── Makefile                    # Build commands
+└── TODO.md                     # Pending tasks
 ```
 
 ---
 
-## Entorno de Desarrollo
+## Pipeline (3 phases + 1 intermediate)
 
-CompScript tiene dos configuraciones locales:
-- `SKIP_AUTH=true` en `.env.DEV` — no necesita OAuth
-- Endpoints `/competitions/:id` en `main.js` — sirve WCIF para el viewer de Competitor-groups
-
-```bash
-# Terminal 1: Pipeline
-make fetch-wcif && make pipeline
-
-# Terminal 2: Servidor CompScript
-make serve     # http://localhost:3030/SAC2026
-
-# Terminal 3: Viewer
-make viewer    # http://localhost:5173/competitions/SAC2026
 ```
+Phase 1 — Import + Teams
+  import.cs → add_missing_staff.cs → overrides.cs →
+  populate_r1.cs → create_groups.cs → volunteer_teams.cs
+  → 515 people, 219 groups, 4 teams (~27 each)
+
+Phase 2 — Group Assignment (16 R1 events)
+  groups/r1/*.cs
+  → Staff forced to compete in their team's zone (100%)
+  → ~4,131 competitor assignments
+
+Phase 2.5 — Cohesion Tagging (JS in run_pipeline.js)
+  Sets compete-d{N}-{room} properties per person.
+  → Used by Phase 3 for +100 cohesion bonus
+
+Phase 3 — Staff Assignment
+  volunteers/day1-4.cs + unofficial.cs
+  → Primary team +500, cohesion +100, floater as backup
+  → ~4,188 staff assignments
+```
+
+---
+
+## Key numbers
+
+| Concept | Value |
+|---------|-------|
+| Competitors | ~500 |
+| Staff in pool | 108 (4 teams x 27) |
+| Outside the pool | 11 (organizers, streaming, coordinators) |
+| Team Leads | 12 (3/team: 1 BR + 1 CO + 1 other) |
+| Score Takers | 3 (dedicated data entry) |
+| Groups | 219 |
+| Main room stations | 10 judges + 3 scr + 3 run + 3 del = 19/group |
+| Unofficial stations | 8 judges + 2 scr + 2 run + 1 Lead = 13/group |
+| Zones | 3 main + BLD + Green (unofficial) |
