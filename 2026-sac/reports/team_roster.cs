@@ -39,9 +39,22 @@ Table(
    Column("Country", Country()),
    Column("Role", If(BooleanProperty(TEAM_LEAD), "Team Lead", If(BooleanProperty("score-taker"), "Score Taker", If(BooleanProperty(LISTED_DELEGATE), "Delegate", "Volunteer"))))])
 
-Header("Outside Pool — Other Roles")
+Header("Score Takers (Data Entry)")
 Table(
-  Persons(And(Not(HasProperty(STAFF_TEAM)), Or(BooleanProperty("streaming"), BooleanProperty("unofficial_lead"), BooleanProperty(LISTED_DELEGATE), BooleanProperty(VOLUNTEER)))),
+  Persons(BooleanProperty("score-taker")),
   [Column("Name", Name()),
    Column("Country", Country()),
-   Column("Role", If(BooleanProperty("streaming"), "Streaming", If(BooleanProperty("unofficial_lead"), "Unofficial Events Lead", If(BooleanProperty(LISTED_DELEGATE), "Delegate (no pool)", "Coordinator/Support"))))])
+   Column("Team", If(HasProperty(STAFF_TEAM), ToString(NumberProperty(STAFF_TEAM)), "—"))])
+
+Header("Streaming")
+Table(
+  Persons(BooleanProperty("streaming")),
+  [Column("Name", Name()),
+   Column("Country", Country())])
+
+Header("Outside Pool — Other Roles")
+Table(
+  Persons(HasProperty("special-role")),
+  [Column("Name", Name()),
+   Column("Country", Country()),
+   Column("Role", StringProperty("special-role"))])

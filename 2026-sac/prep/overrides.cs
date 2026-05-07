@@ -11,54 +11,52 @@ DeleteProperty([2018MELO07], VOLUNTEER)
 DeleteProperty([2016RAMO01], VOLUNTEER)
 SetProperty([2018MELO07, 2016RAMO01], "streaming", true)
 
-# --- No tasks ---
-# Guido Dipietro (Senior Delegate / WCA Board) → no staff tasks
+# --- Delegates without operational role ---
 DeleteProperty([2013DIPI01], VOLUNTEER)
 DeleteProperty([2013DIPI01], LISTED_DELEGATE)
 DeleteProperty([2013DIPI01], TEAM_LEAD)
+SetProperty([2013DIPI01], "special-role", "Senior Delegate / WCA Board")
 
-# Enrymar Cisneros (Regional Delegate) → no staff tasks
 DeleteProperty([2013CISN01], VOLUNTEER)
 DeleteProperty([2013CISN01], LISTED_DELEGATE)
 DeleteProperty([2013CISN01], TEAM_LEAD)
+SetProperty([2013CISN01], "special-role", "Regional Delegate")
 
-# Diego Alejandro Casas (Organizador) → out of staff pool
+# --- Organizers ---
 DeleteProperty([2014JIME05], VOLUNTEER)
 DeleteProperty([2014JIME05], LISTED_DELEGATE)
 DeleteProperty([2014JIME05], TEAM_LEAD)
+SetProperty([2014JIME05], "special-role", "Organizer")
 
-# Eduard Esteban García (Organizador) → out of staff pool
 DeleteProperty([2011EDUA01], VOLUNTEER)
 DeleteProperty([2011EDUA01], LISTED_DELEGATE)
 DeleteProperty([2011EDUA01], TEAM_LEAD)
+SetProperty([2011EDUA01], "special-role", "Organizer")
 
-# Catalina Herrera López (Organizadora) → out of staff pool
 DeleteProperty([2017LOPE31], VOLUNTEER)
 DeleteProperty([2017LOPE31], LISTED_DELEGATE)
 DeleteProperty([2017LOPE31], TEAM_LEAD)
+SetProperty([2017LOPE31], "special-role", "Organizer")
 
-# Maarten Goossens (2024GOOS03, NL) → unofficial events lead (Zona Verde).
-# Out of pool de staff regular — does not judge/scramble/run in main rooms.
-# Assigned in unofficial.cs as "Lead" for each unofficial event.
+DeleteProperty([2016SANT66], VOLUNTEER)
+DeleteProperty([2016SANT66], LISTED_DELEGATE)
+DeleteProperty([2016SANT66], TEAM_LEAD)
+SetProperty([2016SANT66], "special-role", "Organizer")
+
+# --- Unofficial events lead ---
 DeleteProperty([2024GOOS03], VOLUNTEER)
 DeleteProperty([2024GOOS03], LISTED_DELEGATE)
 DeleteProperty([2024GOOS03], TEAM_LEAD)
 SetProperty([2024GOOS03], "unofficial_lead", true)
+SetProperty([2024GOOS03], "special-role", "Unofficial Events Lead")
 
-# João Vinícius Santos (2016SANT66, BR Full Delegate) → confirmed as Organizer
-# en "Intención de Registro Delegados" (org-delg). Out of regular staff pool.
-DeleteProperty([2016SANT66], VOLUNTEER)
-DeleteProperty([2016SANT66], LISTED_DELEGATE)
-DeleteProperty([2016SANT66], TEAM_LEAD)
-
-# Juan Felipe Gómez López (2021LOPE01, CO Junior Delegate, delegate coordinator)
-# Out of pool to remain available as free organizer/coordinator.
+# --- Coordination / other tasks ---
 DeleteProperty([2021LOPE01], VOLUNTEER)
 DeleteProperty([2021LOPE01], LISTED_DELEGATE)
+SetProperty([2021LOPE01], "special-role", "Delegate Coordinator")
 
-# Juliana García Uribe (2025URIB01, uid 474926) — out of staff pool.
-# Available for other tasks (no judge/scramble/run).
 DeleteProperty([p474926], VOLUNTEER)
+SetProperty([p474926], "special-role", "Support")
 
 # --- Delegados removidos del staff (competitors only) ---
 # NOTE: Brian Hambeck (2016HAMB02), Gabriel Sargeiro (2014MELL03),
