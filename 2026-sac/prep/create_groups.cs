@@ -60,8 +60,8 @@ Map(AllRooms(), CreateGroups(_skewb-r1, GROUPS_SKEWB, 2026-06-13T16:10, 2026-06-
 CreateGroups(_555-r2, 1, ZONA_AMARILLA, 2026-06-13T17:30, 2026-06-13T17:55)
 CreateGroups(_555-r2, 1, ZONA_AZUL, 2026-06-13T17:30, 2026-06-13T17:55)
 
-# 5x5 BLD (BLD room, 1 group)
-CreateGroups(_555bf-r1, 1, SALA_BLD, 2026-06-13T15:00, 2026-06-13T16:10, useStageName=false)
+# 5x5 BLD (BLD room, 2 groups — 16 competitors / 8 stations)
+CreateGroups(_555bf-r1, 2, SALA_BLD, 2026-06-13T15:00, 2026-06-13T16:10, useStageName=false)
 
 # 3x3 Round 1 (3 rooms, 6 groups each)
 Map(AllRooms(), CreateGroups(_333-r1, GROUPS_333, 2026-06-13T20:10, 2026-06-13T22:20))
@@ -100,8 +100,8 @@ CreateGroups(_333mbf-r1-a2, 1, SALA_BLD, 2026-06-14T16:15, 2026-06-14T17:25, use
 # 2x2 Round 1 (3 rooms, 5 groups each)
 Map(AllRooms(), CreateGroups(_222-r1, GROUPS_222, 2026-06-14T18:40, 2026-06-14T20:30))
 
-# 4x4 BLD (BLD room, 1 group)
-CreateGroups(_444bf-r1, 1, SALA_BLD, 2026-06-14T20:00, 2026-06-14T20:50, useStageName=false)
+# 4x4 BLD (BLD room, 3 groups — 24 competitors / 8 stations)
+CreateGroups(_444bf-r1, 3, SALA_BLD, 2026-06-14T20:00, 2026-06-14T20:50, useStageName=false)
 
 # Pyraminx Round 1 (3 rooms, 5 groups each)
 Map(AllRooms(), CreateGroups(_pyram-r1, GROUPS_PYRAM, 2026-06-14T20:30, 2026-06-14T22:10))
