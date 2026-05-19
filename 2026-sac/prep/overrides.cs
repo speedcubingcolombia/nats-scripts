@@ -6,10 +6,11 @@
 # Runs AFTER import.cs, BEFORE volunteer_teams.cs and group assignments.
 
 # --- Streaming team (no staff tasks) ---
-# Luigi Segura y Klaus Ramos → Streaming, remove from staff pool
+# Luigi Segura, Klaus Ramos, Ricardo Hurtado Torres → Streaming, remove from staff pool
 DeleteProperty([2018MELO07], VOLUNTEER)
 DeleteProperty([2016RAMO01], VOLUNTEER)
-SetProperty([2018MELO07, 2016RAMO01], "streaming", true)
+DeleteProperty([2020TORR01], VOLUNTEER)
+SetProperty([2018MELO07, 2016RAMO01, 2020TORR01], "streaming", true)
 
 # --- Delegates without operational role ---
 DeleteProperty([2013DIPI01], VOLUNTEER)
@@ -21,6 +22,11 @@ DeleteProperty([2013CISN01], VOLUNTEER)
 DeleteProperty([2013CISN01], LISTED_DELEGATE)
 DeleteProperty([2013CISN01], TEAM_LEAD)
 SetProperty([2013CISN01], "special-role", "Regional Delegate")
+
+DeleteProperty([2016LOPE37], VOLUNTEER)
+DeleteProperty([2016LOPE37], LISTED_DELEGATE)
+DeleteProperty([2016LOPE37], TEAM_LEAD)
+SetProperty([2016LOPE37], "special-role", "WCA Board")
 
 # --- Organizers ---
 DeleteProperty([2014JIME05], VOLUNTEER)
@@ -51,11 +57,12 @@ SetProperty([2024GOOS03], "unofficial_lead", true)
 SetProperty([2024GOOS03], "special-role", "Unofficial Events Lead")
 
 # --- Score Takers (out of team pool, dedicated data entry) ---
-DeleteProperty([2017MARQ06, 2018PERE37, 2016LIMA02], VOLUNTEER)
+DeleteProperty([2017MARQ06, 2018PERE37, 2016LIMA02, 2017MUNO06], VOLUNTEER)
 DeleteProperty([2016LIMA02], LISTED_DELEGATE)
 SetProperty([2017MARQ06], "special-role", "Score Taker")
 SetProperty([2018PERE37], "special-role", "Score Taker")
 SetProperty([2016LIMA02], "special-role", "Score Taker")
+SetProperty([2017MUNO06], "special-role", "Score Taker")
 
 # --- Coordination / other tasks ---
 DeleteProperty([2021LOPE01], VOLUNTEER)

@@ -21,9 +21,9 @@
 # --- Full Delegates from volunteer list ---
 # Includes 2016RIVE01 (Gustavo Riveiro, PY) — promoted from Junior to Full per WCA
 # (xlsx data is outdated; WCA API confirms full delegate).
-SetProperty([2016REAT01, 2007HERN02, 2014MARQ02, 2014SANC19, 2014MORE05, 2016RIVE01], VOLUNTEER, true)
-SetProperty([2016REAT01, 2007HERN02, 2014MARQ02, 2014SANC19, 2014MORE05, 2016RIVE01], LISTED_DELEGATE, true)
-SetProperty([2016REAT01, 2007HERN02, 2014MARQ02, 2014SANC19, 2016RIVE01], DELEGATE_RANK, "full")
+SetProperty([2007HERN02, 2014MARQ02, 2014SANC19, 2014MORE05, 2016RIVE01], VOLUNTEER, true)
+SetProperty([2007HERN02, 2014MARQ02, 2014SANC19, 2014MORE05, 2016RIVE01], LISTED_DELEGATE, true)
+SetProperty([2007HERN02, 2014MARQ02, 2014SANC19, 2016RIVE01], DELEGATE_RANK, "full")
 SetProperty([2014MORE05], DELEGATE_RANK, "regional")
 # Team Lead designation (subset — see exclusions below).
 SetProperty([2014MARQ02, 2014SANC19, 2014MORE05], TEAM_LEAD, true)
@@ -31,7 +31,7 @@ SetProperty([2014MARQ02, 2014SANC19, 2014MORE05], TEAM_LEAD, true)
 #           also flagged as not-Team-Lead.
 # Excluded as Team Lead:
 #   2007HERN02 (Joel Hernandez) — flagged not to assign supervisor responsibility.
-#   2016REAT01 (Jhonatan Reategui) — dropped for 3 TL/team (11 events, conflicts).
+#   2016REAT01 (Jhonatan Reategui) — removed, will not attend.
 #   2016RIVE01 (Gustavo Riveiro) — dropped for 3 TL/team (PY duplicate with Acosta).
 
 # --- Junior Delegates from volunteer list ---
@@ -49,9 +49,13 @@ SetProperty([2019LUCE01, 2015TERR01, 2017GAET01, 2017PINT05, 2015CAND01, 2017SOU
 SetProperty([2017PINT05, 2017SOUZ14], TEAM_LEAD, true)
 
 # --- Trainee Delegates from volunteer list (regular staff) ---
-SetProperty([2016SANC08, 2023ZVIN01, 2014BENA03, 2021MONS01], VOLUNTEER, true)
-SetProperty([2016SANC08, 2023ZVIN01, 2014BENA03, 2021MONS01], LISTED_DELEGATE, true)
-SetProperty([2016SANC08, 2023ZVIN01, 2014BENA03, 2021MONS01], DELEGATE_RANK, "trainee")
+SetProperty([2016SANC08, 2014BENA03, 2021MONS01], VOLUNTEER, true)
+SetProperty([2016SANC08, 2014BENA03, 2021MONS01], LISTED_DELEGATE, true)
+SetProperty([2016SANC08, 2014BENA03, 2021MONS01], DELEGATE_RANK, "trainee")
+# 2023ZVIN01 (Lucas Zvinys) — promoted from Trainee to Junior (2026-05-18).
+SetProperty([2023ZVIN01], VOLUNTEER, true)
+SetProperty([2023ZVIN01], LISTED_DELEGATE, true)
+SetProperty([2023ZVIN01], DELEGATE_RANK, "junior")
 # Removed: 2015VILL19 (Nayarid Villarreal, VE Trainee) — informed will not attend (2026-05-06).
 
 # --- Delegates from registration form (not in volunteer list) ---
@@ -110,7 +114,8 @@ SetProperty([2024SANC70, 2016LIMA02, 2016CABA07, 2017RODR53, 2023FILH05], DELEGA
 # Removed: 2024ALME13 Jefferson Feitosa Almeida (BR Junior) — "No Registrado"/"No sabe si asiste".
 
 # --- Volunteers (non-delegate staff) ---
-SetProperty([2016NINO01, 2025ACEV05, 2023LAND18, 2021VARG02, 2013GONZ09, 2019GUAM01, 2023RODR80, 2019GUTI14, 2024SANC61, 2017GUZM05, 2025LASP01, 2023AZUA01, 2017MORA12, 2022MARI01, 2024SOLE01, 2018PERE37, 2023MORR23, 2023ESPI07, 2011PARR02, 2014QUIN03, 2023MORE20, 2011DION02, 2012MARI04, 2024BLAN13, 2017BARR25, 2013RIVE03, 2023BEYA01, 2016PIMI02, 2023RAMI49, 2023MONT31, 2016RAMO01, 2018RODR43, 2015HENR02, 2017CUES02, 2024QUIN14, 2024COLO04, 2023GONZ30, 2022CUER01, 2018CRUZ17, 2017CULM01, 2022QUIN17, 2019SANC20, 2022CUBI01, 2023SILV54, 2022MARQ01, 2024GUTI02, 2017MUNO06, 2025LANC04, 2017MART94, 2013CAST14, 2018KUMA01, 2016COEL04, 2017MARQ06, 2013MOTT01, 2023QUIN18, 2024GOOS03, 2024MEDI13, 2024SANT99, 2024VALD01, 2025CADE01, 2025FUEN05, 2010ROSE03], VOLUNTEER, true)
+SetProperty([2016NINO01, 2025ACEV05, 2023LAND18, 2021VARG02, 2013GONZ09, 2019GUAM01, 2023RODR80, 2019GUTI14, 2024SANC61, 2017GUZM05, 2025LASP01, 2023AZUA01, 2017MORA12, 2022MARI01, 2024SOLE01, 2018PERE37, 2023MORR23, 2023ESPI07, 2011PARR02, 2014QUIN03, 2023MORE20, 2011DION02, 2012MARI04, 2024BLAN13, 2017BARR25, 2013RIVE03, 2023BEYA01, 2016PIMI02, 2023RAMI49, 2023MONT31, 2016RAMO01, 2018RODR43, 2015HENR02, 2017CUES02, 2024QUIN14, 2024COLO04, 2023GONZ30, 2022CUER01, 2018CRUZ17, 2017CULM01, 2022QUIN17, 2019SANC20, 2022CUBI01, 2023SILV54, 2022MARQ01, 2024GUTI02, 2017MUNO06, 2025LANC04, 2013CAST14, 2018KUMA01, 2016COEL04, 2017MARQ06, 2013MOTT01, 2023QUIN18, 2024GOOS03, 2024MEDI13, 2024SANT99, 2024VALD01, 2025CADE01, 2025FUEN05, 2010ROSE03], VOLUNTEER, true)
+# Removed: 2017MART94 (Víctor Adán Solis Martinez) — competitor only, not staff.
 # 2010ROSE03 (Dennis Rosero) — no longer an active delegate; cargo Voluntario.
 # Removed (registered as competitors only, not approved staff):
 #   2012PERE04, 2015TORR12, 2018GONZ25, 2019CAMP10, 2022PINE05
@@ -120,28 +125,31 @@ SetProperty([2016NINO01, 2025ACEV05, 2023LAND18, 2021VARG02, 2013GONZ09, 2019GUA
 SetProperty([2011EDUA01, 2014JIME05, 2017LOPE31], VOLUNTEER, true)
 
 # --- Streaming (dedicated role) ---
-# NOTAS: Luigi Segura y Klaus Ramos → streaming only. Klaus is already in the
-# volunteer list above; Luigi is added here. Exclude from judge/scramble/run pool
-# at assignment time via the streaming task.
-SetProperty([2018MELO07], VOLUNTEER, true)
+# NOTAS: Luigi Segura, Klaus Ramos, Ricardo Hurtado Torres → streaming only.
+# Klaus is already in the volunteer list above; Luigi and Ricardo are added here.
+# Exclude from judge/scramble/run pool at assignment time via the streaming task.
+SetProperty([2018MELO07, 2020TORR01], VOLUNTEER, true)
 
 # --- Delegados confirmados que NO asisten (informativo, no se asignan) ---
-# 2016LOPE37 Rubén López de Juan (ES Full) — support from España, no asiste.
+# 2016LOPE37 Rubén López de Juan (ES Full) — attending, no operational role (see overrides.cs).
 # 2015SALO01 Álvaro Aguilar Salobreña (ES Full) — support from España, no asiste.
 # 2011SATO01 Heron Sato (BR Full) — listado como Organizador (org-delg), no como
 #            staff de turnos diarios; sin propiedades en pipeline.
+# PENDING: Álvaro (2015SALO01), Rubén (2016LOPE37)
+#          — pending confirmation on competing status (2026-05-18).
 
 # Confirmed volunteers de "voluntarios listado.xlsx" pero ausentes de
 # SAC2026-registration → agregados vía AddPerson en add_missing_staff.cs.
 
 # --- Score Takers (data entry dedicado, excluidos de judge/scramble/run) ---
-# Equipo fijo de 3 personas para score taking en los 4 días de competencia.
+# Equipo fijo de 4 personas para score taking en los 4 días de competencia.
 # Seleccionados por: pref-data-entry alto, pocos eventos (menos conflictos),
 # disponibilidad 4 días, foco en data entry sobre otras tareas.
 #   1. 2017MARQ06 Laís Helena Réga Serra Marques (BR, 1 evento, foco +5, habla PT)
 #   2. 2018PERE37 Francia Perez (CO, 4 eventos, foco +1)
 #   3. 2016LIMA02 Adriana Saavedra Limachi (BO Trainee Delegate, 3 eventos, DE=10)
-SetProperty([2017MARQ06, 2018PERE37, 2016LIMA02], "score-taker", true)
+#   4. 2017MUNO06 Valentina Sánchez Muñoz (CO, 4 eventos, DE=10)
+SetProperty([2017MARQ06, 2018PERE37, 2016LIMA02, 2017MUNO06], "score-taker", true)
 
 # --- Portuguese speakers (used by team clustering: min 1 PT speaker per team) ---
 # Brazilian accepted staff (native PT) + non-BR staff with fluent/working PT.

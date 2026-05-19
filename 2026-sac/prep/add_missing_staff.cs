@@ -2,8 +2,7 @@
 
 # SAC 2026 - Handle people without WCA IDs o no registrados oficialmente
 
-# Angie Casallas: registered (wcaUserId=520057, no WCA ID yet). Add as volunteer.
-SetProperty([p520057], VOLUNTEER, true)
+# Angie Casallas (wcaUserId=520057): registered competitor, NOT staff.
 
 # Felipe Andres Rojas Garces (2009GARC02, CL, wcaUserId=273): not officially registered
 # but will help as staff. Added as non-competing staff
