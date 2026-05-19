@@ -60,7 +60,27 @@ Cluster(
        BalanceConstraint("333bf", CompetingIn(_333bf), 3),
        BalanceConstraint("444bf", CompetingIn(_444bf), 5),
        BalanceConstraint("555bf", CompetingIn(_555bf), 5),
-       BalanceConstraint("333mbf", CompetingIn(_333mbf), 5)],
+       BalanceConstraint("333mbf", CompetingIn(_333mbf), 5),
+       # --- Scrambler distribution (scarce events) ---
+       # Floor: guarantee minimum scramblers per team
+       LimitConstraint("Scr-777 (min)", BooleanProperty("can-scramble-777"), 5, 50),
+       LimitConstraint("Scr-666 (min)", BooleanProperty("can-scramble-666"), 5, 50),
+       LimitConstraint("Scr-sq1 (min)", BooleanProperty("can-scramble-sq1"), 6, 50),
+       LimitConstraint("Scr-clock (min)", BooleanProperty("can-scramble-clock"), 7, 30),
+       LimitConstraint("Scr-minx (min)", BooleanProperty("can-scramble-minx"), 8, 30),
+       # Balance: distribute scrambler headcount evenly
+       BalanceConstraint("Scr-777 (bal)", BooleanProperty("can-scramble-777"), 8),
+       BalanceConstraint("Scr-666 (bal)", BooleanProperty("can-scramble-666"), 6),
+       BalanceConstraint("Scr-sq1 (bal)", BooleanProperty("can-scramble-sq1"), 5),
+       BalanceConstraint("Scr-clock (bal)", BooleanProperty("can-scramble-clock"), 3),
+       BalanceConstraint("Scr-minx (bal)", BooleanProperty("can-scramble-minx"), 3),
+       # Quality: distribute proven/elite scramblers evenly (from Phase 0.5)
+       BalanceConstraint("ScrQ-777", NumberProperty("scramble-quality-777"), 15),
+       BalanceConstraint("ScrQ-666", NumberProperty("scramble-quality-666"), 12),
+       BalanceConstraint("ScrQ-sq1", NumberProperty("scramble-quality-sq1"), 10),
+       BalanceConstraint("ScrQ-clock", NumberProperty("scramble-quality-clock"), 8),
+       BalanceConstraint("ScrQ-minx", NumberProperty("scramble-quality-minx"), 8),
+       BalanceConstraint("ScrQ-555", NumberProperty("scramble-quality-555"), 5)],
       # Balance event registrations across teams
       Map([_333, _222, _444, _pyram, _skewb, _333oh],
           BalanceConstraint(EventId(), CompetingIn(), 0.05)),

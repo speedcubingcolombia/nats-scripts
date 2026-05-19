@@ -27,6 +27,7 @@ const COMP_ID = process.argv[2] || 'SAC2026'
 const phase1 = `
 #include "prep/import.cs"
 #include "prep/add_missing_staff.cs"
+#include "data/volunteer_properties.cs"
 #include "prep/overrides.cs"
 #include "prep/populate_r1.cs"
 #include "prep/create_groups.cs"
@@ -80,6 +81,46 @@ for (const v of wcif.schedule?.venues || []) {
 }
 // Don't save to file — pass directly to parser
 console.log(`  Reset ${wcif.persons.length} persons`)
+
+// Phase 0.5: Compute scramble quality scores from WCIF personalBests
+console.log('\nPhase 0.5: Computing scramble quality scores...')
+;(function tagScramblerQuality() {
+  const EVENTS = ['222', '333', '444', '555', '666', '777', 'clock', 'minx', 'pyram', 'skewb', 'sq1']
+  const ELITE_THRESHOLD = 200
+
+  const volPropsPath = path.resolve(__dirname, 'data/volunteer_properties.cs')
+  const volProps = fs.readFileSync(volPropsPath, 'utf8')
+  const canScramble = {}
+  for (const m of volProps.matchAll(/SetProperty\(\[([^\]]+)\], "can-scramble-(\w+)", true\)/g)) {
+    canScramble[m[2]] = new Set(m[1].split(',').map(s => s.trim()))
+  }
+
+  let tagged = 0
+  for (const p of wcif.persons) {
+    if (!p.wcaId) continue
+    let anyScore = false
+    for (const event of EVENTS) {
+      if (!canScramble[event]?.has(p.wcaId)) continue
+      const pb = (p.personalBests || []).find(b => b.eventId === event && b.type === 'single')
+      let score = 1
+      if (pb) {
+        score = pb.continentalRanking <= ELITE_THRESHOLD ? 3 : 2
+      }
+      let ext = (p.extensions || []).find(e => e.id === 'org.cubingusa.natshelper.v1.Person')
+      if (!ext) {
+        ext = { id: 'org.cubingusa.natshelper.v1.Person', specUrl: '', data: { properties: {} } }
+        p.extensions = p.extensions || []
+        p.extensions.push(ext)
+      }
+      ext.data = ext.data || {}
+      ext.data.properties = ext.data.properties || {}
+      ext.data.properties[`scramble-quality-${event}`] = score
+      anyScore = true
+    }
+    if (anyScore) tagged++
+  }
+  console.log(`  Tagged ${tagged} persons with scramble-quality scores`)
+})()
 
 async function runPhase(label, scriptSrc, competition) {
   return new Promise((resolve, reject) => {
