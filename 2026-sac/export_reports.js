@@ -27,6 +27,9 @@ const reports = [
   'reports/staff_summary.cs',
   'reports/volunteer_workload.cs',
   'reports/group_schedule_overview.cs',
+  'reports/scramblers_by_event.cs',
+  'reports/personal_schedule.cs',
+  'reports/competitors_by_group.cs',
 ]
 
 const HTML_TEMPLATE = `<!DOCTYPE html>
