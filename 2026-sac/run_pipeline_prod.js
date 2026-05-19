@@ -42,9 +42,9 @@ const RESTORE_FIRST = process.argv.includes('--restore-first')
 const phase1 = `
 #include "prep/import.cs"
 #include "prep/add_missing_staff.cs"
+#include "data/volunteer_properties.cs"
 #include "prep/overrides.cs"
 #include "prep/populate_r1.cs"
-#include "prep/create_groups.cs"
 #include "prep/volunteer_teams.cs"
 `
 const phase2 = `
@@ -190,19 +190,77 @@ function tagCompeteRoom(wcif) {
     console.log('  Backup restored!\n')
   }
 
-  // Step 1: Fetch fresh WCIF from WCA
-  console.log('Step 1: Fetching WCIF from WCA...')
-  const wcifRes = await fetch(`${WCA_HOST}/api/v0/competitions/${COMP_ID}/wcif/public`)
+  // Step 1: Get OAuth token + fetch authenticated WCIF (has correct activity IDs)
+  console.log('Step 1: Authorize + fetch authenticated WCIF...')
+  console.log('Open http://localhost:3030 to authorize.\n')
+
+  const authToken = await new Promise((resolve) => {
+    const authServer = http.createServer(async (req, res) => {
+      const u = new URL(req.url, 'http://localhost:3030')
+      if (u.pathname === '/auth/oauth_response' && u.searchParams.get('code')) {
+        const t = await getOAuthToken(u.searchParams.get('code'))
+        if (!t.access_token) { res.writeHead(500); res.end('Token failed'); authServer.close(); return }
+        res.writeHead(200, { 'Content-Type': 'text/html' }); res.end('<h1>Authorized! Pipeline running...</h1>')
+        authServer.close(); resolve(t.access_token)
+      } else {
+        res.writeHead(302, { Location: `${WCA_HOST}/oauth/authorize?client_id=${CLIENT_ID}&scope=public%20manage_competitions&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` }); res.end()
+      }
+    })
+    authServer.listen(3030)
+  })
+
+  console.log('Fetching authenticated WCIF...')
+  const wcifRes = await fetch(`${WCA_HOST}/api/v0/competitions/${COMP_ID}/wcif`, {
+    headers: { 'Authorization': `Bearer ${authToken}` }
+  })
   let wcif = await wcifRes.json()
-  wcif.persons = wcif.persons.filter(p => p.registrantId !== null)
+  wcif.persons = wcif.persons.filter(p => p.registrantId !== null && p.registration?.status === 'accepted')
   wcif.persons.forEach(p => { p.assignments = []; p.extensions = [] })
   wcif.events.forEach(e => e.rounds.forEach(r => { r.results = [] }))
   for (const v of wcif.schedule?.venues || []) {
     for (const r of v.rooms || []) {
-      for (const a of r.activities || []) { a.childActivities = []; a.extensions = [] }
+      for (const a of r.activities || []) { a.extensions = [] }
     }
   }
   console.log(`  Reset ${wcif.persons.length} persons\n`)
+
+  // Phase 0.5: Compute scramble quality scores from WCIF personalBests
+  console.log('Phase 0.5: Computing scramble quality scores...')
+  ;(function() {
+    const EVENTS = ['222', '333', '444', '555', '666', '777', 'clock', 'minx', 'pyram', 'skewb', 'sq1']
+    const ELITE_THRESHOLD = 200
+    const volPropsPath = path.resolve(__dirname, 'data/volunteer_properties.cs')
+    const volProps = fs.readFileSync(volPropsPath, 'utf8')
+    const canScramble = {}
+    for (const m of volProps.matchAll(/SetProperty\(\[([^\]]+)\], "can-scramble-(\w+)", true\)/g)) {
+      canScramble[m[2]] = new Set(m[1].split(',').map(s => s.trim()))
+    }
+    let tagged = 0
+    for (const p of wcif.persons) {
+      if (!p.wcaId) continue
+      let anyScore = false
+      for (const event of EVENTS) {
+        if (!canScramble[event]?.has(p.wcaId)) continue
+        const pb = (p.personalBests || []).find(b => b.eventId === event && b.type === 'single')
+        let score = 1
+        if (pb) {
+          score = pb.continentalRanking <= ELITE_THRESHOLD ? 3 : 2
+        }
+        let ext = (p.extensions || []).find(e => e.id === 'org.cubingusa.natshelper.v1.Person')
+        if (!ext) {
+          ext = { id: 'org.cubingusa.natshelper.v1.Person', specUrl: '', data: { properties: {} } }
+          p.extensions = p.extensions || []
+          p.extensions.push(ext)
+        }
+        ext.data = ext.data || {}
+        ext.data.properties = ext.data.properties || {}
+        ext.data.properties[`scramble-quality-${event}`] = score
+        anyScore = true
+      }
+      if (anyScore) tagged++
+    }
+    console.log(`  Tagged ${tagged} persons with scramble-quality scores\n`)
+  })()
 
   // Step 2: Phase 1
   const afterPhase1 = await runPhase('Phase 1 (import + teams)', phase1, wcif)
@@ -230,90 +288,110 @@ function tagCompeteRoom(wcif) {
   console.log(`Assignments: ${totalAssign}`)
   console.log(`Teams: ${Object.entries(teams).map(([t, c]) => `T${t}:${c}`).join(', ')}`)
 
-  // Step 6: PATCH to WCA via OAuth
+  // Step 6: PATCH to WCA (using authToken from Step 1)
   console.log(`\n=== Deploy ===`)
-  console.log(`Open http://localhost:3030 to authorize PATCH to WCA.\n`)
+  {
+      const t = { access_token: authToken }
 
-  const server = http.createServer(async (req, res) => {
-    const u = new URL(req.url, 'http://localhost:3030')
-    if (u.pathname === '/auth/oauth_response' && u.searchParams.get('code')) {
-      const t = await getOAuthToken(u.searchParams.get('code'))
-      if (!t.access_token) { console.error('Token failed'); res.writeHead(500); res.end('Token failed'); server.close(); return }
+      // Step A: Skip schedule PATCH — using authenticated WCIF preserves correct schedule
+      // Only PATCH schedule if childActivities need updating (rare)
+      console.log('Schedule: using WCA live (no PATCH needed)')
 
-      // Step A: Get live schedule from WCA and merge our childActivities into it
-      console.log('Fetching live WCIF for schedule merge...')
+      // Fetch live WCIF for cleaning and remapping
       const liveWcif = await (await fetch(`${WCA_HOST}/api/v0/competitions/${COMP_ID}/wcif`, {
         headers: { 'Authorization': `Bearer ${t.access_token}` }
       })).json()
 
-      // Build map of our childActivities by parent activityCode+room
-      const ourChildren = {}
-      for (const v of afterPhase3.schedule.venues) {
-        for (const r of v.rooms) {
-          for (const a of r.activities) {
-            const key = `${r.name}::${a.activityCode || a.name}`
-            if (a.childActivities && a.childActivities.length > 0) {
-              ourChildren[key] = a.childActivities
-            }
-          }
-        }
-      }
-
-      // Inject childActivities into live schedule, clipping times to parent
-      let groupsAdded = 0
+      // Remap: fix any pipeline IDs that don't exist in WCA
+      console.log('Checking activity ID alignment...')
+      const wcaIds = new Set()
+      const wcaByCode = {}
       for (const v of liveWcif.schedule.venues) {
         for (const r of v.rooms) {
           for (const a of r.activities) {
-            const key = `${r.name}::${a.activityCode || a.name}`
-            const children = ourChildren[key]
-            if (children && children.length > 0 && (!a.childActivities || a.childActivities.length === 0)) {
-              // Clip child times to fit within parent
-              const parentStart = new Date(a.startTime).getTime()
-              const parentEnd = new Date(a.endTime).getTime()
-              const duration = parentEnd - parentStart
-              const numChildren = children.length
-              const childDuration = Math.floor(duration / numChildren)
-              children.forEach((c, i) => {
-                c.startTime = new Date(parentStart + i * childDuration).toISOString().replace('.000Z', 'Z')
-                c.endTime = new Date(parentStart + (i + 1) * childDuration).toISOString().replace('.000Z', 'Z')
-              })
-              a.childActivities = children
-              groupsAdded += children.length
+            wcaIds.add(a.id)
+            for (const c of a.childActivities || []) {
+              wcaIds.add(c.id)
+              wcaByCode[c.activityCode] = c.id
             }
           }
         }
       }
-      console.log(`  Injected ${groupsAdded} groups into live schedule`)
+      // Map pipeline childActivity IDs to WCA IDs by activityCode
+      const localByCode = {}
+      for (const v of afterPhase3.schedule.venues) {
+        for (const r of v.rooms) {
+          for (const a of r.activities) {
+            for (const c of a.childActivities || []) {
+              if (!wcaIds.has(c.id) && wcaByCode[c.activityCode]) {
+                localByCode[c.id] = wcaByCode[c.activityCode]
+              }
+            }
+          }
+        }
+      }
+      let remapped = 0
+      for (const p of afterPhase3.persons) {
+        for (const a of p.assignments || []) {
+          if (localByCode[a.activityId]) {
+            a.activityId = localByCode[a.activityId]
+            remapped++
+          }
+        }
+      }
+      console.log(`  Remapped ${remapped} assignments (${Object.keys(localByCode).length} IDs)`)
+      // Debug: check 444bf assignments
+      const bf444 = {}
+      for (const p of afterPhase3.persons) {
+        for (const a of p.assignments || []) {
+          if (a.assignmentCode === 'staff-Delegate') {
+            const isValid = wcaIds.has(a.activityId)
+            const code = wcaByCode[Object.keys(wcaByCode).find(k => wcaByCode[k] === a.activityId)] || '?'
+            if (String(a.activityId).match(/349|455|456|605|606|607/)) {
+              bf444[a.activityId] = (bf444[a.activityId]||0) + 1
+            }
+          }
+        }
+      }
+      console.log('  444bf Delegate activityIds:', JSON.stringify(bf444))
 
-      // Step B: PATCH schedule (with groups)
-      console.log('PATCHing schedule...')
-      const rSched = await patchWCA(t.access_token, { schedule: liveWcif.schedule })
-      console.log(`  Schedule: ${rSched.status}`)
-      if (rSched.status !== 200) {
-        console.error(rSched.body.substring(0, 500))
-        res.writeHead(500, { 'Content-Type': 'text/html' })
-        res.end(`<h1>Schedule PATCH failed</h1><pre>${rSched.body.substring(0, 300)}</pre>`)
-        setTimeout(() => process.exit(1), 3000); return
+      // Step B: Clean all persons (clear assignments + extensions)
+      console.log('Cleaning all persons (clearing assignments + extensions)...')
+      const cleanPersons = liveWcif.persons.map(p => ({
+        ...p,
+        assignments: [],
+        extensions: [],
+      }))
+      const rClean = await patchWCA(t.access_token, { persons: cleanPersons })
+      console.log(`  Clean: ${rClean.status} (${cleanPersons.length} persons)`)
+      if (rClean.status !== 200) {
+        console.error(rClean.body.substring(0, 500))
+        process.exit(1)
       }
 
-      // Step C: PATCH persons
+      // Fix: ensure all persons have registration.comments (WCA requires it)
+      let fixedComments = 0
+      for (const p of afterPhase3.persons) {
+        if (!p.registration) {
+          p.registration = { eventIds: [], isCompeting: false, comments: 'Staff' }
+          fixedComments++
+        } else if (!p.registration.comments || p.registration.comments === '') {
+          p.registration.comments = 'Staff'
+          fixedComments++
+        }
+      }
+      if (fixedComments > 0) console.log(`  Fixed comments for ${fixedComments} persons`)
+
+      // Step C: PATCH persons with pipeline data
       console.log(`PATCHing ${afterPhase3.persons.length} persons (${totalAssign} assignments)...`)
       const r = await patchWCA(t.access_token, { persons: afterPhase3.persons })
       console.log(`  Persons: ${r.status}`)
+      console.log(`  Response: ${r.body.substring(0, 500)}`)
       if (r.status === 200) {
         console.log('\n✅ DEPLOY SUCCESSFUL!')
-        res.writeHead(200, { 'Content-Type': 'text/html' })
-        res.end(`<h1>Deploy successful!</h1><p>${groupsAdded} groups + ${afterPhase3.persons.length} persons + ${totalAssign} assignments.</p>`)
       } else {
         console.error(r.body.substring(0, 500))
-        res.writeHead(500, { 'Content-Type': 'text/html' })
-        res.end(`<h1>Persons PATCH failed</h1><pre>${r.body.substring(0, 500)}</pre>`)
       }
-      setTimeout(() => process.exit(0), 3000)
-    } else {
-      res.writeHead(302, { Location: `${WCA_HOST}/oauth/authorize?client_id=${CLIENT_ID}&scope=public%20manage_competitions&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` })
-      res.end()
-    }
-  })
-  server.listen(3030)
+      process.exit(r.status === 200 ? 0 : 1)
+  }
 })().catch(e => { console.error('Pipeline error:', e.message); process.exit(1) })
