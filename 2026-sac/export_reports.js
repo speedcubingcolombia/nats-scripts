@@ -22,6 +22,7 @@ const OUTPUT_DIR = path.resolve(__dirname, 'reports/html')
 const CACHE_PATH = '.wcif_cache/' + (process.env.ENV || 'DEV') + '/SAC2026'
 
 const reports = [
+  'reports/team_leads.cs',
   'reports/team_roster.cs',
   'reports/staff_summary.cs',
   'reports/volunteer_workload.cs',

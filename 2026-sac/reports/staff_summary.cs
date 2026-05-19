@@ -1,20 +1,22 @@
 #include "../lib/_constants.cs"
 
-# Staff Summary — Conteos por rol, rango y país
+# Staff Summary — Counts by role, rank, and country
 
-Header("Conteos generales")
-"Total staff (voluntarios + delegados)"
+Header("General Counts")
+"Total staff (volunteers + delegates)"
 Length(Persons(Or(BooleanProperty(VOLUNTEER), BooleanProperty(LISTED_DELEGATE))))
-"Delegados (stage leads)"
+"Delegates (listed)"
 Length(Persons(BooleanProperty(LISTED_DELEGATE)))
-"Voluntarios (no delegados)"
+"Volunteers (non-delegate)"
 Length(Persons(And(BooleanProperty(VOLUNTEER), Not(BooleanProperty(LISTED_DELEGATE)))))
-"Team leads"
+"Team Leads"
 Length(Persons(BooleanProperty(TEAM_LEAD)))
-"Competidores registrados"
+"Score Takers"
+Length(Persons(BooleanProperty("score-taker")))
+"Registered competitors"
 Length(Persons(Registered()))
 
-Header("Delegados por rango")
+Header("Delegates by Rank")
 "Full"
 Length(Persons((StringProperty(DELEGATE_RANK) == "full")))
 "Senior"
@@ -26,11 +28,30 @@ Length(Persons((StringProperty(DELEGATE_RANK) == "junior")))
 "Trainee"
 Length(Persons((StringProperty(DELEGATE_RANK) == "trainee")))
 
-Header("Delegados — detalle")
+Header("Delegates — Detail")
 Table(
   Sort(Persons(BooleanProperty(LISTED_DELEGATE)), Country()),
-  [Column("Nombre", Name()),
-   Column("País", Country()),
-   Column("Rango", StringProperty(DELEGATE_RANK)),
-   Column("Equipo", If(HasProperty(STAFF_TEAM), ToString(NumberProperty(STAFF_TEAM)), "—")),
+  [Column("Name", Name()),
+   Column("Country", Country()),
+   Column("Rank", StringProperty(DELEGATE_RANK)),
+   Column("Team", If(HasProperty(STAFF_TEAM), ToString(NumberProperty(STAFF_TEAM)), "—")),
    Column("Team Lead", BooleanProperty(TEAM_LEAD))])
+
+Header("Unofficial Events Lead")
+Table(
+  Persons(BooleanProperty("unofficial_lead")),
+  [Column("Name", Name()),
+   Column("Country", Country()),
+   Column("Role", "Unofficial Events Lead (Zona Verde)")])
+
+Header("Score Takers (Data Entry)")
+Table(
+  Persons(BooleanProperty("score-taker")),
+  [Column("Name", Name()),
+   Column("Country", Country())])
+
+Header("Streaming")
+Table(
+  Persons(BooleanProperty("streaming")),
+  [Column("Name", Name()),
+   Column("Country", Country())])
