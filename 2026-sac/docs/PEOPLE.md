@@ -8,10 +8,10 @@ Record of all people with special roles, staff decisions, and current status.
 
 | Team | CO TL | BR TL | Other TL |
 |------|-------|-------|----------|
-| T1 | Juan Nicolas Pinzon (Jr) | Pedro Miranda (Regional) | Alexandre Ondet (Full, FR) |
-| T2 | Haiver Lenin Reyes (Jr) | Marlon de V. Marques (Full) | Josias Sirpa Pinto (Jr, BO) |
-| T3 | Manuel Popayan (Jr) | Lucas Ichiro Yunomae (Full) | Elias Acosta (Full, PY) |
-| T4 | Sergio Ibarra (Full) | Thales Araujo de Souza (Jr) | Rafael Sanchez (Full, VE) |
+| T1 | Manuel Popayan (Jr) | Thales Araujo de Souza (Jr) | Elias Acosta (Full, PY) |
+| T2 | Sergio Ibarra (Full) | Josias Sirpa Pinto (Jr, BO) | Lucas Ichiro Yunomae (Full, BR) |
+| T3 | Juan Nicolas Pinzon (Jr) | Marlon de V. Marques (Full) | Rafael Sanchez (Full, VE) |
+| T4 | Haiver Lenin Reyes (Jr) | Pedro Miranda (Regional) | Alexandre Ondet (Full, FR) |
 
 ### Selection criteria
 
@@ -19,6 +19,14 @@ Record of all people with special roles, staff decisions, and current status.
 2. 1 CO-TL per team (mandatory)
 3. Higher rank = more weight (Full > Regional > Junior)
 4. Fewer registered events = more availability as a supervisor
+
+### Delegate role rules
+
+- TLs are the **only** persons assigned as Delegate (supervisor) in groups.
+- In main zones, only TLs from the **main team** of that zone that day.
+- In BLD (Zona Morada), TLs from the **float team** only.
+- Delegate is flexible (min=0): if all TLs are competing, the group runs without Delegate.
+- Scorers push TLs to non-conflicting groups to maximize Delegate coverage.
 
 ---
 
@@ -31,7 +39,6 @@ Record of all people with special roles, staff decisions, and current status.
 - Marvin Solano (CR Junior)
 
 **Due to max 3/team rule (dropped):**
-- Jhonatan Reategui (PE Full) — 11 events, many conflicts
 - Gustavo Riveiro (PY Full) — PY duplicate with Acosta
 - Andres Suzuki (PE Full) — PE duplicate
 - Daniel Delgado Candia (BO Jr) — replaced by Josias
@@ -44,15 +51,19 @@ Record of all people with special roles, staff decisions, and current status.
 **Self-excluded:**
 - Juan Felipe Gomez Lopez (CO Jr) — delegate-coordinator, free to coordinate
 
+**Removed (not attending):**
+- Jhonatan Reategui (PE Full) — will not attend.
+
 ---
 
-## Score Takers (3, dedicated data entry)
+## Score Takers (4, dedicated data entry)
 
-| # | Name | Country | WCA ID | Events | Focus |
-|---|------|---------|--------|--------|-------|
-| 1 | Lais Helena Rega Serra Marques | BR | 2017MARQ06 | 1 | +5 |
-| 2 | Francia Perez | CO | 2018PERE37 | 4 | +1 |
-| 3 | Adriana Saavedra Limachi | BO | 2016LIMA02 | 3 | +0 (Trainee Delegate) |
+| # | Name | Country | WCA ID | Events | Pref |
+|---|------|---------|--------|--------|------|
+| 1 | Lais Helena Rega Serra Marques | BR | 2017MARQ06 | 1 | DE:10 |
+| 2 | Francia Perez | CO | 2018PERE37 | 4 | DE:10 |
+| 3 | Adriana Saavedra Limachi | BO | 2016LIMA02 | 3 | DE:10 |
+| 4 | Valentina Sanchez Munoz | CO | 2017MUNO06 | 4 | DE:10 |
 
 Excluded from judge/scramble/run/Delegate. Property `score-taker=true`.
 
@@ -69,18 +80,20 @@ Excluded from judge/scramble/run/Delegate. Property `score-taker=true`.
 
 ### Delegates without an operational role
 
-- Guido Dipietro (2013DIPI01) — Senior Delegate / WCA Board
+- Guido Dipietro (2013DIPI01) — Senior Delegate
 - Enrymar Cisneros (2013CISN01) — Regional Delegate
+- Ruben Lopez de Juan (2016LOPE37) — WCA Board
 
 ### Coordination / other tasks
 
 - Juan Felipe Gomez Lopez (2021LOPE01) — Delegate-coordinator
-- Juliana Garcia Uribe (2025URIB01) — Support in other tasks
+- Juliana Garcia Uribe (2025URIB01) — Support
 
 ### Streaming
 
 - Luigi Segura (2018MELO07)
 - Klaus Ramos (2016RAMO01)
+- Ricardo Hurtado Torres (2020TORR01)
 
 ### Unofficial events lead
 
@@ -88,16 +101,18 @@ Excluded from judge/scramble/run/Delegate. Property `score-taker=true`.
 
 ---
 
-## Not attending
+## Not attending / not staff
 
-- Michael Castillo (2011CAST02, CO Junior) — reported not attending.
-- Nayarid Villarreal (2015VILL19, VE Trainee) — reported not attending.
-- Ruben Lopez de Juan (2016LOPE37, ES Full) — remote support from Spain.
-- Alvaro Aguilar Salobrena (2015SALO01, ES Full) — remote support from Spain.
-- Heron Sato (2011SATO01, BR Full) — external organizer, not attending.
-- Jorge Trigo (2015TRIG02, BO Full) — not contacted, unconfirmed.
-- Xavier Balderrama (2015BALD03, BO Regional) — not contacted, unconfirmed.
-- Pedro Mora Perez (2017PERE38, CL Trainee) — not contacted, unconfirmed.
+- Jhonatan Reategui (2016REAT01, PE Full) — will not attend.
+- Victor Adan Solis Martinez (2017MART94, MX) — competitor only, not staff.
+- Nayarid Villarreal (2015VILL19, VE Trainee) — will not attend.
+- Michael Castillo (2011CAST02, CO Junior) — likely not attending.
+- Angie Casallas (p520057) — competitor, not staff.
+
+### Pending confirmation
+
+- Alvaro Aguilar Salobrena (2015SALO01, ES Full) — pending if competing.
+- Ruben Lopez de Juan (2016LOPE37, ES Full) — pending if competing.
 
 ---
 
@@ -106,10 +121,10 @@ Excluded from judge/scramble/run/Delegate. Property `score-taker=true`.
 | Name | WCA ID | wcaUserId | Role |
 |------|--------|-----------|------|
 | Felipe Rojas | 2009GARC02 | 273 | Full Delegate, NOT TL |
-| Juliana Garcia Uribe | 2025URIB01 | 474926 | Volunteer (outside the pool) |
+| Juliana Garcia Uribe | 2025URIB01 | 474926 | Support (outside pool) |
 | Jose Moreno | 2015RODR37 | 10189 | Volunteer |
 | Cristian Bonilla | 2022LIZA02 | 253544 | Volunteer |
-| Johana Suarez | 2024SUAR10 | 440824 | Volunteer |
+| Johana Suarez | 2024SUAR10 | 440824 | Volunteer (pending approval) |
 | Carlos Beltran | 2025BELT01 | 466563 | Volunteer |
 | Juliana Cardenas | 2025CARD14 | 484326 | Volunteer |
 | Zaray Dayana Barragan | 2025DELG07 | 476324 | Volunteer |
@@ -119,11 +134,9 @@ Excluded from judge/scramble/run/Delegate. Property `score-taker=true`.
 | Ana Milena Quintero Diaz | — | 474236 | Volunteer, no WCA ID |
 | Danilo Montero | — | 508852 | Volunteer, no WCA ID |
 | Marcela Ortiz | — | 510444 | Volunteer, no WCA ID |
-| Angie Juliett | — | 9999803 (SYNTHETIC) | Volunteer, no WCA account |
 
 ---
 
 ## Dennis Rosero (2010ROSE03, CO)
 
-No longer an active delegate. Will participate as regular staff volunteer (judge/scramble/run).
-Role in SAC2026-registration = Volunteer. In import.cs only as VOLUNTEER.
+No longer an active delegate. Regular staff volunteer (judge/scramble/run).

@@ -1,75 +1,60 @@
 # SAC 2026 — Constraints and Rules
 
-Reference document with all constraints defined for the group, staff, and team assignment
-of the South American Championship 2026 (Bogota, Colombia, Jun 12-15).
+Reference document with all constraints for the South American Championship 2026
+(Bogota, Colombia, Jun 12-15).
 
 ---
 
 ## 1. Staff Teams
 
-### Structure
+- **4 teams** of 25 people each (100 total in pool).
+- Each team has **3 Team Leads** (12 total). TLs are the only Delegates (supervisors).
+- Each team has Jr/Trainee delegates who work as regular staff.
+- Each team has non-delegate volunteers.
 
-- R1: There are **4 staff teams** (~27 people each, ~108 total in pool).
-- R2: Each team has **3 Team Leads** (12 total). TLs supervise groups (Delegate role).
-- R3: Each team has Jr/Trainee delegates who work as regular staff.
-- R4: Each team has non-delegate volunteers.
+### Team Lead Selection
 
-### Team Lead Selection Criteria
+- 1 BR-TL per team (mandatory, weight 1000).
+- 1 CO-TL per team (mandatory, weight 1000).
+- Higher rank = more weight (Full > Regional > Junior).
+- Fewer events = more availability.
 
-- R5: Every TL must be an **active delegate** (listed in `org-delg`).
-- R6: Selection prioritizes:
-  1. **1 BR-TL per team** (4 confirmed Brazilians).
-  2. **1 CO-TL per team** (4 confirmed Colombians).
-  3. **Higher rank = more weight** (Full > Regional > Junior).
-  4. **Fewer events = more availability** as a supervisor.
+### Scrambler Distribution
 
-### Confirmed Team Leads (12)
-
-| Team | TL 1 (CO) | TL 2 (BR) | TL 3 |
-|------|-----------|-----------|------|
-| T1 | JN Pinzon (Jr) | Pedro Miranda (Regional) | Ondet (Full, FR) |
-| T2 | Haiver Reyes (Jr) | Marlon Marques (Full) | Josias Sirpa (Jr, BO) |
-| T3 | Manuel Popayan (Jr) | Lucas Yunomae (Full) | Acosta (Full, PY) |
-| T4 | Sergio Ibarra (Full) | Thales Souza (Jr) | Sanchez (Full, VE) |
-
-### Delegates Excluded from Team Lead
-
-- Joel Hernandez (SV Full), Cristian Vega (AR Full), Felipe Rojas (CL Full),
-  Marvin Solano (CR Junior) — do not assign supervisory responsibility.
-- Reategui (PE Full), Gustavo (PY Full), Suzuki (PE Full) — dropped due to 3 TL/team limit.
-- Daniel (BO Jr), Fabricio (BO Jr), Axel (CL Jr), Jose Gaete (CL Jr), Rocio (MX Jr),
-  Ronny (EC Jr) — dropped due to BR/CO constraints or max TL limit.
-- JF Gomez (CO Jr) — self-excluded, free coordinator.
+- Scramblers balanced across teams using `can-scramble-{event}` + `scramble-quality-{event}`.
+- Quality score 0-3: 0=can't, 1=can but no PR, 2=has PR, 3=elite (continental rank ≤200).
+- LimitConstraint for scarce events (777, 666, sq1, clock, minx): min 5-8 per team.
+- BalanceConstraint for headcount + quality distribution.
 
 ---
 
 ## 2. Zones and Rotation
-
-### Competition Zones
 
 | Zone | Type |
 |------|------|
 | Zona Amarilla | Main (official) |
 | Zona Azul | Main (official) |
 | Zona Roja | Main (official) |
-| Zona Morada | Blindfolded events (BLD) |
+| Zona Morada | BLD events (official) |
 | Zona Verde (TARIMA) | Unofficial events |
 
 ### Daily Rotation
 
-- R7: Each day, 3 teams cover the main zones (one per room).
-- R8: Each day, 1 team is the **floater**: covers BLD + unofficial events + support.
-- R9: The floater **rotates** each day.
-
-| Day | Amarilla | Azul | Roja | Floater |
-|-----|----------|------|------|---------|
+| Day | Amarilla | Azul | Roja | Float |
+|-----|----------|------|------|-------|
 | D1 Fri | T1 | T2 | T3 | **T4** |
 | D2 Sat | T2 | T3 | T4 | **T1** |
 | D3 Sun | T3 | T4 | T1 | **T2** |
 | D4 Mon | T4 | T1 | T2 | **T3** |
 
-- R10: Staff always **compete in their team's zone** that day (except floater).
-  Implemented with StaffRoomScorers. Compliance: 100%.
+### Float Team Rules
+
+- Float team covers **BLD (Morada)** and **unofficial (Verde)** as priority.
+- **D2/D3** (BLD days): float **deprioritized** in main zones (scorer -300) — BLD has priority.
+- **D1/D4** (no BLD): float gets **+400 bonus** in main zones — helps freely.
+- BLD and unofficial use **only float team** staff (eligibility restricted).
+- TLs on float day: Delegate in BLD, judge/scr/run in unofficial. Cannot be Delegate in main zones.
+- Pipeline order: day scripts (BLD first inside each day) → unofficial last.
 
 ---
 
@@ -77,131 +62,103 @@ of the South American Championship 2026 (Bogota, Colombia, Jun 12-15).
 
 ### Main Rooms (Amarilla, Azul, Roja)
 
-- R11: **10 judges** (stations) per zone per group.
-- R12: **3 scramblers** per zone per group.
-- R13: **3 runners** per zone per group.
-- R14: **3 Delegates** (supervisors) per zone per group.
-  - TLs are the primary supervisors; non-TL delegates act as backup.
-- R15: Total per group per room: **19 staff** (10 + 3 + 3 + 3).
+- **14 judges** (stations) per zone per group (flexible min=10).
+- **3 scramblers** per zone per group (flexible min=2).
+- **3 runners** per zone per group (flexible min=2).
+- **1-3 Delegates** (TLs only, from main team; flexible min=1).
+- Scramblers filtered by `can-scramble-{event}` eligibility.
+- Scramblers prioritized by `scramble-quality-{event}` scorer (+200 for proven).
 
 ### BLD Room (Zona Morada)
 
-- R16: **4-5 judges** per group.
-- R17: **2 Delegates** per group. Eligibility open to any delegate.
+- **10 judges** per group (flexible min=4). Float team only.
+- **1-3 Delegates** (float team TLs). Flexible min=0.
+- No scramblers/runners (BLD events don't need them).
+- Groups: 555bf=2 groups (8 comp each), 444bf=3 groups (8 each), MBLD=1 group.
 
 ### Unofficial Events (Zona Verde)
 
-- R18: **8 judges + 2 scramblers + 2 runners + 1 Lead** (Maarten Goossens).
-- R19: FTO R1 and Mirror Blocks R1 have reduced staffing due to schedule conflict
-  with high-attendance events in main rooms.
+- **8 judges + 2 scramblers + 2 runners + 1 Lead** (Maarten Goossens).
+- Float team only (eligibility restricted).
+- Mirror R1 (D1) and FTO R1 (D3): reduced to 4J+1S+1R or handled ad-hoc
+  due to schedule conflicts with main events.
+- Scrambler eligibility: `can-scramble-333` + `pref-scrambler ≥ 7` scorer.
 
 ---
 
 ## 4. Roles and Eligibility
 
-- R20: **Only staff** receive assignments. Regular competitors never do.
-- R21: **Team Leads** only supervise (Delegate role). Excluded from judge/scramble/run.
-- R22: **Non-TL delegates** do judge/scramble/run AND can supervise as backup.
-- R23: **Volunteers** do judge/scramble/run. They do not supervise.
-- R24: **Score Takers** (3 people) are 100% data entry. Excluded from all regular jobs.
-- R25: Every TL must be an active delegate.
+- **Team Leads**: Delegate (supervisor) only. Excluded from judge/scramble/run.
+  Only TLs from the main team assigned to that zone that day.
+- **Non-TL delegates**: judge/scramble/run. NOT Delegate role.
+- **Volunteers**: judge/scramble/run.
+- **Score Takers** (4): dedicated data entry. Excluded from all regular jobs.
 
 ### Score Takers
 
-- R26: Fixed team of 3 people dedicated to data entry:
-  1. Lais Helena Rega Serra Marques (BR, 1 event)
-  2. Francia Perez (CO, 4 events)
-  3. Adriana Saavedra Limachi (BO Trainee Delegate, 3 events)
-- R27: Marked with `score-taker=true`. Excluded from judge/scramble/run/Delegate
-  in all day scripts and unofficial.cs.
+1. Lais Helena Rega Serra Marques (BR, 1 event)
+2. Francia Perez (CO, 4 events)
+3. Adriana Saavedra Limachi (BO Trainee Delegate, 3 events)
+4. Valentina Sanchez Munoz (CO, 4 events)
 
 ---
 
-## 5. Conflict and Rest Constraints
+## 5. Flexible Job Constraints (CompScript assign.js)
 
-- R28: **Never** assign someone to staff a group where they compete.
-- R29: **Penalty** for consecutive groups: `FollowingGroupScorer(-50)`.
-- R30: **Penalty** for overload: `JobCountScorer(-5)` per previous job.
-- R31: Judge/scramble/run restricted to the room's team. Delegate can be from
-  any team.
-- R32: **Primary team priority** (+500): the assigned team always covers its room.
-- R33: **Zone cohesion** (+100): within the primary team, prioritize whoever competes
-  in that same room (fewer relocations).
+Jobs have a `min` parameter hardcoded by name:
+- `Delegate`: min=0 (0-3 TLs depending on availability, +1000 bonus per slot filled)
+- `judge`: min=count-4 (e.g., 14→min 10)
+- `scrambler`: min=count-1 (e.g., 3→min 2)
+- `runner`: min=count-1 (e.g., 3→min 2)
+- All others: min=count (strict)
 
----
-
-## 6. People Outside the Pool
-
-### Organizers (not operational staff)
-
-- Diego Casas (2014JIME05)
-- Eduard Garcia (2011EDUA01)
-- Catalina Herrera (2017LOPE31)
-- Joao Vinicius Santos (2016SANT66)
-
-### Delegates without an operational role
-
-- Guido Dipietro (2013DIPI01) — Senior Delegate / WCA Board
-- Enrymar Cisneros (2013CISN01) — Regional Delegate
-
-### Coordination / other tasks
-
-- Juan Felipe Gomez Lopez (2021LOPE01) — Delegate-coordinator, free
-- Juliana Garcia Uribe (2025URIB01) — Support in other tasks
-
-### Streaming (dedicated)
-
-- Luigi Segura (2018MELO07)
-- Klaus Ramos (2016RAMO01)
-
-### Unofficial events lead
-
-- Maarten Goossens (2024GOOS03) — Zona Verde, outside the regular pool
-
-### Not attending
-
-- Michael Castillo (CO Jr), Nayarid Villarreal (VE Tr) — reported they will not attend.
-- Ruben Lopez de Juan (ES Full), Alvaro Aguilar (ES Full) — remote support.
-- Heron Sato (BR Full) — external organizer.
-- Jorge Trigo (BO Full), Xavier Balderrama (BO Regional), Pedro Mora (CL Tr) — not contacted.
-
-### Confirmed staff volunteer (Dennis Rosero)
-
-- Dennis Rosero (2010ROSE03, CO) — no longer an active delegate. VOLUNTEER only
-  (judge/scramble/run).
+This allows the solver to find solutions when not enough people are available,
+rather than failing the entire group.
 
 ---
 
-## 7. Team Clustering
+## 6. Conflict Avoidance
 
-- R34: Team size: min 22 (weight 32 in LimitConstraint).
-- R35: Team Leads: min 3 per team + BalanceConstraint (weight 30).
-- R36: BR-TLs: min 1 per team (weight 1000) + BalanceConstraint (weight 200).
-- R37: CO-TLs: min 1 per team (weight 1000) + BalanceConstraint (weight 200).
-- R38: Full TLs balanced (weight 30), Junior TLs balanced (weight 15).
-- R39: All delegates balanced (weight 5).
-- R40: Registered events balanced (weight 0.2).
-- R41: Colombians balanced (weight 5), Brazilians balanced (weight 2).
-- R42: BLD competitors balanced (weight 3-5).
-
----
-
-## 8. Competitor Group Assignment
-
-- R43: All groups of an event have a difference of at most 1 person.
-- R44: Team leads are distributed first (priority 1).
-- R45: Volunteer/delegate staff second (priority 2).
-- R46: Regular competitors last (priority 3).
-- R47: Country diversity: maximum 2 from the same country per group.
-- R48: Competitors in the next event → assigned to early groups.
+- Never assign someone to staff a group where they compete.
+- `FollowingGroupScorer(-50)`: penalty for consecutive groups.
+- `JobCountScorer(-5)`: penalty per previous job (spreads workload).
+- BLD competitors pushed to non-conflicting groups in main events
+  (scorers in 222.cs, pyram.cs, 444.cs, 333oh.cs, 555.cs).
+- Float TLs pushed to early groups of 222 and late groups of pyram
+  to be free for 444bf.
+- TLs spread across groups of 555 so each group has ≥1 Delegate.
 
 ---
 
-## 9. Unofficial Events
+## 7. Team Clustering Constraints
 
-- R49: Held in **Zona Verde (TARIMA)**.
-- R50: Staff assigned from the floater team of the day.
-- R51: Events: Mirror Blocks, Kilominx, FTO, Team Blind 3x3.
-- R52: 8 judges + 2 scramblers + 2 runners + 1 Lead (Maarten).
-- R53: **FTO R1** has an unresolved schedule conflict (0 staff available due to overlap
-  with 222+Pyram+333 R2). Schedule change pending.
+- Team size: min 22 (weight 32).
+- Team Leads: min 3/team + balance (weight 30).
+- BR-TLs: min 1/team (weight 1000) + balance (weight 200).
+- CO-TLs: min 1/team (weight 1000) + balance (weight 200).
+- Full TLs balanced (weight 30), Junior TLs balanced (weight 15).
+- All delegates balanced (weight 5).
+- Scramblers: LimitConstraint + BalanceConstraint for scarce events.
+- Scramble quality: BalanceConstraint per event (weight 5-15).
+- Registered events balanced (weight 0.2).
+- Colombians balanced (weight 5), Brazilians balanced (weight 2).
+- BLD competitors balanced (weight 3-5).
+
+---
+
+## 8. Production Deploy
+
+Pipeline uses **authenticated WCIF** (not public) to ensure correct activity IDs.
+Flow:
+1. OAuth authorization → get token
+2. Fetch authenticated WCIF (has all persons + correct activity IDs)
+3. Reset (clear assignments/extensions/childActivities)
+4. Phase 0.5: compute scramble quality scores
+5. Phase 1: import + teams
+6. Phase 2: group assignments
+7. Phase 2.5: compete-room tagging
+8. Phase 3: staff assignments (day scripts + unofficial)
+9. PATCH schedule
+10. Clean all persons (clear assignments)
+11. Fix comments
+12. PATCH persons

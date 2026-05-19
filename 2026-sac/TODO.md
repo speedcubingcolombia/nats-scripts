@@ -2,46 +2,46 @@
 
 ## Actions required outside of scripts
 
-- [ ] **Angie Juliett** — Ask her to create a WCA portal account. Currently uses synthetic
-  wcaUserId `9999803` which will cause the PATCH to fail. Replace in `add_missing_staff.cs`
-  once she has a real account.
+- [ ] **Angie Juliett** — Needs WCA portal account. Replace synthetic wcaUserId in
+  `add_missing_staff.cs` once she has a real account.
+- [ ] **Johana Suarez** — Registration pending in WCA. Approve as non-competing
+  registration so pipeline can include her.
+- [ ] **Nicolas Raubach Munari** — Streaming team, pending addition to overrides.
 
-## Pending implementation
+## Pending confirmation
 
-- [ ] **FTO R1 — schedule change** — 0 staff available due to conflict with
-  222+Pyram+333 R2. Options: move to morning (7:00 AM any day) or reduce duration.
-- [ ] **Phase 2.5 in UI mode** — The pure JS in `run_pipeline.js` (tagging
-  `compete-d{N}-{slug}`) does not run from the server UI. Not an issue when
-  deploying via `make deploy` (runs full pipeline locally).
+- [ ] **Alvaro Aguilar Salobrena** — Pending if competing or not (2026-05-18).
+- [ ] **Ruben Lopez de Juan** — Pending if competing or not (2026-05-18).
 
-## Live (during the event)
+## Ad-hoc (during the event)
 
-- [ ] **Midcomp group assignments** — Scripts in `groups/midcomp/`. Run via
+- [ ] **FTO R1 (Day 3)** — 0 staff available due to schedule conflict with
+  222+Pyram+444bf. Staff recruited manually on-site.
+- [ ] **Midcomp group assignments** — R2+ scripts in `groups/midcomp/`. Run via
   `make serve-prod` UI as results become available.
 
 ## Already resolved
 
-- [x] **Deployed to WCA production** — 8,319 assignments, 219 groups, 517 persons
-- [x] `.env.PROD` configured with OAuth
-- [x] Production deploy workflow: `make deploy`, `make deploy-restore`, `make backup`, `make verify`
-- [x] Verification: 7/7 checks passed (zone compliance 100%, TLs, score takers, etc.)
-- [x] Staff pool complete (108 in cluster + 11 outside the pool)
-- [x] 12 Team Leads (3/team, 1 BR + 1 CO per team)
-- [x] Score takers implemented (Lais, Francia, Adriana — excluded from regular jobs)
-- [x] STAGE_LEAD renamed to LISTED_DELEGATE
-- [x] Constraints: BR-TL, CO-TL, rank balance, Country CO/BR
-- [x] 10 judges + 3 scramblers + 3 runners (main rooms)
-- [x] 8 judges + 2 scramblers + 2 runners (unofficial events)
-- [x] Staff competes in their zone (100% compliance)
-- [x] 3-phase pipeline + Phase 2.5
-- [x] Streaming (Luigi + Klaus), organizers, coordinators outside the pool
-- [x] Nayarid Villarreal, Michael Castillo removed (not attending)
-- [x] Felipe Rojas via AddPerson (NOT TL)
-- [x] 13 volunteers from `voluntarios listado.xlsx` via AddPerson
-- [x] Fix SpecificAssignmentScore `let out` bug
-- [x] HTML reports generated (5 reports)
-- [x] Project reorganized (data/sources, data/outputs, reports/html, backups)
-- [x] All docs translated to English
-- [x] Docs renamed: REGLAS→RULES, ANALISIS→STATION_ANALYSIS, GUIDE→EXPLANATION
-- [x] New doc: PEOPLE.md (TLs, exclusions, score takers, pool status)
-- [x] Git: all commits pushed, .gitignore updated, personal data excluded
+- [x] **Deployed to WCA production** — 9,085 assignments, 222 groups, 597 persons
+- [x] Production deploy uses **authenticated WCIF** (no remapping needed)
+- [x] 4 teams × 25 staff, 12 Team Leads (3/team, 1 BR + 1 CO)
+- [x] 4 Score Takers (Lais, Francia, Adriana, Valentina)
+- [x] 3 Streaming (Luigi, Klaus, Ricardo Hurtado)
+- [x] 14 judges + 3 scramblers + 3 runners (main rooms, flexible min)
+- [x] 10 judges BLD (Zona Morada, float team only)
+- [x] 8 judges + 2 scr + 2 run + 1 Lead (unofficial, float team only)
+- [x] BLD groups: 555bf=2, 444bf=3, MBLD=1 per attempt
+- [x] Delegate = TLs only (main team for principals, float for BLD)
+- [x] Float team: -300 deprioritized on D2/D3 (BLD priority), +400 bonus on D1/D4
+- [x] Mirror R1 (D1): staff assigned (6 staff including TLs as judges)
+- [x] Scrambler distribution: can-scramble + quality scores (PRs) balanced across teams
+- [x] BLD competitor overlap resolved (scorers in 222, pyram, 444, 333oh, 555)
+- [x] Phase 0.5: scramble quality scores from WCIF personalBests
+- [x] volunteer_properties.cs included in pipeline
+- [x] CompScript Job() flexible min (Delegate=0, judge=count-4, scrambler/runner=count-1)
+- [x] Jhonatan Reategui, Victor Solis, Angie Casallas removed from staff
+- [x] Lucas Zvinys promoted trainee→junior
+- [x] Ruben Lopez de Juan added as WCA Board (overrides)
+- [x] Pipeline order: day scripts (BLD first) → unofficial last
+- [x] Deploy cleans all persons before PATCH + fixes comments
+- [x] Reports: team_leads, team_roster, staff_summary, volunteer_workload, group_schedule_overview

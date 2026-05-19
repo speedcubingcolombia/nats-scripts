@@ -87,7 +87,8 @@ The `WCA_USER_ID` can be found by searching for the person at https://www.worldc
 ### Change the number of stations
 
 In `volunteers/day*.cs` and `volunteers/unofficial.cs`, change the number in each `Job("judge", N, ...)`.
-Currently: 10 judges (main rooms), 8 judges (unofficial events).
+Currently: 14 judges (main rooms), 10 judges (BLD), 8 judges (unofficial events).
+Flexible minimums are hardcoded in `compscript/staff/assign.js` by job name.
 
 ### Regenerate volunteer data (rare)
 
@@ -252,24 +253,31 @@ groups/midcomp/222-r2.cs
 ## Pipeline (3 phases + 1 intermediate)
 
 ```
+Phase 0.5 — Scramble Quality (JS in run_pipeline.js)
+  Computes scramble-quality-{event} (0-3) from WCIF personalBests.
+  Used by Cluster for team balance and AssignStaff for scrambler priority.
+
 Phase 1 — Import + Teams
-  import.cs → add_missing_staff.cs → overrides.cs →
-  populate_r1.cs → create_groups.cs → volunteer_teams.cs
-  → 515 people, 219 groups, 4 teams (~27 each)
+  import.cs → add_missing_staff.cs → volunteer_properties.cs →
+  overrides.cs → populate_r1.cs → create_groups.cs → volunteer_teams.cs
+  → 597 people, 222 groups, 4 teams (25 each)
 
 Phase 2 — Group Assignment (16 R1 events)
   groups/r1/*.cs
   → Staff forced to compete in their team's zone (100%)
-  → ~4,131 competitor assignments
+  → BLD competitors pushed to non-conflicting groups
+  → ~4,088 competitor assignments
 
 Phase 2.5 — Cohesion Tagging (JS in run_pipeline.js)
   Sets compete-d{N}-{room} properties per person.
   → Used by Phase 3 for +100 cohesion bonus
 
 Phase 3 — Staff Assignment
-  volunteers/day1-4.cs + unofficial.cs
-  → Primary team +500, cohesion +100, floater as backup
-  → ~4,188 staff assignments
+  volunteers/day1-4.cs (BLD first) + unofficial.cs (last)
+  → Primary team +500, cohesion +100, float deprioritized -300
+  → Delegate = TLs only (main team for principals, float for BLD)
+  → Scramblers filtered by can-scramble + quality scorer
+  → ~4,996 staff assignments
 ```
 
 ---
@@ -279,11 +287,13 @@ Phase 3 — Staff Assignment
 | Concept | Value |
 |---------|-------|
 | Competitors | ~500 |
-| Staff in pool | 108 (4 teams x 27) |
-| Outside the pool | 11 (organizers, streaming, coordinators) |
+| Staff in pool | 100 (4 teams x 25) |
+| Outside the pool | 17 (organizers, streaming, score takers, coordinators, etc.) |
 | Team Leads | 12 (3/team: 1 BR + 1 CO + 1 other) |
-| Score Takers | 3 (dedicated data entry) |
-| Groups | 219 |
-| Main room stations | 10 judges + 3 scr + 3 run + 3 del = 19/group |
+| Score Takers | 4 (dedicated data entry) |
+| Streaming | 3 (Luigi, Klaus, Ricardo) |
+| Groups | 222 |
+| Main room stations | 14 judges + 3 scr + 3 run + 1-3 TL = ~23/group |
+| BLD stations | 10 judges + 1-3 TL (float team only) |
 | Unofficial stations | 8 judges + 2 scr + 2 run + 1 Lead = 13/group |
 | Zones | 3 main + BLD + Green (unofficial) |
