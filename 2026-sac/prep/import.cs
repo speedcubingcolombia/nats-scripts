@@ -60,14 +60,15 @@ SetProperty([2023ZVIN01], DELEGATE_RANK, "junior")
 
 # --- Delegates from registration form (not in volunteer list) ---
 # Full + Senior delegates
-SetProperty([2014IBAR01, 2016SUZU03, 2013DIPI01, 2013VEGA03, 2016ACOS08, 2016SANT66, 2014YUNO01, 2017ONDE01], LISTED_DELEGATE, true)
-SetProperty([2014IBAR01, 2016SUZU03, 2016ACOS08, 2016SANT66, 2014YUNO01, 2017ONDE01], DELEGATE_RANK, "full")
+SetProperty([2014IBAR01, 2016SUZU03, 2013DIPI01, 2013VEGA03, 2016SANT66, 2014YUNO01, 2017ONDE01], LISTED_DELEGATE, true)
+SetProperty([2014IBAR01, 2016SUZU03, 2016SANT66, 2014YUNO01, 2017ONDE01], DELEGATE_RANK, "full")
+# Removed: 2016ACOS08 (Elias Acosta, Full) — withdrew registration (2026-05-24).
 SetProperty([2013DIPI01], DELEGATE_RANK, "senior")
 SetProperty([2013VEGA03], DELEGATE_RANK, "full")
 # Team Lead designation (subset — Full delegates trusted to supervise):
-#   Sergio Ibarra, Elias Acosta, Lucas Yunomae, Alexandre Ondet.
-SetProperty([2014IBAR01, 2016ACOS08, 2014YUNO01, 2017ONDE01], TEAM_LEAD, true)
-# Excluded: 2016SUZU03 (Andrés Suzuki) — dropped for 3 TL/team (PE duplicate).
+#   Sergio Ibarra, Lucas Yunomae, Alexandre Ondet, Andrés Suzuki.
+SetProperty([2014IBAR01, 2014YUNO01, 2017ONDE01, 2016SUZU03], TEAM_LEAD, true)
+# Restored: 2016SUZU03 (Andrés Suzuki) — promoted to TL after 2016ACOS08 withdrew.
 # Excluded as Team Lead:
 #   2013VEGA03 (Cristian Vega) — flagged not to assign supervisor responsibility.
 #   2016SANT66 (João Vinícius Santos) — likely covering other tasks.
@@ -131,12 +132,10 @@ SetProperty([2011EDUA01, 2014JIME05, 2017LOPE31], VOLUNTEER, true)
 SetProperty([2018MELO07, 2020TORR01], VOLUNTEER, true)
 
 # --- Delegados confirmados que NO asisten (informativo, no se asignan) ---
-# 2016LOPE37 Rubén López de Juan (ES Full) — attending, no operational role (see overrides.cs).
+# 2016LOPE37 Rubén López de Juan (ES Full) — competing, ayuda sin asignaciones (see overrides.cs).
 # 2015SALO01 Álvaro Aguilar Salobreña (ES Full) — support from España, no asiste.
 # 2011SATO01 Heron Sato (BR Full) — listado como Organizador (org-delg), no como
 #            staff de turnos diarios; sin propiedades en pipeline.
-# PENDING: Álvaro (2015SALO01), Rubén (2016LOPE37)
-#          — pending confirmation on competing status (2026-05-18).
 
 # Confirmed volunteers de "voluntarios listado.xlsx" pero ausentes de
 # SAC2026-registration → agregados vía AddPerson en add_missing_staff.cs.

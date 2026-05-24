@@ -87,8 +87,9 @@ The `WCA_USER_ID` can be found by searching for the person at https://www.worldc
 ### Change the number of stations
 
 In `volunteers/day*.cs` and `volunteers/unofficial.cs`, change the number in each `Job("judge", N, ...)`.
-Currently: 14 judges (main rooms), 10 judges (BLD), 8 judges (unofficial events).
+Currently: 14 judges (main rooms), 8 judges (BLD), 8 judges (unofficial finals).
 Flexible minimums are hardcoded in `compscript/staff/assign.js` by job name.
+BLD scramblers require `can-scramble-444`/`can-scramble-555` in their eligibility filters.
 
 ### Regenerate volunteer data (rare)
 
@@ -208,11 +209,11 @@ groups/midcomp/222-r2.cs
 │   └── _assigned_room.cs       # Rotation: Team → Room per day
 │
 ├── prep/                       # Phase 1: Data preparation
-│   ├── import.cs               # Import staff (~108 in pool)
-│   ├── add_missing_staff.cs    # 15 people via AddPerson
+│   ├── import.cs               # Import staff (~99 in pool)
+│   ├── add_missing_staff.cs    # Non-registered staff via AddPerson
 │   ├── overrides.cs            # Exclusions and manual adjustments
 │   ├── populate_r1.cs          # Create empty R1 results
-│   ├── create_groups.cs        # Create 219 groups in schedule
+│   ├── create_groups.cs        # Create groups in schedule (NOT run in pipeline)
 │   └── volunteer_teams.cs      # Cluster: 4 balanced teams
 │
 ├── groups/                     # Phase 2: Competitor assignment
@@ -221,7 +222,7 @@ groups/midcomp/222-r2.cs
 │   └── midcomp/                # Round 2+ (live)
 │
 ├── volunteers/                 # Phase 3: Staff assignment
-│   ├── day1-4.cs               # Staff per day (10j + 3s + 3r + 3d)
+│   ├── day1-4.cs               # Staff per day (14j + 3s + 3r + TL-Delegate)
 │   ├── unofficial.cs           # Unofficial events (8j + 2s + 2r + 1 Lead)
 │   └── lib/                    # Reference definitions (not used in pipeline)
 │
@@ -259,14 +260,17 @@ Phase 0.5 — Scramble Quality (JS in run_pipeline.js)
 
 Phase 1 — Import + Teams
   import.cs → add_missing_staff.cs → volunteer_properties.cs →
-  overrides.cs → populate_r1.cs → create_groups.cs → volunteer_teams.cs
-  → 597 people, 222 groups, 4 teams (25 each)
+  overrides.cs → populate_r1.cs → volunteer_teams.cs
+  → 510 people, 222 groups, 4 teams (25/25/25/24)
+  NOTE: create_groups.cs NOT run in pipeline (groups come from WCIF)
 
 Phase 2 — Group Assignment (16 R1 events)
   groups/r1/*.cs
-  → Staff forced to compete in their team's zone (100%)
+  → Staff forced to compete in their team's zone (-5000 wrong room)
+  → Float team pushed to first/last groups (free for unofficial/BLD)
   → BLD competitors pushed to non-conflicting groups
-  → ~4,088 competitor assignments
+  → ManuallyAssign for TLs + overwrite=true on AssignGroups
+  → ~4,083 competitor assignments
 
 Phase 2.5 — Cohesion Tagging (JS in run_pipeline.js)
   Sets compete-d{N}-{room} properties per person.
@@ -276,8 +280,8 @@ Phase 3 — Staff Assignment
   volunteers/day1-4.cs (BLD first) + unofficial.cs (last)
   → Primary team +500, cohesion +100, float deprioritized -300
   → Delegate = TLs only (main team for principals, float for BLD)
-  → Scramblers filtered by can-scramble + quality scorer
-  → ~4,996 staff assignments
+  → BLD scramblers filtered by can-scramble-{puzzle} + quality scorer
+  → ~4,863 staff assignments
 ```
 
 ---
@@ -286,14 +290,16 @@ Phase 3 — Staff Assignment
 
 | Concept | Value |
 |---------|-------|
-| Competitors | ~500 |
-| Staff in pool | 100 (4 teams x 25) |
-| Outside the pool | 17 (organizers, streaming, score takers, coordinators, etc.) |
+| Competitors | ~493 |
+| Staff in pool | 99 (T1=25, T2=25, T3=25, T4=24) |
+| Outside the pool | ~17 (organizers, streaming, score takers, coordinators, etc.) |
 | Team Leads | 12 (3/team: 1 BR + 1 CO + 1 other) |
-| Score Takers | 4 (dedicated data entry) |
+| Score Takers | 4 (Laís, Francia, Adriana, Valentina) |
 | Streaming | 3 (Luigi, Klaus, Ricardo) |
 | Groups | 222 |
-| Main room stations | 14 judges + 3 scr + 3 run + 1-3 TL = ~23/group |
-| BLD stations | 10 judges + 1-3 TL (float team only) |
-| Unofficial stations | 8 judges + 2 scr + 2 run + 1 Lead = 13/group |
-| Zones | 3 main + BLD + Green (unofficial) |
+| Total assignments | ~8,946 |
+| Main room stations | 14 judges + 3 scr + 3 run + TL-Delegate = ~23/group |
+| BLD stations | 8 judges + 2 scr + 2 run + TL-Delegate (float team only) |
+| Unofficial finals | 8 judges + 2 scr + 2 run + 1 Lead = 13/event |
+| Unofficial R1 | Ad-hoc (schedule overlaps prevent automated assignment) |
+| Zones | 3 main (Amarilla/Azul/Roja) + Morada (BLD) + Verde (unofficial) |
