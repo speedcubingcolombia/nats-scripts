@@ -2,8 +2,7 @@
 
 ## Pre-deploy (next deploy)
 
-- [ ] **Rubén López de Juan** — Reabrir registro mañana (2026-05-25 mediodía) para
-  cambiar isCompeting=true. Pipeline ya le asigna 12 grupos correctamente.
+- [x] **Rubén López de Juan** — isCompeting=true, 12 eventos. Resuelto 2026-05-26.
 - [ ] **Johana Suarez** — Aprobar registro non-competing en WCA para que aparezca
   en WCIF oficial.
 

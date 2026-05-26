@@ -72,6 +72,9 @@ SetProperty([2021LOPE01], "special-role", "Delegate Coordinator")
 DeleteProperty([p474926], VOLUNTEER)
 SetProperty([p474926], "special-role", "Support")
 
+DeleteProperty([p476324], VOLUNTEER)
+SetProperty([p476324], "special-role", "Support")
+
 # --- Delegados removidos del staff (competitors only) ---
 # NOTE: Brian Hambeck (2016HAMB02), Gabriel Sargeiro (2014MELL03),
 # Israel Fraga (2012SILV22), Kalani Oliveira (2018OLIV28), Mateo Aguirre (2022AGUI03)

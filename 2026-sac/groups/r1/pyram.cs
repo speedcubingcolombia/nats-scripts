@@ -13,5 +13,7 @@ AssignGroups(_pyram-r1,
                     StaffRoomScorersDay3(),
                     [ByFilters(CompetingIn(_333), (EndTime() > 2026-06-14T21:55), -100),
                      ByFilters(CompetingIn(_444bf), (EndTime() < 2026-06-14T21:30), -10000),
-                     ByFilters((NumberProperty(STAFF_TEAM) == 2), (EndTime() < 2026-06-14T21:50), -10000)]),
+                     ByFilters((NumberProperty(STAFF_TEAM) == 2), (EndTime() < 2026-06-14T21:50), -10000),
+                     ByFilters(BooleanProperty("unofficial_lead"), (EndTime() < 2026-06-14T22:00), -10000),
+                     ByFilters(BooleanProperty("unoff-fto"), (EndTime() < 2026-06-14T22:00), -5000)]),
              overwrite=true)

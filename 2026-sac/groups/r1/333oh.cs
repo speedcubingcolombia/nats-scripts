@@ -9,4 +9,5 @@ AssignGroups(_333oh-r1,
              Concat(DefaultScorers(),
                     StaffRoomScorersDay3(),
                     [ByFilters(CompetingIn(_333mbf), (StartTime() > 2026-06-14T16:00), -500),
-                     ByFilters(And(BooleanProperty(TEAM_LEAD), (NumberProperty(STAFF_TEAM) == 2)), (StartTime() > 2026-06-14T16:00), -10000)]))
+                     ByFilters(And(BooleanProperty(TEAM_LEAD), (NumberProperty(STAFF_TEAM) == 2)), (StartTime() > 2026-06-14T16:00), -10000),
+                     ByFilters(BooleanProperty("unoff-tb"), (StartTime() > 2026-06-14T16:00), -5000)]))

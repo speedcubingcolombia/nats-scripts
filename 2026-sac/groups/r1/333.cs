@@ -11,6 +11,6 @@ AssignGroups(_333-r1,
              RoundOneAssignmentSets(_333, 2026-06-13),
              Concat(DefaultScorers(),
                     StaffRoomScorersDay2(),
-                    [ByFilters(CompetingIn(_333mbf), (StartTime() > 2026-06-13T21:00), -10000),
+                    [ByFilters(CompetingIn(_333mbf), (StartTime() > 2026-06-13T20:45), -10000),
                      ByFilters((NumberProperty(STAFF_TEAM) == 1), (StartTime() > 2026-06-13T21:00), -10000)]),
              overwrite=true)

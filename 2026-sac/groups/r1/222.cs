@@ -14,5 +14,6 @@ AssignGroups(_222-r1,
                     StaffRoomScorersDay3(),
                     [ByFilters(CompetingIn(_pyram), (EndTime() > 2026-06-14T20:15), -100),
                      ByFilters(CompetingIn(_444bf), (StartTime() > 2026-06-14T19:30), -10000),
-                     ByFilters((NumberProperty(STAFF_TEAM) == 2), (StartTime() > 2026-06-14T18:55), -10000)]),
+                     ByFilters((NumberProperty(STAFF_TEAM) == 2), (StartTime() > 2026-06-14T18:55), -10000),
+                     ByFilters(BooleanProperty("unoff-fto"), (StartTime() > 2026-06-14T18:55), -5000)]),
              overwrite=true)

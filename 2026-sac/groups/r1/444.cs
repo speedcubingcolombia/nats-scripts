@@ -12,5 +12,6 @@ AssignGroups(_444-r1,
                     StaffRoomScorersDay2(),
                     [ByFilters(CompetingIn(_skewb), (EndTime() > 2026-06-13T15:55), -100),
                      ByFilters(CompetingIn(_555bf), (StartTime() > 2026-06-13T14:20), -10000),
-                     ByFilters((NumberProperty(STAFF_TEAM) == 1), (StartTime() > 2026-06-13T14:20), -10000)]),
+                     ByFilters((NumberProperty(STAFF_TEAM) == 1), (StartTime() > 2026-06-13T14:20), -10000),
+                     ByFilters(BooleanProperty("unoff-kilominx"), (StartTime() > 2026-06-13T14:20), -5000)]),
              overwrite=true)

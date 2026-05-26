@@ -10,4 +10,5 @@ AssignGroups(_555-r1,
              Concat(DefaultScorers(),
                     StaffRoomScorersDay1(),
                     [ByFilters(BooleanProperty("team-lead"), (EndTime() < 2026-06-12T21:40), -500),
-                     ByFilters((NumberProperty(STAFF_TEAM) == 4), (EndTime() < 2026-06-12T22:30), -10000)]))
+                     ByFilters((NumberProperty(STAFF_TEAM) == 4), (EndTime() < 2026-06-12T22:30), -10000),
+                     ByFilters(BooleanProperty("unoff-mirror"), (EndTime() < 2026-06-12T22:30), -5000)]))

@@ -9,4 +9,5 @@ AssignGroups(_clock-r1,
              Concat(DefaultScorers(),
                     StaffRoomScorersDay1(),
                     [ByFilters(CompetingIn(_555), (EndTime() > 2026-06-12T20:40), -100),
-                     ByFilters((NumberProperty(STAFF_TEAM) == 4), (StartTime() > 2026-06-12T19:55), -10000)]))
+                     ByFilters((NumberProperty(STAFF_TEAM) == 4), (StartTime() > 2026-06-12T19:55), -10000),
+                     ByFilters(BooleanProperty("unoff-mirror"), (StartTime() > 2026-06-12T19:55), -5000)]))
