@@ -265,6 +265,39 @@ async function runPhase(label, scriptSrc, competition) {
     }
     console.log(`  Tagged ${tagged} persons with compete-room properties`)
 
+    // Phase 2.7: Assign float "home room" — the room where each float member competes most
+    console.log('\nPhase 2.7: Assigning float home rooms...')
+    ;(function() {
+      const FLOAT_BY_DAY = { '2026-06-12': 4, '2026-06-13': 1, '2026-06-14': 2, '2026-06-15': 3 }
+      const MAIN_ROOMS = ['Zona Amarilla', 'Zona Azul', 'Zona Roja']
+      let tagged = 0
+      for (const p of afterPhase2.persons) {
+        let ext = (p.extensions || []).find(e => e.id === 'org.cubingusa.natshelper.v1.Person')
+        if (!ext) continue
+        const team = ext.data?.properties?.['staff-team']
+        if (!team) continue
+
+        for (const [date, floatTeam] of Object.entries(FLOAT_BY_DAY)) {
+          if (team !== floatTeam) continue
+          const dayNum = DAY_NUM[date]
+          const roomCounts = {}
+          for (const a of p.assignments || []) {
+            if (a.assignmentCode !== 'competitor') continue
+            const info = actMap[a.activityId]
+            if (!info || info.date !== date || !MAIN_ROOMS.includes(info.room)) continue
+            roomCounts[info.room] = (roomCounts[info.room] || 0) + 1
+          }
+          const best = Object.entries(roomCounts).sort((a, b) => b[1] - a[1])[0]
+          if (best) {
+            const slug = ROOM_SLUG[best[0]]
+            ext.data.properties['float-home-d' + dayNum] = slug
+            tagged++
+          }
+        }
+      }
+      console.log(`  Tagged ${tagged} float home rooms`)
+    })()
+
     // Phase 3: Staff assignments (needs team + group data from phases 1-2)
     const afterPhase3 = await runPhase('Phase 3 (staff assignments)', phase3, afterPhase2)
 
