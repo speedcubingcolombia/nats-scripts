@@ -186,6 +186,31 @@ async function runPhase(label, scriptSrc, competition) {
       setTeam(afterPhase1, '2024VALD01', null, 3)   // Santiago Valderrama T2→T3
     })()
 
+    // Phase 1.6: Balance float sub-zones for even distribution across rooms
+    console.log('\nPhase 1.6: Balancing float zone distribution...')
+    ;(function() {
+      const FLOAT_BY_DAY = { 1: 4, 2: 1, 3: 2, 4: 3 }
+      const ZONES = ['amarilla', 'azul', 'roja']
+      let tagged = 0
+      for (const [dayNum, floatTeam] of Object.entries(FLOAT_BY_DAY)) {
+        const members = afterPhase1.persons.filter(p => {
+          let ext = (p.extensions || []).find(e => e.id === 'org.cubingusa.natshelper.v1.Person')
+          return ext?.data?.properties?.['staff-team'] === floatTeam && !ext?.data?.properties?.['team-lead']
+        })
+        for (let i = 0; i < members.length; i++) {
+          const zone = ZONES[i % 3]
+          let ext = (members[i].extensions || []).find(e => e.id === 'org.cubingusa.natshelper.v1.Person')
+          if (!ext) continue
+          ext.data.properties['float-zone-d' + dayNum] = zone
+          tagged++
+        }
+        const dist = {}
+        members.forEach((m, i) => { const z = ZONES[i % 3]; dist[z] = (dist[z] || 0) + 1 })
+        console.log('  D' + dayNum + ' T' + floatTeam + ': ' + Object.entries(dist).map(([z, c]) => z + ':' + c).join(' '))
+      }
+      console.log('  Tagged ' + tagged + ' float zone assignments')
+    })()
+
     // Phase 1.7: Tag unofficial competitors for group optimization
     console.log('\nPhase 1.7: Tagging unofficial competitors...')
     ;(function() {
