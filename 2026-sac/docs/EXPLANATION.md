@@ -20,33 +20,52 @@ Breakdown of every pipeline script, how it works, and comparison with US Nationa
 
 ## Pipeline Overview
 
-The pipeline runs in **3 main phases + 1 intermediate** (defined in `run_pipeline.js`):
+The pipeline runs in **7 phases** (defined in `run_pipeline.js`):
 
 ```
-Phase 1 — Import + Teams:
-  prep/import.cs           → Set volunteer/delegate/team-lead properties on persons
-  prep/add_missing_staff.cs → Mark Angie Casallas as volunteer (no WCA ID yet)
-  prep/overrides.cs        → Remove/promote delegates, exclusions (now incl. Diego Casas + Eduard García)
-  prep/populate_r1.cs      → Create empty R1 results from registrations
-  prep/create_groups.cs    → Create 219 group child activities in schedule
+Phase 0.5 — Scramble Quality (JS):
+  Compute scramble-quality-{event} scores (1/2/3) from personalBests.
+
+Phase 1 — Import + Teams (CompScript):
+  prep/import.cs           → Set volunteer/delegate/team-lead properties
+  prep/add_missing_staff.cs → Add non-competing staff (NCP)
+  prep/overrides.cs        → Role overrides (Support, exclusions)
+  prep/populate_r1.cs      → Create empty R1 results
+  prep/create_groups.cs    → Create 222 group child activities
   prep/volunteer_teams.cs  → Cluster staff into 4 balanced teams
 
-Phase 2 — Group Assignments:
+Phase 1.5 — Family Swaps (JS):
+  Move Giraldo-Quintero family to T2. Balance swaps.
+
+Phase 1.6 — Float Zone Balance (JS):
+  Assign float-zone-d{N} = amarilla/azul/roja evenly (7/7/7).
+
+Phase 1.7 — Unofficial Tags (JS):
+  Tag unofficial competitors (unoff-mirror/kilominx/fto/tb) for push scorers.
+
+Phase 2 — Group Assignments (CompScript):
   groups/r1/*.cs           → Assign competitors to R1 groups (16 events)
-                             Staff forced to their team's room via StaffRoomScorers
+                             Staff forced to team's room via StaffRoomScorers (-5000)
+                             Clock has extra -50000 zone enforcement
 
-Phase 2.5 — Compete-Room Tagging (JS only, inside run_pipeline.js):
-  For each person, derive which rooms they compete in per day from their
-  competitor assignments, then set `compete-d{1..4}-{amarilla|azul|roja|bld|verde}`
-  boolean properties. These drive the room-coherence scorer in Phase 3.
+Phase 2.5 — Compete-Room Tagging (JS):
+  Set compete-d{N}-{room} properties from Phase 2 results.
 
-Phase 3 — Staff Assignments:
-  volunteers/day1-4.cs     → Assign judges/scramblers/runners/delegates per group
-                             Scorers (per AssignStaff call, one per day×room):
-                               - FollowingGroupScorer(-50)        — avoid back-to-back after competing
-                               - JobCountScorer(-5)               — spread workload
-                               - PersonPropertyScorer(primary team, 500)  — team's assigned room dominates
-                               - PersonPropertyScorer(compete-d{N}-{slug}, 100)  — zone coherence tiebreak
+Phase 2.7 — Float Home Room (JS):
+  Compute float-home-d{N} = room where each float member competes most.
+
+Phase 3 — Staff Assignments (CompScript):
+  volunteers/day1-4.cs     → Assign judges/scramblers/runners/delegates
+                             Scorers per AssignStaff call:
+                               - FollowingGroupScorer(-50)
+                               - JobCountScorer(-15)
+                               - PersonPropertyScorer(primary team, 500)
+                               - PersonPropertyScorer(compete-room, 500)
+                               - PersonPropertyScorer(float-home, 2000)
+                               - PersonPropertyScorer(scramble-quality, 300)
+  volunteers/unofficial.cs → Assign Lead (Maarten) + staff for unofficial events
+
+No Phase 3.5 — unofficial competitor assignments handled operationally.
 ```
 
 **Important**: Split into phases because `Cluster()` blocks subsequent expressions in Node.js runner. Phase 2 needs `staff-team` from Phase 1 to enforce room constraints. Phase 2.5 runs in plain JS because it needs actual competitor assignments from Phase 2 to compute compete-room properties, then those properties are read by Phase 3 CompScript.

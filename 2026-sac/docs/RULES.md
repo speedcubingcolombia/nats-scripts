@@ -66,8 +66,9 @@ Reference document with all constraints for the South American Championship 2026
 - **3 scramblers** per zone per group (flexible min=2).
 - **3 runners** per zone per group (flexible min=2).
 - **1-3 Delegates** (TLs only, from main team; flexible min=1).
-- Scramblers filtered by `can-scramble-{event}` eligibility.
-- Scramblers prioritized by `scramble-quality-{event}` scorer (+200 for proven).
+- Scramblers filtered by `can-scramble-{event}` eligibility (ALL events, not just BLD).
+- Scramblers prioritized by `scramble-quality-{event}` scorer (+300 for quality≥2).
+- Result: 100% scramblers qualified, 97% quality≥2, 18% elite.
 
 ### BLD Room (Zona Morada)
 
@@ -106,11 +107,11 @@ Reference document with all constraints for the South American Championship 2026
 ## 5. Flexible Job Constraints (CompScript assign.js)
 
 Jobs have a `min` parameter hardcoded by name:
-- `Delegate`: min=0 (0-3 TLs depending on availability, +1000 bonus per slot filled)
-- `judge`: min=count-4 (e.g., 14→min 10)
-- `scrambler`: min=count-1 (e.g., 3→min 2)
-- `runner`: min=count-1 (e.g., 3→min 2)
-- All others: min=count (strict)
+- `Delegate`: min=1
+- `judge`: count>4 → min=count-4 (e.g., 14→min 10); count≤4 → min=0 (unofficial, allows Lead-only)
+- `scrambler`: count≥2 → min=count-1 (e.g., 3→min 2); count<2 → min=0
+- `runner`: count≥2 → min=count-1; count<2 → min=0
+- All others (Lead, etc.): min=count (strict)
 
 This allows the solver to find solutions when not enough people are available,
 rather than failing the entire group.
@@ -151,14 +152,18 @@ rather than failing the entire group.
 Pipeline uses **authenticated WCIF** (not public) to ensure correct activity IDs.
 Flow:
 1. OAuth authorization → get token
-2. Fetch authenticated WCIF (has all persons + correct activity IDs)
-3. Reset (clear assignments/extensions/childActivities)
+2. Fetch public WCIF (correct activity IDs)
+3. Reset (clear assignments/extensions)
 4. Phase 0.5: compute scramble quality scores
 5. Phase 1: import + teams
-6. Phase 2: group assignments
-7. Phase 2.5: compete-room tagging
-8. Phase 3: staff assignments (day scripts + unofficial)
-9. PATCH schedule
-10. Clean all persons (clear assignments)
-11. Fix comments
-12. PATCH persons
+6. Phase 1.5: family team swaps (Giraldo-Quintero → T2, balance)
+7. Phase 1.6: float zone balance (7/7/7 per day)
+8. Phase 1.7: tag unofficial competitors (push scorers in Phase 2)
+9. Phase 2: group assignments
+10. Phase 2.5: compete-room tagging
+11. Phase 2.7: float home room assignment
+12. Phase 3: staff assignments (day scripts + unofficial.cs)
+13. Clean all persons (clear assignments)
+14. Fix comments
+15. PATCH persons
+Note: Phase 3.5 (unofficial competitor assignment) was removed. No schedule PATCH.

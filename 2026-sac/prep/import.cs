@@ -133,7 +133,7 @@ SetProperty([2018MELO07, 2020TORR01], VOLUNTEER, true)
 
 # --- Delegados confirmados que NO asisten (informativo, no se asignan) ---
 # 2016LOPE37 Rubén López de Juan (ES Full) — competing, ayuda sin asignaciones (see overrides.cs).
-# 2015SALO01 Álvaro Aguilar Salobreña (ES Full) — support from España, no asiste.
+# 2015SALO01 Álvaro Aguilar Salobreña (ES Full) — no asiste, confirmado 2026-05-26.
 # 2011SATO01 Heron Sato (BR Full) — listado como Organizador (org-delg), no como
 #            staff de turnos diarios; sin propiedades en pipeline.
 

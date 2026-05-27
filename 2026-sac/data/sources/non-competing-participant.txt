@@ -1,0 +1,16 @@
+For non-competitors that you can assign staff duties to in the WCIF.
+WCA ID	Name	Birthdate	Representing	Amount	Events	Guests	Comments	Administrative notes	Email
+Edit	Profile	Asociación Ecuatoriana De Speedcubing	2000-07-14		Not paid		0 	0			 
+Edit	2009GARC02	Felipe Andres Rojas Garces	1979-04-17		Not paid		0 	0			 
+Edit	2015SALO01	Álvaro Aguilar Salobreña	2001-01-28		Not paid		0 	0			 
+Edit	2025URIB01	Juliana García Uribe	1995-03-06		Not paid		1 	0			 
+Edit	2015RODR37	José Libardo Moreno Rodríguez	1986-01-17		Not paid		0 	0			 
+Edit	2022LIZA02	Cristian Camilo Bonilla Lizarazo	2008-04-11		Not paid		0 	0			 
+Edit	2025BELT01	Carlos Beltran	1976-12-22		Not paid		0 	0			 
+Edit	2025CARD14	Juliana Cárdenas	2006-01-23		Not paid		0 	0			 
+Edit	2025DELG07	Zaray Dayana Barragán Delgado	2006-07-07		Not paid		0 	0			 
+Edit	2025FAND01	Marcela Ballén Fandiño	2013-01-04		Not paid		0 	0			 
+Edit	2025ROJA24	Tomas Felipe Pinzon Rojas	2014-05-22		Not paid		0 	0			 
+Edit	Profile	Ana Milena Quintero Díaz	1981-03-30		Not paid		0 	0			 
+Edit	Profile	Danilo Montero	1986-07-15		Not paid		0 	0			 
+Edit	Profile	Marcela Ortiz	1980-01-01		Not paid		0 	0			 

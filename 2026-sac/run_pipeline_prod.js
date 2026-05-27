@@ -331,70 +331,8 @@ function tagCompeteRoom(wcif) {
   // Step 5: Phase 3
   const afterPhase3 = await runPhase('Phase 3 (staff assignments)', phase3, afterPhase2)
 
-  // Step 5.5: Assign unofficial competitors to groups
-  console.log('\nPhase 3.5: Assigning unofficial competitors to groups...')
-  ;(function() {
-    const actMap = {}
-    for (const v of afterPhase3.schedule?.venues || []) {
-      for (const r of v.rooms || []) {
-        for (const a of r.activities || []) {
-          actMap[a.id] = { start: a.startTime?.replace('Z','').substring(0,16), end: a.endTime?.replace('Z','').substring(0,16) }
-          for (const c of a.childActivities || []) {
-            actMap[c.id] = { start: c.startTime?.replace('Z','').substring(0,16), end: c.endTime?.replace('Z','').substring(0,16) }
-          }
-        }
-      }
-    }
-    function hasConflict(person, s, e) {
-      for (const a of person.assignments || []) {
-        const info = actMap[a.activityId]
-        if (!info) continue
-        if (info.start < e && s < info.end) return true
-      }
-      return false
-    }
-    const events = [
-      { name:'Mirror', groups:[121,469,470], competitors:['2018KUMA01','2023RODR80','2023BELT07','2023SUAR08','2022QUIN17','2021SOTO01','2019GUTI14','2012MARI04','2016CRUZ16','2016BARO02','2024GUTI02','2024HENA04','2023CELI06','2024COLO04','2023MORR23','2023MORE31','2025FUEN05','2023FLOR03','2021OROZ01','2022CUER01','2016CHAV12','2015TERR01','2015TORR12','2017MART94','2023VELE05','2025COND15','2012PERE04','2019DEVE02','2023LOPE96','2024LOPE19','2023PINH03','2024RINC06','2019RODR66','2014BULU01','2015OSPI01','2023STRA33','2023GODO07','2023VALD02','2023VALD03','2023MAZU05','2024ORTI07','2018GONZ30','2023GOME49','2016SUZU03'] },
-      { name:'Kilominx', groups:[122,471,472], competitors:['2023RODR80','2023SUAR08','2018KUMA01','2021SOTO01','2022MUNA04','2012MARI04','2016CRUZ16','2016BARO02','2019BUIT01','2023CELI06','2024COLO04','2023MORR23','2021OROZ01','2015TERR01','2017MART94','2023VELE05','2012PERE04','2024MEJI05','2023LOPE96','2024LOPE19','2023PINH03','2019RODR66','2014BULU01','2018CRUZ17','2023STRA33','2023GODO07','2023MAZU05','2018GONZ30','2023GOME49'] },
-      { name:'FTO', groups:[123,473,474], competitors:[...new Set(['2023RODR80','2023SUAR08','2022QUIN17','2019GUTI14','2016CRUZ16','2016BARO02','2017POPA01','2019BUIT01','2014ARGA01','2023MORR23','2016SUZU03','2022CUER01','2024ESCA04','2015TERR01','2023VILL10','2017MART94','2024GOOS03','2024LOPE19','2019DEVE02','2023PINH03','2019RODR66','2014BULU01','2018GONZ30'])] },
-    ]
-    const tbPairs = [['2023BELT07','2023CELI06'],['2014AMAY01','2022SAND19'],['2023SUAR08','2021SOTO01'],['2022QUIN17','2023MORE50'],['2019GUTI14','2024GUTI02'],['2017POPA01','2017MUNO06'],['2014ARGA01','2016GONZ52'],['2024COLO04','2023MORR23'],['2025FUEN05','2023MONT31'],['2023FLOR03','2021OROZ01'],['2017CUES02','2022PUEN01'],['2017MART94','2017TOYS01'],['2023VELE05','2022CUER01'],['2018GONZ09','2017SANC20'],['2024MEJI05','2024ORTI07'],['2023LOPE96','2024LOPE19'],['2023PINH03','2023VIDA12'],['2019RODR66','2014BULU01'],['2016CARD07','2019DEVE02'],['2023STRA33','2023GODO07']]
-    const tbGroups = [124,475,476]
-    let total = 0
-    for (const ev of events) {
-      const pg = Math.ceil(ev.competitors.length / 3)
-      for (let i = 0; i < ev.competitors.length; i++) {
-        const p = afterPhase3.persons.find(pp => pp.wcaId === ev.competitors[i])
-        if (!p) continue
-        let g = i < pg ? 0 : i < pg*2 ? 1 : 2
-        const di = actMap[ev.groups[g]]
-        if (di && hasConflict(p, di.start, di.end)) {
-          let found=false; for(let j=0;j<3;j++){if(j!==g){const ai=actMap[ev.groups[j]];if(ai&&!hasConflict(p,ai.start,ai.end)){g=j;found=true;break}}}
-          if(!found){let minO=Infinity;for(let j=0;j<3;j++){const gi=actMap[ev.groups[j]];if(!gi)continue;let ov=0;for(const a of p.assignments){const ai=actMap[a.activityId];if(!ai)continue;if(ai.start<gi.end&&gi.start<ai.end){const os=ai.start>gi.start?ai.start:gi.start;const oe=ai.end<gi.end?ai.end:gi.end;ov+=new Date(oe+'Z').getTime()-new Date(os+'Z').getTime()}};if(ov<minO){minO=ov;g=j}}}
-        }
-        p.assignments.push({ activityId: ev.groups[g], assignmentCode: 'competitor', stationNumber: null })
-        total++
-      }
-    }
-    const ppg = Math.ceil(tbPairs.length / 3)
-    for (let i = 0; i < tbPairs.length; i++) {
-      let g = i < ppg ? 0 : i < ppg*2 ? 1 : 2
-      const di = actMap[tbGroups[g]]
-      if (di) {
-        const p1=afterPhase3.persons.find(pp=>pp.wcaId===tbPairs[i][0]), p2=afterPhase3.persons.find(pp=>pp.wcaId===tbPairs[i][1])
-        if ((p1&&hasConflict(p1,di.start,di.end))||(p2&&hasConflict(p2,di.start,di.end))) {
-          let found=false;for(let j=0;j<3;j++){if(j!==g){const ai=actMap[tbGroups[j]];const c1=p1?hasConflict(p1,ai.start,ai.end):false;const c2=p2?hasConflict(p2,ai.start,ai.end):false;if(!c1&&!c2){g=j;found=true;break}}}
-          if(!found){let minO=Infinity;for(let j=0;j<3;j++){const gi=actMap[tbGroups[j]];if(!gi)continue;let ov=0;for(const px of[p1,p2]){if(!px)continue;for(const a of px.assignments){const ai=actMap[a.activityId];if(!ai)continue;if(ai.start<gi.end&&gi.start<ai.end){const os=ai.start>gi.start?ai.start:gi.start;const oe=ai.end<gi.end?ai.end:gi.end;ov+=new Date(oe+'Z').getTime()-new Date(os+'Z').getTime()}}};if(ov<minO){minO=ov;g=j}}}
-        }
-      }
-      for (const wid of tbPairs[i]) { const p=afterPhase3.persons.find(pp=>pp.wcaId===wid); if(p){p.assignments.push({activityId:tbGroups[g],assignmentCode:'competitor',stationNumber:null});total++} }
-    }
-    console.log(`  Assigned ${total} unofficial competitor slots`)
-    const allEvGroups=[...events.map(e=>e.groups),tbGroups].flat()
-    let improved=0
-    for(const p of afterPhase3.persons){for(const ev of[...events,{name:'TB',groups:tbGroups}]){const ai=p.assignments.findIndex(a=>ev.groups.includes(a.activityId)&&a.assignmentCode==='competitor');if(ai===-1)continue;const cId=p.assignments[ai].activityId;const ci=actMap[cId];if(!ci)continue;let cOv=0;for(const a of p.assignments){if(allEvGroups.includes(a.activityId))continue;const x=actMap[a.activityId];if(!x)continue;if(x.start<ci.end&&ci.start<x.end){const os=x.start>ci.start?x.start:ci.start;const oe=x.end<ci.end?x.end:ci.end;cOv+=new Date(oe+'Z').getTime()-new Date(os+'Z').getTime()}};if(cOv===0)continue;let bId=cId,bOv=cOv;for(const gId of ev.groups){const gi=actMap[gId];if(!gi)continue;let ov=0;for(const a of p.assignments){if(allEvGroups.includes(a.activityId))continue;const x=actMap[a.activityId];if(!x)continue;if(x.start<gi.end&&gi.start<x.end){const os=x.start>gi.start?x.start:gi.start;const oe=x.end<gi.end?x.end:gi.end;ov+=new Date(oe+'Z').getTime()-new Date(os+'Z').getTime()}};if(ov<bOv){bOv=ov;bId=gId}};if(bId!==cId){p.assignments[ai].activityId=bId;improved++}}}
-    console.log(`  Reoptimized ${improved} to better groups`)
-  })()
+  // Phase 3.5 removed — unofficial competitor assignments handled operationally.
+  // Staff for unofficial events is assigned by unofficial.cs in Phase 3.
 
   // Stats
   const totalAssign = afterPhase3.persons.reduce((s, p) => s + (p.assignments || []).length, 0)

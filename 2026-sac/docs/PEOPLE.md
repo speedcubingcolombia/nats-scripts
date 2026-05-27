@@ -8,7 +8,7 @@ Record of all people with special roles, staff decisions, and current status.
 
 | Team | CO TL | BR TL | Other TL |
 |------|-------|-------|----------|
-| T1 | Manuel Popayan (Jr) | Thales Araujo de Souza (Jr) | Elias Acosta (Full, PY) |
+| T1 | Manuel Popayan (Jr) | Thales Araujo de Souza (Jr) | Andrés Hisashi Suzuki Cabrera (Full, PE) |
 | T2 | Sergio Ibarra (Full) | Josias Sirpa Pinto (Jr, BO) | Lucas Ichiro Yunomae (Full, BR) |
 | T3 | Juan Nicolas Pinzon (Jr) | Marlon de V. Marques (Full) | Rafael Sanchez (Full, VE) |
 | T4 | Haiver Lenin Reyes (Jr) | Pedro Miranda (Regional) | Alexandre Ondet (Full, FR) |
@@ -40,7 +40,7 @@ Record of all people with special roles, staff decisions, and current status.
 
 **Due to max 3/team rule (dropped):**
 - Gustavo Riveiro (PY Full) — PY duplicate with Acosta
-- Andres Suzuki (PE Full) — PE duplicate
+- ~~Andres Suzuki (PE Full)~~ — Promoted to TL (T1) replacing Elias Acosta (2026-05-24)
 - Daniel Delgado Candia (BO Jr) — replaced by Josias
 - Fabricio Yanez Terrazas (BO Jr) — replaced by Josias
 - Axel Romero Lucero (CL Jr) — WCA 2019, newer
@@ -108,11 +108,13 @@ Excluded from judge/scramble/run/Delegate. Property `score-taker=true`.
 - Nayarid Villarreal (2015VILL19, VE Trainee) — will not attend.
 - Michael Castillo (2011CAST02, CO Junior) — likely not attending.
 - Angie Casallas (p520057) — competitor, not staff.
+- Elias Acosta (2016ACOS08, PY Full) — withdrew (2026-05-24). Replaced by Suzuki as TL.
+- Johana Suarez (2024SUAR10, userId 440824) — pending NCP approval on WCA. Already in pipeline.
 
-### Pending confirmation
+### Confirmed not attending
 
-- Alvaro Aguilar Salobrena (2015SALO01, ES Full) — pending if competing.
-- Ruben Lopez de Juan (2016LOPE37, ES Full) — pending if competing.
+- Alvaro Aguilar Salobrena (2015SALO01, ES Full) — confirmed not attending (2026-05-26).
+- Ruben Lopez de Juan (2016LOPE37, ES Full) — confirmed competing, no staff role (see overrides.cs).
 
 ---
 
