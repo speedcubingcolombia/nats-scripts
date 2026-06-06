@@ -189,6 +189,8 @@ if (localFile) {
         headers: { 'Authorization': `Bearer ${t.access_token}` }
       })).json()
       console.log(`Fetched: ${wcif.persons.length} persons\n`)
+      require('fs').writeFileSync('/tmp/prod_authenticated.json', JSON.stringify(wcif))
+      console.log('Saved authenticated WCIF -> /tmp/prod_authenticated.json\n')
       res.writeHead(200, { 'Content-Type': 'text/html' })
       res.end('<h1>Verification running in terminal...</h1>')
       server.close()

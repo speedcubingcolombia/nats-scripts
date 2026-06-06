@@ -1,0 +1,24 @@
+1	Haiver Lenin Reyes Garcia	2017GARC48	CO	Team Lead	hgarcia@worldcubeassociation.org	TRUE
+2	Pedro Miranda Moreira	2014MORE05	BR	Team Lead	pmiranda@worldcubeassociation.org	TRUE
+3	Rafael Antonio Sanchez	2014SANC19	VE	Team Lead	rsanchez@worldcubeassociation.org	TRUE
+4	Antonio Gerardo de Castro Costa Filho	2023FILH05	BR	Delegate	gerardocastrocf@gmail.com	TRUE
+5	Joseph Daniel Blas Sanchez	2016SANC08	PE	Delegate	josephdblas38@gmail.com	TRUE
+6	Marvin Solano	2018SOLA08	CR	Delegate	msolano@worldcubeassociation.org	TRUE
+7	Rocio Rodriguez Rivera	2016RIVE14	MX	Delegate	rrivera@worldcubeassociation.org	TRUE
+8	Story Varela Sánchez	2024SANC70	CO	Delegate	storyvarela01@gmail.com	TRUE
+9	Alan Tovar Niño	2016NINO01	CO	Staff	galaxi045@gmail.com	TRUE
+10	Ana Sofia Moreno Santamaria	2024SANT99	CO	Staff	sofiamoreno335@gmail.com	TRUE
+11	Brian Camilo Cardenas Sanchez	2024SANC61	CO	Staff	sacard_@hotmail.com	TRUE
+12	Danilo Montero		CL	Staff	iphonedanilomontero@gmail.com	TRUE
+13	Jhon Edinson Arias Parra	2011PARR02	CO	Staff	ye.ssan.jhon@gmail.com	TRUE
+14	Johana Suarez	2024SUAR10	CO	Staff	pilarsuarez123@gmail.com	TRUE
+15	Juan Manuel Bedoya	2016PIMI02	CO	Staff	pimientacuber@gmail.com	TRUE
+16	Juan Pablo Acosta Ramírez	2023RAMI49	CO	Staff	yecarasu.yc@gmail.com	FALSE
+17	Juliana Cárdenas	2025CARD14	CO	Staff	laurajulianacardenas.23@gmail.com	TRUE
+18	Kevin Santiago Montaña	2023MONT31	CO	Staff	yuli.suavita@outlook.com	TRUE
+19	Laura Fandiño		CO	Staff		FALSE
+20	Luis Alonso Inestroza Henriquez	2015HENR02	SV	Staff	alonsoinestroza09@gmail.com	TRUE
+21	Marcela Ballén Fandiño	2025FAND01	CO	Staff	marcela.ballenfandino@gmail.com	TRUE
+22	Martin Santiago Pinilla Cadena	2025CADE01	CO	Staff	martinpinillabk@gmail.com	TRUE
+23	Santiago Valderrama Valderrama	2024VALD01	CO	Staff	santivaldevalde@gmail.com	TRUE
+24	Tomas Felipe Pinzon Rojas	2025ROJA24	CO	Staff	tomyfeliperojaspinzon@gmail.com	FALSE

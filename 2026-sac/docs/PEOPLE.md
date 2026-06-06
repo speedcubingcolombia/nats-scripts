@@ -8,10 +8,10 @@ Record of all people with special roles, staff decisions, and current status.
 
 | Team | CO TL | BR TL | Other TL |
 |------|-------|-------|----------|
-| T1 | Manuel Popayan (Jr) | Thales Araujo de Souza (Jr) | Andrés Hisashi Suzuki Cabrera (Full, PE) |
-| T2 | Sergio Ibarra (Full) | Josias Sirpa Pinto (Jr, BO) | Lucas Ichiro Yunomae (Full, BR) |
-| T3 | Juan Nicolas Pinzon (Jr) | Marlon de V. Marques (Full) | Rafael Sanchez (Full, VE) |
-| T4 | Haiver Lenin Reyes (Jr) | Pedro Miranda (Regional) | Alexandre Ondet (Full, FR) |
+| T1 | Manuel Popayan (Jr) | Marlon de V. Marques (Full) | Josias Sirpa Pinto (Jr, BO) |
+| T2 | Sergio Ibarra (Full) | Thales Araujo de Souza (Jr) | Andrés Hisashi Suzuki Cabrera (Full, PE) |
+| T3 | Juan Nicolas Pinzon (Jr) | Lucas Ichiro Yunomae (Full) | Alexandre Ondet (Full, FR) |
+| T4 | Haiver Lenin Reyes (Jr) | Pedro Miranda (Regional) | Rafael Sanchez (Full, VE) |
 
 ### Selection criteria
 
@@ -56,7 +56,7 @@ Record of all people with special roles, staff decisions, and current status.
 
 ---
 
-## Score Takers (4, dedicated data entry)
+## Score Takers (5, dedicated data entry)
 
 | # | Name | Country | WCA ID | Events | Pref |
 |---|------|---------|--------|--------|------|
@@ -64,6 +64,7 @@ Record of all people with special roles, staff decisions, and current status.
 | 2 | Francia Perez | CO | 2018PERE37 | 4 | DE:10 |
 | 3 | Adriana Saavedra Limachi | BO | 2016LIMA02 | 3 | DE:10 |
 | 4 | Valentina Sanchez Munoz | CO | 2017MUNO06 | 4 | DE:10 |
+| 5 | Gustavo Riveiro | PY | 2016RIVE01 | 9 | DE:10 |
 
 Excluded from judge/scramble/run/Delegate. Property `score-taker=true`.
 

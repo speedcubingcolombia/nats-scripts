@@ -18,36 +18,40 @@ Define("DefaultScorers",
 #
 # Day 1 (Jun 12): T1=Amarilla, T2=Azul, T3=Roja, T4=Flotante
 Define("StaffRoomScorersDay1",
-       [ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 1)), Not((Room() == ZONA_AMARILLA)), -5000),
-        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 2)), Not((Room() == ZONA_AZUL)), -5000),
-        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 3)), Not((Room() == ZONA_ROJA)), -5000),
+       [ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 1)), Not((Room() == ZONA_AMARILLA)), -500000),
+        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 2)), Not((Room() == ZONA_AZUL)), -500000),
+        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 3)), Not((Room() == ZONA_ROJA)), -500000),
         ByFilters((StringProperty("float-zone-d1") == "amarilla"), Not((Room() == ZONA_AMARILLA)), -2000),
         ByFilters((StringProperty("float-zone-d1") == "azul"), Not((Room() == ZONA_AZUL)), -2000),
         ByFilters((StringProperty("float-zone-d1") == "roja"), Not((Room() == ZONA_ROJA)), -2000)])
 
 # Day 2 (Jun 13): T2=Amarilla, T3=Azul, T4=Roja, T1=Flotante
 Define("StaffRoomScorersDay2",
-       [ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 2)), Not((Room() == ZONA_AMARILLA)), -5000),
-        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 3)), Not((Room() == ZONA_AZUL)), -5000),
-        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 4)), Not((Room() == ZONA_ROJA)), -5000),
+       [ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 2)), Not((Room() == ZONA_AMARILLA)), -500000),
+        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 3)), Not((Room() == ZONA_AZUL)), -500000),
+        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 4)), Not((Room() == ZONA_ROJA)), -500000),
         ByFilters((StringProperty("float-zone-d2") == "amarilla"), Not((Room() == ZONA_AMARILLA)), -2000),
         ByFilters((StringProperty("float-zone-d2") == "azul"), Not((Room() == ZONA_AZUL)), -2000),
         ByFilters((StringProperty("float-zone-d2") == "roja"), Not((Room() == ZONA_ROJA)), -2000)])
 
 # Day 3 (Jun 14): T3=Amarilla, T4=Azul, T1=Roja, T2=Flotante
 Define("StaffRoomScorersDay3",
-       [ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 3)), Not((Room() == ZONA_AMARILLA)), -5000),
-        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 4)), Not((Room() == ZONA_AZUL)), -5000),
-        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 1)), Not((Room() == ZONA_ROJA)), -5000),
+       [ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 3)), Not((Room() == ZONA_AMARILLA)), -500000),
+        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 4)), Not((Room() == ZONA_AZUL)), -500000),
+        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 1)), Not((Room() == ZONA_ROJA)), -500000),
         ByFilters((StringProperty("float-zone-d3") == "amarilla"), Not((Room() == ZONA_AMARILLA)), -2000),
         ByFilters((StringProperty("float-zone-d3") == "azul"), Not((Room() == ZONA_AZUL)), -2000),
         ByFilters((StringProperty("float-zone-d3") == "roja"), Not((Room() == ZONA_ROJA)), -2000)])
 
 # Day 4 (Jun 15): T4=Amarilla, T1=Azul, T2=Roja, T3=Flotante
 Define("StaffRoomScorersDay4",
-       [ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 4)), Not((Room() == ZONA_AMARILLA)), -5000),
-        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 1)), Not((Room() == ZONA_AZUL)), -5000),
-        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 2)), Not((Room() == ZONA_ROJA)), -5000),
+       [ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 4)), Not((Room() == ZONA_AMARILLA)), -500000),
+        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 1)), Not((Room() == ZONA_AZUL)), -500000),
+        ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 2)), Not((Room() == ZONA_ROJA)), -500000),
         ByFilters((StringProperty("float-zone-d4") == "amarilla"), Not((Room() == ZONA_AMARILLA)), -2000),
         ByFilters((StringProperty("float-zone-d4") == "azul"), Not((Room() == ZONA_AZUL)), -2000),
         ByFilters((StringProperty("float-zone-d4") == "roja"), Not((Room() == ZONA_ROJA)), -2000)])
+
+# Staff group enforcement scorers are generated per-event in each .cs file.
+# Phase 1.8 tags each staff with force-g{N}-{event} = true.
+# Each .cs adds: ByFilters(BooleanProperty("force-gN-event"), Not((GroupNumber() == N)), -200000)

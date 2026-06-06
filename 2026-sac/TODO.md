@@ -2,9 +2,13 @@
 
 ## Pre-deploy (antes del próximo deploy)
 
+- [ ] **OH R1: 3→4 waves** — `_group_counts.cs` ya actualizado (GROUPS_333OH=4).
+  Requiere: clear cache → create_groups.cs → pipeline completo → deploy.
+  Baja de 41 a 31 comp/grupo-sala (cabe en 36 sillas de espera).
 - [ ] **Johana Suarez** — Agregar como NCP en WCA (wcaId: 2024SUAR10, userId: 440824).
   Ya está en add_missing_staff.cs. Sin ella, WCA descarta ~47 asignaciones.
-- [ ] **Álvaro Aguilar Salobreña** — Quitar como NCP en WCA (confirmado que no asiste).
+- [x] **Rubén López de Juan** — isCompeting=true resuelto 2026-05-31.
+- [x] **Álvaro Aguilar Salobreña** — Se queda como NCP, sin cambios.
 
 ## Operativo — antes de la competencia
 

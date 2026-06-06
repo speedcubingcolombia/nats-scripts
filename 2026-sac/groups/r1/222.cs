@@ -2,9 +2,6 @@
 #include "../lib/_scorers.cs"
 
 # 2x2 R1: June 14, 18:40-20:30 (3 rooms, 5 groups each)
-# Adjacent: Pyraminx R1 starts at 20:30
-# Force T2 TLs to G1 so they're free for 444bf (20:00-20:50)
-# FTO/TB R1 (unofficial, D3 19:00+) — push ALL float T2 to G1
 ManuallyAssign(Persons((WcaId() == "2014IBAR01")), _222-r1, ZONA_AMARILLA, 1)
 ManuallyAssign(Persons((WcaId() == "2017PINT05")), _222-r1, ZONA_ROJA, 1)
 ManuallyAssign(Persons((WcaId() == "2014YUNO01")), _222-r1, ZONA_AZUL, 1)
@@ -15,5 +12,10 @@ AssignGroups(_222-r1,
                     [ByFilters(CompetingIn(_pyram), (EndTime() > 2026-06-14T20:15), -100),
                      ByFilters(CompetingIn(_444bf), (StartTime() > 2026-06-14T19:30), -10000),
                      ByFilters((NumberProperty(STAFF_TEAM) == 2), (StartTime() > 2026-06-14T18:55), -10000),
-                     ByFilters(BooleanProperty("unoff-fto"), (StartTime() > 2026-06-14T18:55), -5000)]),
+                     ByFilters(BooleanProperty("unoff-fto"), (StartTime() > 2026-06-14T18:55), -5000),
+                     ByFilters(BooleanProperty("force-g1-222"), Not((GroupNumber() == 1)), -200000),
+                     ByFilters(BooleanProperty("force-g2-222"), Not((GroupNumber() == 2)), -200000),
+                     ByFilters(BooleanProperty("force-g3-222"), Not((GroupNumber() == 3)), -200000),
+                     ByFilters(BooleanProperty("force-g4-222"), Not((GroupNumber() == 4)), -200000),
+                     ByFilters(BooleanProperty("force-g5-222"), Not((GroupNumber() == 5)), -200000)]),
              overwrite=true)

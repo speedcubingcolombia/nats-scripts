@@ -2,8 +2,6 @@
 #include "../lib/_scorers.cs"
 
 # Clock R1: June 12, 19:45-20:55 (3 rooms, 3 groups each)
-# Adjacent: 5x5 R1 starts at 20:55
-# Mirror R1 (18:45-21:15) overlaps — push float T4 to G1
 AssignGroups(_clock-r1,
              RoundOneAssignmentSets(_clock, 2026-06-12),
              Concat(DefaultScorers(),
@@ -11,6 +9,6 @@ AssignGroups(_clock-r1,
                     [ByFilters(CompetingIn(_555), (EndTime() > 2026-06-12T20:40), -100),
                      ByFilters((NumberProperty(STAFF_TEAM) == 4), (StartTime() > 2026-06-12T19:55), -10000),
                      ByFilters(BooleanProperty("unoff-mirror"), (StartTime() > 2026-06-12T19:55), -5000),
-                     ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 1)), Not((Room() == ZONA_AMARILLA)), -50000),
-                     ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 2)), Not((Room() == ZONA_AZUL)), -50000),
-                     ByFilters(And(HasProperty(STAFF_TEAM), (NumberProperty(STAFF_TEAM) == 3)), Not((Room() == ZONA_ROJA)), -50000)]))
+                     ByFilters(BooleanProperty("force-g1-clock"), Not((GroupNumber() == 1)), -200000),
+                     ByFilters(BooleanProperty("force-g2-clock"), Not((GroupNumber() == 2)), -200000),
+                     ByFilters(BooleanProperty("force-g3-clock"), Not((GroupNumber() == 3)), -200000)]))

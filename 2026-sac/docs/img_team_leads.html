@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+    background: #1a1a2e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .card {
+    background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+    border-radius: 24px;
+    padding: 40px;
+    width: 720px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .logo { text-align: center; margin-bottom: 28px; }
+  .logo h1 { color: #e94560; font-size: 28px; font-weight: 800; letter-spacing: 2px; }
+  .logo p { color: #8899aa; font-size: 14px; margin-top: 4px; }
+  h2 { color: white; text-align: center; font-size: 20px; margin-bottom: 24px; font-weight: 600; }
+  .teams { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .team {
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 20px;
+    border-left: 4px solid;
+  }
+  .team-1 { border-color: #f0c040; }
+  .team-2 { border-color: #4a90d9; }
+  .team-3 { border-color: #e94560; }
+  .team-4 { border-color: #53d769; }
+  .team-title {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .team-1 .team-title { color: #f0c040; }
+  .team-2 .team-title { color: #4a90d9; }
+  .team-3 .team-title { color: #e94560; }
+  .team-4 .team-title { color: #53d769; }
+  .tl {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .tl:last-child { border-bottom: none; }
+  .flag {
+    font-size: 20px;
+    width: 28px;
+    text-align: center;
+  }
+  .tl-info { flex: 1; }
+  .tl-name {
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .tl-detail {
+    color: #667788;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .rank {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .rank-full { background: rgba(83,215,105,0.15); color: #53d769; }
+  .rank-regional { background: rgba(74,144,217,0.15); color: #4a90d9; }
+  .rank-junior { background: rgba(240,192,64,0.15); color: #f0c040; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <h1>SAC 2026</h1>
+    <p>WCA South American Championship - Bogota, Colombia</p>
+  </div>
+  <h2>Team Leads</h2>
+  <div class="teams">
+    <div class="team team-1">
+      <div class="team-title">Team 1</div>
+      <div class="tl">
+        <div class="flag">&#x1F1E8;&#x1F1F4;</div>
+        <div class="tl-info">
+          <div class="tl-name">Manuel Popayan</div>
+          <div class="tl-detail">Colombia</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="flag">&#x1F1E7;&#x1F1F4;</div>
+        <div class="tl-info">
+          <div class="tl-name">Josias Sirpa Pinto</div>
+          <div class="tl-detail">Bolivia</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="flag">&#x1F1E8;&#x1F1F1;</div>
+        <div class="tl-info">
+          <div class="tl-name">Jose Antonio Gaete</div>
+          <div class="tl-detail">Chile</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="team team-2">
+      <div class="team-title">Team 2</div>
+      <div class="tl">
+        <div class="flag">&#x1F1E8;&#x1F1F4;</div>
+        <div class="tl-info">
+          <div class="tl-name">Sergio Ibarra</div>
+          <div class="tl-detail">Colombia</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="flag">&#x1F1E7;&#x1F1F7;</div>
+        <div class="tl-info">
+          <div class="tl-name">Thales Araujo de Souza</div>
+          <div class="tl-detail">Brasil</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="flag">&#x1F1F5;&#x1F1EA;</div>
+        <div class="tl-info">
+          <div class="tl-name">Andres Suzuki</div>
+          <div class="tl-detail">Peru</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="team team-3">
+      <div class="team-title">Team 3</div>
+      <div class="tl">
+        <div class="flag">&#x1F1E8;&#x1F1F4;</div>
+        <div class="tl-info">
+          <div class="tl-name">Juan Nicolas Pinzon</div>
+          <div class="tl-detail">Colombia</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="flag">&#x1F1EB;&#x1F1F7;</div>
+        <div class="tl-info">
+          <div class="tl-name">Alexandre Ondet</div>
+          <div class="tl-detail">Francia</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="flag">&#x1F1E7;&#x1F1F7;</div>
+        <div class="tl-info">
+          <div class="tl-name">Lucas Ichiro Yunomae</div>
+          <div class="tl-detail">Brasil</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="team team-4">
+      <div class="team-title">Team 4</div>
+      <div class="tl">
+        <div class="flag">&#x1F1E8;&#x1F1F4;</div>
+        <div class="tl-info">
+          <div class="tl-name">Haiver Reyes Garcia</div>
+          <div class="tl-detail">Colombia</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="flag">&#x1F1E7;&#x1F1F7;</div>
+        <div class="tl-info">
+          <div class="tl-name">Pedro Miranda Moreira</div>
+          <div class="tl-detail">Brasil</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="flag">&#x1F1FB;&#x1F1EA;</div>
+        <div class="tl-info">
+          <div class="tl-name">Rafael Antonio Sanchez</div>
+          <div class="tl-detail">Venezuela</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

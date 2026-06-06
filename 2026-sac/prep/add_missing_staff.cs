@@ -32,12 +32,16 @@ AddPerson(476324, "Zaray Dayana Barragán Delgado")
 AddPerson(482456, "Marcela Ballén Fandiño")
 AddPerson(501409, "Fredy Antonio Estupiñán Mongui")
 AddPerson(501618, "Tomas Felipe Pinzon Rojas")
+# Laura Fandiño (wcaUserId=541873): non-competing staff, mother of Marcela Ballén
+# Fandiño (2025FAND01). Added 2026-06-05, pinned to T4 with her daughter.
+AddPerson(541873, "Laura Fandiño")
 # Without WCA ID — wcaUserId obtained via WCA portal API:
 AddPerson(474236, "Ana Milena Quintero Díaz")
 AddPerson(508852, "Danilo Montero")
 AddPerson(510444, "Marcela Ortiz")
-# Without WCA ID and no WCA portal account — using synthetic ID (9999XXX donde XXX=reg-id).
-# IMPORTANTE: PATCH to WCA portal will fail for this person — ajustar
-# manualmente o pedirle a Angie create WCA account and replace the ID.
-# SKIPPED: Angie Juliett (9999803) — synthetic ID, no WCA account. Add manually later.
-SetProperty([p10189, p253544, p440824, p466563, p484326, p476324, p482456, p501409, p501618, p474236, p508852, p510444], VOLUNTEER, true)
+# Angie Juliett (wcaUserId 542051): non-competing, dedicated support for Maarten in
+# ALL unofficial events (Zona Verde / Tarima). OUT of the team pool (no staff-team),
+# like Maarten. Assigned to every unofficial block as co-Lead in Phase 3.8. Added 2026-06-06.
+AddPerson(542051, "Angie Juliett")
+SetProperty([p542051], "unofficial_support", true)
+SetProperty([p10189, p253544, p440824, p466563, p484326, p476324, p482456, p501409, p501618, p541873, p474236, p508852, p510444], VOLUNTEER, true)

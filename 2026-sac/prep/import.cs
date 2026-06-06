@@ -26,7 +26,7 @@ SetProperty([2007HERN02, 2014MARQ02, 2014SANC19, 2014MORE05, 2016RIVE01], LISTED
 SetProperty([2007HERN02, 2014MARQ02, 2014SANC19, 2016RIVE01], DELEGATE_RANK, "full")
 SetProperty([2014MORE05], DELEGATE_RANK, "regional")
 # Team Lead designation (subset — see exclusions below).
-SetProperty([2014MARQ02, 2014SANC19, 2014MORE05], TEAM_LEAD, true)
+SetProperty([2014SANC19, 2014MORE05], TEAM_LEAD, true)
 # Rejected: 2009GARC02 (Felipe Rojas Garces) — registration denied (Status=b),
 #           also flagged as not-Team-Lead.
 # Excluded as Team Lead:
@@ -45,8 +45,8 @@ SetProperty([2019LUCE01, 2015TERR01, 2017GAET01, 2017PINT05, 2015CAND01, 2017SOU
 #   2015CAND01 Daniel Delgado Candia (BO) — no constraint, replaced by Josias.
 #   2015TERR01 Fabricio Yañez Terrazas (BO) — no constraint, replaced by Josias.
 #   2019LUCE01 Axel Romero Lucero (CL) — newest junior in original list (WCA 2019).
-#   2017GAET01 José Gaete (CL) — replaced by Thales (BR) for 1 BR-TL/team.
-SetProperty([2017PINT05, 2017SOUZ14], TEAM_LEAD, true)
+#   2017GAET01 José Gaete (CL) — promoted to TL replacing Marlon (2026-05-31).
+SetProperty([2017GAET01, 2017PINT05, 2017SOUZ14], TEAM_LEAD, true)
 
 # --- Trainee Delegates from volunteer list (regular staff) ---
 SetProperty([2016SANC08, 2014BENA03, 2021MONS01], VOLUNTEER, true)
@@ -148,7 +148,9 @@ SetProperty([2018MELO07, 2020TORR01], VOLUNTEER, true)
 #   2. 2018PERE37 Francia Perez (CO, 4 eventos, foco +1)
 #   3. 2016LIMA02 Adriana Saavedra Limachi (BO Trainee Delegate, 3 eventos, DE=10)
 #   4. 2017MUNO06 Valentina Sánchez Muñoz (CO, 4 eventos, DE=10)
-SetProperty([2017MARQ06, 2018PERE37, 2016LIMA02, 2017MUNO06], "score-taker", true)
+#   5. 2016RIVE01 Gustavo Riveiro (PY Full Delegate, 9 eventos, DE=10, judge/scram=3)
+# 2016RIVE01 (Gustavo Riveiro) — removed from score-taker, back to staff pool (2026-06-01).
+SetProperty([2017MARQ06, 2018PERE37, 2016LIMA02, 2017MUNO06, 2014MARQ02], "score-taker", true)
 
 # --- Portuguese speakers (used by team clustering: min 1 PT speaker per team) ---
 # Brazilian accepted staff (native PT) + non-BR staff with fluent/working PT.

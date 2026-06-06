@@ -36,3 +36,8 @@ node_modules/
 
 # Lock files managed per project
 # uv.lock is tracked (committed)
+
+# Generated DEV / pre-deploy WCIF outputs (ephemeral)
+**/data/outputs/staff_dev_v2.json
+**/data/outputs/staff_only_dev.json
+**/data/outputs/_predeploy_validate.json

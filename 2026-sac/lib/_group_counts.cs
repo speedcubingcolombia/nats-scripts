@@ -17,6 +17,6 @@
 
 # Day 3 (June 14) - R1
 #define GROUPS_333BF 3
-#define GROUPS_333OH 3
+#define GROUPS_333OH 4
 #define GROUPS_222 5
 #define GROUPS_PYRAM 5

@@ -6,11 +6,16 @@
 # Runs AFTER import.cs, BEFORE volunteer_teams.cs and group assignments.
 
 # --- Streaming team (no staff tasks) ---
-# Luigi Segura, Klaus Ramos, Ricardo Hurtado Torres → Streaming, remove from staff pool
+# Luigi Segura, Klaus Ramos, Ricardo Hurtado Torres, Suzane Coelho → Streaming
 DeleteProperty([2018MELO07], VOLUNTEER)
 DeleteProperty([2016RAMO01], VOLUNTEER)
 DeleteProperty([2020TORR01], VOLUNTEER)
-SetProperty([2018MELO07, 2016RAMO01, 2020TORR01], "streaming", true)
+DeleteProperty([2016COEL04], VOLUNTEER)
+SetProperty([2018MELO07, 2016RAMO01, 2020TORR01, 2016COEL04], "streaming", true)
+
+# --- Lizcano: removal was a TEMPORARY, UNDEPLOYED change — reverted 2026-06-05. ---
+# He remains staff in T2 (already in deployed prod with 64 assignments). Do not delete.
+# DeleteProperty([2017MORA12], VOLUNTEER)  # Daniel Camilo Lizcano Morales
 
 # --- Delegates without operational role ---
 DeleteProperty([2013DIPI01], VOLUNTEER)
@@ -57,12 +62,14 @@ SetProperty([2024GOOS03], "unofficial_lead", true)
 SetProperty([2024GOOS03], "special-role", "Unofficial Events Lead")
 
 # --- Score Takers (out of team pool, dedicated data entry) ---
-DeleteProperty([2017MARQ06, 2018PERE37, 2016LIMA02, 2017MUNO06], VOLUNTEER)
+DeleteProperty([2017MARQ06, 2018PERE37, 2016LIMA02, 2017MUNO06, 2014MARQ02], VOLUNTEER)
 DeleteProperty([2016LIMA02], LISTED_DELEGATE)
+DeleteProperty([2014MARQ02], LISTED_DELEGATE)
 SetProperty([2017MARQ06], "special-role", "Score Taker")
 SetProperty([2018PERE37], "special-role", "Score Taker")
 SetProperty([2016LIMA02], "special-role", "Score Taker")
 SetProperty([2017MUNO06], "special-role", "Score Taker")
+SetProperty([2014MARQ02], "special-role", "Score Taker")
 
 # --- Coordination / other tasks ---
 DeleteProperty([2021LOPE01], VOLUNTEER)
@@ -74,6 +81,9 @@ SetProperty([p474926], "special-role", "Support")
 
 DeleteProperty([p476324], VOLUNTEER)
 SetProperty([p476324], "special-role", "Support")
+
+# --- TL pinning + family groupings: handled by post-hoc setTeam in run_pipeline*.js ---
+# (SpecificAssignmentScore not usable — Number() context not available in CompScript)
 
 # --- Delegados removidos del staff (competitors only) ---
 # NOTE: Brian Hambeck (2016HAMB02), Gabriel Sargeiro (2014MELL03),
